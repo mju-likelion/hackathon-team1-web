@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+<img src="https://capsule-render.vercel.app/api?type=waving&color=7FFFD4&height=100&section=header" />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# LikeLion 11th Hackathon Team 1
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+# 프로젝트명 작성
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 개발팀 소개
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+|               **경규혁**               |                 **김효리**                 |                  **김정민**                  |                      **김민규**                      |
+| :------------------------------------: | :----------------------------------------: | :------------------------------------------: | :--------------------------------------------------: |
+| [@gyuhyuk](https://github.com/gyuhyuk) | [@kkimhyorr](https://github.com/kkimhyorr) | [@Jake-Kim38](https://github.com/Jake-Kim38) | [@kMinsAlgorithm](https://github.com/kMinsAlgorithm) |
+|                  Web                   |                    Web                     |                     Web                      |                        Server                        |
 
-### `npm test`
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 프로젝트 소개
 
-### `npm run build`
+프로젝트에 대한 소개 작성
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# 시작 가이드
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<span style="font-size: 24px; font-weight: bold;">Installation</span>
 
-### `npm run eject`
+```
+$ git clone https://github.com/mju-likelion/hackathon-team1-web.git
+$ cd (파일명)
+$ yarn install
+$ yarn start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Stacks 📖
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<span style="font-size: 24px; font-weight: bold;">Environment</span>
+<br>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white">
+<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
+<img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white">
 
-## Learn More
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<span style="font-size: 24px; font-weight: bold;">Config</span>
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img src="https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">
 
-### Code Splitting
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<span style="font-size: 24px; font-weight: bold;">Development</span>
+<br>
 
-### Analyzing the Bundle Size
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<br>
 
-### Making a Progressive Web App
+<span style="font-size: 24px; font-weight: bold;">Communication</span>
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<img src="https://img.shields.io/badge/googlemeet-00897B?style=for-the-badge&logo=googlemeet&logoColor=white">
+<img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
+<img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
-### Advanced Configuration
+<hr/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# 화면 구성 🖥️
 
-### Deployment
+<hr/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<br>
 
-### `npm run build` fails to minify
+# 주요 기능 🗺️
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<hr/>
+
+<br>
+
+# 🤝 Branch Naming Convention
+
+| <center>머릿말</center> |                 <center>설명</center>                 |
+| :---------------------- | :---------------------------------------------------: |
+| **master**              |           <center> 서비스 브랜치 </center>            |
+| **develop**             |         <center> 배포 전 작업 기준 </center>          |
+| **feature**             |           <center> 기능 단위 구현 </center>           |
+| **hotfix**              | <center> 서비스 중 긴급 수정 건에 대한 처리 </center> |
+
+<br>
+
+# 🤝 Commit Convention
+
+| <center>머릿말</center> |                   <center>설명</center>                   |
+| :---------------------- | :-------------------------------------------------------: |
+| **feat**                |            <center> 기능 구현, 추가 </center>             |
+| **setting**             |         <center> 패키지 설치, 개발 설정 </center>         |
+| **refactor**            |             <center> 코드 리팩터링 </center>              |
+| **fix**                 | <center> 버그 수정, 예외 케이스 대응, 기능 개선 </center> |
+| **docs**                |       <center> README.md 작성, 주석 작성 </center>        |
+| **chore**               |               <center> 기타 작업 </center>                |
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=7FFFD4&height=100&section=footer" />
