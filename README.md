@@ -25,7 +25,7 @@
 
 # 시작 가이드
 
-<span style="font-size: 24px; font-weight: bold;">Installation</span>
+## Installation
 
 ```
 $ git clone https://github.com/mju-likelion/hackathon-team1-web.git
@@ -38,38 +38,29 @@ $ yarn start
 
 # Stacks 📖
 
-<span style="font-size: 24px; font-weight: bold;">Environment</span>
-<br>
+## Environments
 
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=VisualStudioCode&logoColor=white">
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
 <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white">
 
-<br>
-
-<span style="font-size: 24px; font-weight: bold;">Config</span>
-<br>
+## Config
 
 <img src="https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">
 
-<br>
-
-<span style="font-size: 24px; font-weight: bold;">Development</span>
-<br>
+## Development
 
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
 
-<br>
-
-<span style="font-size: 24px; font-weight: bold;">Communication</span>
-<br>
+## Communication
 
 <img src="https://img.shields.io/badge/googlemeet-00897B?style=for-the-badge&logo=googlemeet&logoColor=white">
 <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
 <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
 
 <hr/>
+<br>
 
 # 화면 구성 🖥️
 
