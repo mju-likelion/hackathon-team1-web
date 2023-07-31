@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "styled-components";
 import lotte from "../assets/lotte.svg";
 import statistics from "../assets/statistics.svg";
@@ -164,7 +163,10 @@ const DetailImage = styled.img`
   margin-right: 21px;
 `;
 
-const DetailTextBox = styled.div``;
+const DetailTextBox = styled.div`
+  width: 100%;
+  height: 60px;
+`;
 
 const DetailTitle = styled.div`
   width: 100%;
@@ -172,6 +174,7 @@ const DetailTitle = styled.div`
   font-size: 25px;
   font-weight: bold;
   color: #545454;
+  margin-bottom: 6px;
 `;
 
 const DetailContent = styled.div`
