@@ -4,6 +4,25 @@ import statistics from "../assets/statistics.svg";
 import graph from "../assets/graph.svg";
 import disease from "../assets/disease.svg";
 import day from "../assets/day.svg";
+import DetailBox from "../components/DetailBox";
+
+const data = [
+  {
+    img: graph,
+    title: "보험료 갱신형",
+    content: "보험료 변동가능",
+  },
+  {
+    img: disease,
+    title: "보장성 보험",
+    content: "상해, 질병 등",
+  },
+  {
+    img: day,
+    title: "청약 철회 기간",
+    content: "청약 후 30일 이내",
+  },
+];
 
 const Detail = () => {
   return (
@@ -30,27 +49,9 @@ const Detail = () => {
               <CompanyName>롯데손해보험</CompanyName>
             </InsuranceNameContainer>
             <InsuranceDetailContainer>
-              <InsuranceDetailBox>
-                <DetailImage src={graph} alt="그래프 이미지" />
-                <DetailTextBox>
-                  <DetailTitle>보험료 갱신형</DetailTitle>
-                  <DetailContent>보험료 변동가능</DetailContent>
-                </DetailTextBox>
-              </InsuranceDetailBox>
-              <InsuranceDetailBox>
-                <DetailImage src={disease} alt="질병 이미지" />
-                <DetailTextBox>
-                  <DetailTitle>보장성 보험</DetailTitle>
-                  <DetailContent>상해, 질병 등</DetailContent>
-                </DetailTextBox>
-              </InsuranceDetailBox>
-              <InsuranceDetailBox>
-                <DetailImage src={day} alt="청약철회 이미지" />
-                <DetailTextBox>
-                  <DetailTitle>청약 철회 기간</DetailTitle>
-                  <DetailContent>청약 후 30일 이내</DetailContent>
-                </DetailTextBox>
-              </InsuranceDetailBox>
+              {data.map((item, idx) => (
+                <DetailBox key={item.id} id={idx} data={item} />
+              ))}
             </InsuranceDetailContainer>
             <LargeButton>사이트 이동</LargeButton>
           </RightContainer>
@@ -148,40 +149,6 @@ const InsuranceDetailContainer = styled.div`
   width: 100%;
   height: 226px;
   margin-bottom: 53px;
-`;
-
-const InsuranceDetailBox = styled.div`
-  display: flex;
-  width: 100%;
-  height: 60px;
-  margin-bottom: 23px;
-`;
-
-const DetailImage = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-right: 21px;
-`;
-
-const DetailTextBox = styled.div`
-  width: 100%;
-  height: 60px;
-`;
-
-const DetailTitle = styled.div`
-  width: 100%;
-  height: 30px;
-  font-size: 25px;
-  font-weight: bold;
-  color: #545454;
-  margin-bottom: 6px;
-`;
-
-const DetailContent = styled.div`
-  width: 100%;
-  height: 24px;
-  font-size: 20px;
-  color: #545454;
 `;
 
 const LargeButton = styled.button`
