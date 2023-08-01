@@ -50,7 +50,7 @@ const Detail = () => {
             </InsuranceNameContainer>
             <InsuranceDetailContainer>
               {data.map((item, idx) => (
-                <DetailBox key={item.id} id={idx} data={item} />
+                <DetailBox key={item.title} id={idx} data={item} />
               ))}
             </InsuranceDetailContainer>
             <LargeButton>사이트 이동</LargeButton>
@@ -66,7 +66,7 @@ export default Detail;
 const Background = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.colors.STONE};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -135,14 +135,14 @@ const InsuranceName = styled.div`
   height: 42px;
   font-size: 35px;
   font-weight: bold;
-  margin: 12px 0px;
+  margin: 12px 0;
 `;
 
 const CompanyName = styled.div`
   width: 100%;
   height: 30px;
   font-size: 25px;
-  color: #808080;
+  color: ${({ theme }) => theme.colors.LIGHTGRAY};
 `;
 
 const InsuranceDetailContainer = styled.div`
@@ -152,8 +152,8 @@ const InsuranceDetailContainer = styled.div`
 `;
 
 const LargeButton = styled.button`
-  background-color: #168ce3;
-  color: white;
+  background-color: ${({ theme }) => theme.colors.BLUE};
+  color: ${({ theme }) => theme.colors.WHITE};
   width: 300px;
   height: 50px;
   border-radius: 25px;
