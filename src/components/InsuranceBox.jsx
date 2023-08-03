@@ -2,17 +2,18 @@ import { styled } from "styled-components";
 import SmallButton from "./SmallButton";
 
 const InsuranceBox = ({ loandata }) => {
+  const { img, main, company, start, end, cost, type } = loandata;
   return (
     <>
       <ContentArea>
         <LeftContainer>
-          <LoanImage src={loandata.img} />
+          <LoanImage src={img} />
         </LeftContainer>
         <RightContainer>
           <TopArea>
             <NameArea>
-              <MainName>{loandata.main}</MainName>
-              <SubName>{loandata.company}</SubName>
+              <MainName>{main}</MainName>
+              <SubName>{company}</SubName>
             </NameArea>
             <SmallButton text="자세히 보기" />
           </TopArea>
@@ -20,7 +21,9 @@ const InsuranceBox = ({ loandata }) => {
             <AgeArea>
               <AgeTitle>가입연령</AgeTitle>
               <AgeContent>
-                <AgeNumber>{loandata.age}</AgeNumber>
+                <AgeNumber>
+                  {start}~{end}
+                </AgeNumber>
                 <AgeUnit>세</AgeUnit>
               </AgeContent>
             </AgeArea>
@@ -28,7 +31,7 @@ const InsuranceBox = ({ loandata }) => {
             <CostArea>
               <CostTitle>보험료</CostTitle>
               <CostContent>
-                <CostNumber>{loandata.cost}</CostNumber>
+                <CostNumber>{cost}</CostNumber>
                 <CostUnit>원</CostUnit>
               </CostContent>
             </CostArea>
@@ -36,7 +39,7 @@ const InsuranceBox = ({ loandata }) => {
             <JoinArea>
               <JoinTitle>보험료</JoinTitle>
               <JoinContent>
-                <JoinType>{loandata.type}</JoinType>
+                <JoinType>{type}</JoinType>
               </JoinContent>
             </JoinArea>
           </BottomArea>
