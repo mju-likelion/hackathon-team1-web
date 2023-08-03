@@ -2,41 +2,51 @@ import styled from "styled-components";
 import Korea from "../assets/Korea.svg";
 import English from "../assets/USA.svg";
 import Chinese from "../assets/China.svg";
-import { useState } from "react";
+import Option from "./Option";
+import { useEffect, useState } from "react";
+
+const data = [
+  {
+    text: "KOR",
+    img: Korea,
+  },
+
+  {
+    text: "ENG",
+    img: English,
+  },
+
+  {
+    text: "CHN",
+    img: Chinese,
+  },
+];
 
 const Select = () => {
-  const [country, setCountry] = useState("Korea");
+  const [country, setCountry] = useState("KOR");
+  const [countryImage, setCountryImage] = useState(Korea);
 
   const handleCountryChange = (event) => {
     setCountry(event.target.value);
   };
 
-  const getImageByCountry = (countryCode) => {
-    switch (countryCode) {
-      case "Korea":
-        return Korea;
-      case "English":
-        return English;
-      case "Chinese":
-        return Chinese;
-      default:
-        return Korea;
+  useEffect(() => {
+    const selectedCountry = data.find((item) => item.text === country);
+
+    if (selectedCountry) {
+      setCountryImage(selectedCountry.img);
+    } else {
+      setCountryImage(Korea);
     }
-  };
+  }, [country]);
 
   return (
     <Container>
-      <CountryImg src={getImageByCountry(country)} alt="국기 이미지" />
+      <CountryImg src={countryImage} alt="국기 이미지" />
       <SelectBox value={country} onChange={handleCountryChange}>
-        <option key="korean" value="Korea">
-          KOR
-        </option>
-        <option key="english" value="English">
-          ENG
-        </option>
-        <option key="chinese" value="Chinese">
-          CHN
-        </option>
+        {data.map((item, idx) => (
+          <Option text={item.text} key={idx} />
+        ))}
       </SelectBox>
     </Container>
   );
