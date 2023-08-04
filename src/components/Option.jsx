@@ -1,5 +1,5 @@
 const Option = ({ text }) => {
-  return <option key={text}>{text}</option>;
+  return <option>{text}</option>;
 };
 
 export default Option;

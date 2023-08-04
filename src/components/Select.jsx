@@ -5,7 +5,7 @@ import Chinese from "../assets/China.svg";
 import Option from "./Option";
 import { useEffect, useState } from "react";
 
-const data = [
+const COUNTRY_DATA = [
   {
     text: "KOR",
     img: Korea,
@@ -31,7 +31,7 @@ const Select = () => {
   };
 
   useEffect(() => {
-    const selectedCountry = data.find((item) => item.text === country);
+    const selectedCountry = COUNTRY_DATA.find((item) => item.text === country);
 
     if (selectedCountry) {
       setCountryImage(selectedCountry.img);
@@ -44,8 +44,8 @@ const Select = () => {
     <Container>
       <CountryImg src={countryImage} alt="국기 이미지" />
       <SelectBox value={country} onChange={handleCountryChange}>
-        {data.map((item, idx) => (
-          <Option text={item.text} key={idx} />
+        {COUNTRY_DATA.map((item) => (
+          <Option text={item.text} key={item.text} />
         ))}
       </SelectBox>
     </Container>

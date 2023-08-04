@@ -2,11 +2,11 @@ import styled from "styled-components";
 import logo from "../assets/Logo.svg";
 import Select from "./Select";
 
-const Header = ({ $isVisible }) => {
+const Header = ({ isVisible }) => {
   // Main 에서는 $isVisible이 false가 되어야 합니다.
   return (
     <Container>
-      <Logo src={logo} alt="로고 이미지" $isVisible={$isVisible} />
+      <Logo src={logo} alt="로고 이미지" $isVisible={isVisible} />
       <Select />
     </Container>
   );
