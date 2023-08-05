@@ -46,6 +46,7 @@ const LogoImg = styled.img`
   width: 417px;
   height: 79px;
   margin: auto;
+  margin-top: 130px;
   display: flex;
 `
 
