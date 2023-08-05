@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import SmallButton from "./SmallButton";
+import InsuranceDetail from "./InsuranceDetail";
 
 const InsuranceBox = ({ loanData }) => {
   const { img, main, company, start, end, cost, type } = loanData;
@@ -18,30 +19,15 @@ const InsuranceBox = ({ loanData }) => {
             <SmallButton text="자세히 보기" />
           </TopArea>
           <BottomArea>
-            <StyledArea>
-              <StyledTitle>가입연령</StyledTitle>
-              <StyledContent>
-                <StyledDetail>
-                  {start}~{end}
-                </StyledDetail>
-                <StyledUnit>세</StyledUnit>
-              </StyledContent>
-            </StyledArea>
+            <InsuranceDetail
+              title="가입연령"
+              content={`${start}~${end}`}
+              unit="세"
+            />
             <DivLine />
-            <StyledArea>
-              <StyledTitle>보험료</StyledTitle>
-              <StyledContent>
-                <StyledDetail>{cost}</StyledDetail>
-                <StyledUnit>원</StyledUnit>
-              </StyledContent>
-            </StyledArea>
+            <InsuranceDetail title="보험료" content={cost} unit="원" />
             <DivLine />
-            <StyledArea>
-              <StyledTitle>보험료</StyledTitle>
-              <StyledContent>
-                <StyledDetail>{type}</StyledDetail>
-              </StyledContent>
-            </StyledArea>
+            <InsuranceDetail title="가입형태" content={type} />
           </BottomArea>
         </RightBox>
       </ContentArea>
@@ -82,6 +68,7 @@ const TopArea = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const NameArea = styled.div`
   width: 360px;
   height: 42px;
@@ -106,34 +93,6 @@ const BottomArea = styled.div`
   margin-top: 14px;
   display: flex;
   justify-content: space-between;
-`;
-
-const StyledArea = styled.div`
-  width: 80px;
-  height: 61px;
-`;
-
-const StyledTitle = styled.div`
-  width: 67px;
-  height: 22px;
-  font-size: 18px;
-`;
-
-const StyledContent = styled.div`
-  width: 110px;
-  height: 29px;
-  display: flex;
-  margin-top: 10px;
-`;
-
-const StyledDetail = styled.p`
-  font-size: 24px;
-  font-weight: 600;
-`;
-
-const StyledUnit = styled.p`
-  font-size: 18px;
-  line-height: 25px;
 `;
 
 const DivLine = styled.div`
