@@ -6,7 +6,8 @@ import DongBoo from "../assets/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
 
-const loandata = [
+const LOAN_DATA = [
+  // 샘플 데이터
   {
     img: Meritz,
     main: "메리츠손해보험",
@@ -64,8 +65,8 @@ const Search = () => {
       </TopContainer>
       <BottomArea>
         <BottomContainer>
-          {loandata.map((item, idx) => (
-            <InsuranceBox key={item.main} id={idx} loandata={item} />
+          {LOAN_DATA.map((item) => (
+            <InsuranceBox key={item.main} loanData={item} />
           ))}
         </BottomContainer>
       </BottomArea>
@@ -111,18 +112,13 @@ const CountArea = styled.div`
   align-items: center;
 `;
 
-const LeftCount = styled.div`
-  width: 125px;
-  height: 65px;
+const LeftCount = styled.p`
   font-size: 30px;
   font-weight: 600;
 `;
 
-const RightCount = styled.div`
-  width: 110px;
-  height: 65px;
+const RightCount = styled.p`
   font-size: 25px;
-  line-height: 33px;
 `;
 
 export default Search;
