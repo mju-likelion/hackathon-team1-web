@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../assets/Logo.svg";
+import logo from "../assets/images/Logo.svg";
 import Select from "./Select";
 
 const Header = ({ isVisible }) => {
