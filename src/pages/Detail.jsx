@@ -1,63 +1,88 @@
 import { styled } from "styled-components";
-import lotte from "../assets/lotte.svg";
-import statistics from "../assets/statistics.svg";
-import graph from "../assets/graph.svg";
-import disease from "../assets/disease.svg";
-import day from "../assets/day.svg";
+import lotte from "../assets/images/lotte.svg";
 import DetailBox from "../components/DetailBox";
+import Box from "../assets/images/Box.svg";
+import Protect from "../assets/images/Protect.svg";
+import Price from "../assets/images/Price.svg";
+import Calender from "../assets/images/Calender.svg";
+import Guarantee from "../assets/images/Guarantee.svg";
+import InformationBox from "../components/InformationBox";
 
-const data = [
+const INSURANCE_DATA = [
   {
-    img: graph,
-    title: "보험료 갱신형",
-    content: "보험료 변동가능",
+    title: "가입연령",
+    startage: "19",
+    tilde: "~",
+    endage: "49",
   },
   {
-    img: disease,
-    title: "보장성 보험",
+    title: "보험료",
+  },
+];
+
+const MAIN_INFORMATION = [
+  {
+    img: Protect,
+    title: "예금자보호",
+    content: "1인당 최고 5천만원",
+  },
+
+  {
+    img: Guarantee,
+    title: "보장성보험",
     content: "상해, 질병 등",
   },
+
   {
-    img: day,
-    title: "청약 철회 기간",
+    img: Calender,
+    title: "청약철회기간",
     content: "청약 후 30일 이내",
+  },
+
+  {
+    img: Price,
+    title: "보험가격지수",
+    content: "N% (낮을수록 저렴)",
   },
 ];
 
 const Detail = () => {
   return (
-    <>
-      <Background>
-        {/* 헤더 */}
-        <Container>
-          <LeftContainer>
-            <Image src={lotte} alt="보험사 이미지" />
-            <ImageText>
-              <StatisticsImage
-                src={statistics}
-                alt="통계자료 바로가기 이미지"
-              />
-              통계자료 바로가기
-            </ImageText>
-          </LeftContainer>
-          <RightContainer>
-            <InsuranceNameContainer>
-              <InsuranceExplain>
-                짱구 같은 김효리 최대 5대 때리기
-              </InsuranceExplain>
-              <InsuranceName>김효리보장보험</InsuranceName>
-              <CompanyName>롯데손해보험</CompanyName>
-            </InsuranceNameContainer>
-            <InsuranceDetailContainer>
-              {data.map((item, idx) => (
-                <DetailBox key={item.title} id={idx} data={item} />
-              ))}
-            </InsuranceDetailContainer>
-            <LargeButton>사이트 이동</LargeButton>
-          </RightContainer>
-        </Container>
-      </Background>
-    </>
+    <Background>
+      {/* 헤더 */}
+      <AboveContainer>
+        <LeftArea>
+          <Image src={lotte} alt="보험사 이미지" />
+          <ImageText>
+            <CompareImage src={Box} alt="비교함 담기 이미지" />
+            비교함 담기
+          </ImageText>
+        </LeftArea>
+        <RightArea>
+          <InsuranceNameContainer>
+            <InsuranceExplain>
+              짱구 같은 김효리 최대 5대 때리기
+            </InsuranceExplain>
+            <InsuranceName>김효리보장보험</InsuranceName>
+            <CompanyName>롯데손해보험</CompanyName>
+          </InsuranceNameContainer>
+          <InsuranceDetailContainer>
+            {INSURANCE_DATA.map((item, index) => (
+              <DetailBox id={index} data={item} />
+            ))}
+          </InsuranceDetailContainer>
+          <LargeButton>사이트 이동</LargeButton>
+        </RightArea>
+      </AboveContainer>
+      <BelowContainer>
+        <MainText>주요정보</MainText>
+        <InformationContainer>
+          {MAIN_INFORMATION.map((item, index) => (
+            <InformationBox id={index} data={item} />
+          ))}
+        </InformationContainer>
+      </BelowContainer>
+    </Background>
   );
 };
 
@@ -65,14 +90,14 @@ export default Detail;
 
 const Background = styled.div`
   width: 100%;
-  height: 100vh;
   background-color: ${({ theme }) => theme.colors.STONE};
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
-const Container = styled.div`
+const AboveContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -80,9 +105,10 @@ const Container = styled.div`
   height: 659px;
   background-color: white;
   border-radius: 25px;
+  margin-top: 30px;
 `;
 
-const LeftContainer = styled.div`
+const LeftArea = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,12 +134,13 @@ const ImageText = styled.div`
   font-size: 20px;
 `;
 
-const StatisticsImage = styled.img`
-  width: 30px;
-  height: 30px;
+const CompareImage = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
 `;
 
-const RightContainer = styled.div`
+const RightArea = styled.div`
   width: 354px;
   height: 508px;
 `;
@@ -159,4 +186,26 @@ const LargeButton = styled.button`
   border-radius: 25px;
   font-size: 23px;
   font-weight: bold;
+`;
+
+const BelowContainer = styled(AboveContainer)`
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 40px 25px;
+  height: 100%;
+`;
+
+const MainText = styled.p`
+  align-self: start;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 61px;
+`;
+
+const InformationContainer = styled.div`
+  width: 1110px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;

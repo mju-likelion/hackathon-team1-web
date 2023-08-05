@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
 
 const DetailBox = ({ data }) => {
-  const { title, content, img } = data;
+  const { title, content } = data;
 
   return (
     <InsuranceDetailBox>
-      <DetailImage src={img} alt="그래프 이미지" />
+      <DetailImage />
       <DetailTextBox>
         <DetailTitle>{title}</DetailTitle>
         <DetailContent>{content}</DetailContent>
@@ -23,11 +23,7 @@ const InsuranceDetailBox = styled.div`
   margin-bottom: 23px;
 `;
 
-const DetailImage = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-right: 21px;
-`;
+const DetailImage = styled.div``;
 
 const DetailTextBox = styled.div`
   width: 100%;
