@@ -3,11 +3,12 @@ import CloseIcon from "../assets/CloseIcon.svg";
 import Lotte from "../assets/Lotte.svg";
 import LargeButton from "./LargeButton";
 
+/*보험이 있을 경우 컴포넌트*/
 const UpsideCompareBox = () => {
   return (
     <LoanContainer>
-      <CloseButton src={CloseIcon} alt="close-button" />
       <LoanBox>
+        <CloseButton src={CloseIcon} alt="close-button" />
         <LoanImage src={Lotte} alt="loan-image" />
         <LoanContentBox>
           <MainTitle>뭐뭐뭐보장보험</MainTitle>
@@ -22,10 +23,19 @@ const UpsideCompareBox = () => {
 const LoanContainer = styled.div`
   width: 308px;
   height: 492px;
+  display: flex;
+  align-items: center;
+  &::after {
+    content: "";
+    background-color: ${({ theme }) => theme.colors.STONE};
+    width: 3px;
+    height: 659px;
+  }
 `;
 
 const CloseButton = styled.img`
   cursor: pointer;
+  align-self: flex-start;
   margin: 35px 35px;
 `;
 
