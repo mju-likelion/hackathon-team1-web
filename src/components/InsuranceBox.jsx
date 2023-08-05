@@ -3,7 +3,7 @@ import SmallButton from "./SmallButton";
 import InsuranceDetail from "./InsuranceDetail";
 
 const InsuranceBox = ({ loanData }) => {
-  const { img, main, company, start, end, cost, type } = loanData;
+  const { img, loanName, company, startAge, endAge, cost, loanType } = loanData;
   return (
     <>
       <ContentArea>
@@ -13,7 +13,7 @@ const InsuranceBox = ({ loanData }) => {
         <RightBox>
           <TopArea>
             <NameArea>
-              <MainName>{main}</MainName>
+              <MainName>{loanName}</MainName>
               <SubName>{company}</SubName>
             </NameArea>
             <SmallButton text="자세히 보기" />
@@ -21,13 +21,13 @@ const InsuranceBox = ({ loanData }) => {
           <BottomArea>
             <InsuranceDetail
               title="가입연령"
-              content={`${start}~${end}`}
+              content={`${startAge}~${endAge}`}
               unit="세"
             />
-            <DivLine />
+            <BreakLine />
             <InsuranceDetail title="보험료" content={cost} unit="원" />
-            <DivLine />
-            <InsuranceDetail title="가입형태" content={type} />
+            <BreakLine />
+            <InsuranceDetail title="가입형태" content={loanType} />
           </BottomArea>
         </RightBox>
       </ContentArea>
@@ -95,7 +95,7 @@ const BottomArea = styled.div`
   justify-content: space-between;
 `;
 
-const DivLine = styled.div`
+const BreakLine = styled.div`
   width: 2px;
   height: 57px;
   background-color: ${({ theme }) => theme.colors.LIGHTGRAY};

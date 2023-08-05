@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 import Meritz from "../assets/Meritz.svg";
-import KookMin from "../assets/KookMin.svg";
-import HyunDai from "../assets/HyunDai.svg";
-import DongBoo from "../assets/DongBoo.svg";
+import Kookmin from "../assets/KookMin.svg";
+import Hyundai from "../assets/Hyundai.svg";
+import Dongboo from "../assets/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
 
@@ -10,39 +10,39 @@ const LOAN_DATA = [
   // 샘플 데이터
   {
     img: Meritz,
-    main: "메리츠손해보험",
+    loanName: "메리츠손해보험",
     company: "메리츠화재",
-    start: 15,
-    end: 99,
+    startAge: 15,
+    endAge: 99,
     cost: 3770,
-    type: "온라인 가입",
+    loanType: "온라인 가입",
   },
   {
-    img: KookMin,
-    main: "KB보장보험",
+    img: Kookmin,
+    loanName: "KB보장보험",
     company: "KB손해보험",
-    start: 15,
-    end: 88,
+    startAge: 15,
+    endAge: 88,
     cost: 6770,
-    type: "온라인 가입",
+    loanType: "온라인 가입",
   },
   {
-    img: HyunDai,
-    main: "현대손해보험",
+    img: Hyundai,
+    loanName: "현대손해보험",
     company: "현대해상",
-    start: 15,
-    end: 99,
+    startAge: 15,
+    endAge: 99,
     cost: 5770,
-    type: "설계사 상담",
+    loanType: "설계사 상담",
   },
   {
-    img: DongBoo,
-    main: "DB보장보험",
+    img: Dongboo,
+    loanName: "DB보장보험",
     company: "DB손해보험",
-    start: 0,
-    end: 99,
+    startAge: 0,
+    endAge: 99,
     cost: 1770,
-    type: "설계사 상담",
+    loanType: "설계사 상담",
   },
 ];
 

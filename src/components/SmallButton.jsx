@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+
 const SmallButton = ({ text, handleClick }) => {
   return <Button onClick={handleClick}>{text}</Button>;
 };
