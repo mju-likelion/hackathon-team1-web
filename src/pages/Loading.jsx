@@ -13,8 +13,8 @@ const Loading = () => {
 export default Loading;
 
 const Background = styled.div`
-  width: 1280px;
-  height: 832px;
+  width: 100%;
+  height: 100vh;
   background-color: rgba(217, 217, 217, 0.50);
   display: flex; 
   justify-content: center;
