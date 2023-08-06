@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import Korea from "../assets/Korea.svg";
-import English from "../assets/USA.svg";
-import Chinese from "../assets/China.svg";
+import Korea from "../assets/images/Korea.svg";
+import English from "../assets/images/USA.svg";
+import Chinese from "../assets/images/China.svg";
 import Option from "./Option";
+import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const COUNTRY_DATA = [
   {
@@ -23,7 +25,7 @@ const COUNTRY_DATA = [
 ];
 
 const Select = () => {
-  const [country, setCountry] = useState("KOR");
+  const [country, setCountry] = useRecoilState(LanguageAtom);
   const [countryImage, setCountryImage] = useState(Korea);
 
   const handleCountryChange = (event) => {
