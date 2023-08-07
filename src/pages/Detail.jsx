@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import lotte from "../assets/images/lotte.svg";
+import lotte from "../assets/images/Lotte.svg";
 import DetailBox from "../components/DetailBox";
 import Box from "../assets/images/Box.svg";
 import Protect from "../assets/images/Protect.svg";
