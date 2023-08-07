@@ -11,12 +11,11 @@ import InformationBox from "../components/InformationBox";
 const INSURANCE_DATA = [
   {
     title: "가입연령",
-    startage: "19",
-    tilde: "~",
-    endage: "49",
+    content: "19~49세",
   },
   {
     title: "보험료",
+    content: "남 5,467 원 여 5,380 원",
   },
 ];
 
@@ -68,7 +67,7 @@ const Detail = () => {
           </InsuranceNameContainer>
           <InsuranceDetailContainer>
             {INSURANCE_DATA.map((item, index) => (
-              <DetailBox id={index} data={item} />
+              <DetailBox id={index} data={item} key={item.title} />
             ))}
           </InsuranceDetailContainer>
           <LargeButton>사이트 이동</LargeButton>
@@ -78,7 +77,7 @@ const Detail = () => {
         <MainText>주요정보</MainText>
         <InformationContainer>
           {MAIN_INFORMATION.map((item, index) => (
-            <InformationBox id={index} data={item} />
+            <InformationBox id={index} data={item} key={item.title} />
           ))}
         </InformationContainer>
       </BelowContainer>
@@ -132,6 +131,9 @@ const ImageText = styled.div`
   height: 30px;
   text-align: center;
   font-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CompareImage = styled.img`

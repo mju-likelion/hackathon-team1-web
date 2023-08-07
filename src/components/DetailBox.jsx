@@ -5,7 +5,6 @@ const DetailBox = ({ data }) => {
 
   return (
     <InsuranceDetailBox>
-      <DetailImage />
       <DetailTextBox>
         <DetailTitle>{title}</DetailTitle>
         <DetailContent>{content}</DetailContent>
@@ -23,25 +22,24 @@ const InsuranceDetailBox = styled.div`
   margin-bottom: 23px;
 `;
 
-const DetailImage = styled.div``;
-
 const DetailTextBox = styled.div`
+  display: flex;
   width: 100%;
   height: 60px;
 `;
 
 const DetailTitle = styled.div`
-  width: 100%;
-  height: 30px;
-  font-size: 25px;
+  width: 80px;
+  height: 34px;
+  font-size: 20px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.DARKGRAY};
-  margin-bottom: 6px;
+  margin-right: 30px;
 `;
 
 const DetailContent = styled.div`
-  width: 100%;
-  height: 24px;
-  font-size: 20px;
-  color: ${({ theme }) => theme.colors.DARKGRAY};
+  width: 141px;
+  height: 33px;
+  font-size: 25px;
+  color: ${({ theme }) => theme.colors.BLACK};
+  font-weight: bold;
 `;
