@@ -13,7 +13,7 @@ const InformationBox = ({ data }) => {
   };
 
   return (
-    <A>
+    <Layout>
       {showDetail ? (
         <DetailContainer onClick={handleShowDetail}>
           <MainBox>
@@ -32,20 +32,20 @@ const InformationBox = ({ data }) => {
           </ExplainBox>
         </DetailContainer>
       ) : (
-        <Container onClick={handleShowDetail}>
+        <DetailTextContainer onClick={handleShowDetail}>
           <Image src={img} alt="설명 이미지" />
           <Title>{title}</Title>
           <Content>{content}</Content>
           <Arrow src={DownArrow} alt="아래 화살표" />
-        </Container>
+        </DetailTextContainer>
       )}
-    </A>
+    </Layout>
   );
 };
 
 export default InformationBox;
 
-const A = styled.div`
+const Layout = styled.div`
   height: 100%;
 `;
 
@@ -68,7 +68,7 @@ const DetailContainer = styled.div`
   }
 `;
 
-const Container = styled(DetailContainer)`
+const DetailTextContainer = styled(DetailContainer)`
   flex-direction: row;
   height: 106px;
   padding: 0 40px;
