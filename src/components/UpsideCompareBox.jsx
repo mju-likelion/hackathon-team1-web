@@ -4,12 +4,8 @@ import Lotte from "../assets/Lotte.svg";
 import LargeButton from "./LargeButton";
 
 /*보험이 있을 경우 컴포넌트*/
-const UpsideCompareBox = ({ testData }) => {
-  const { id, loanName, companyName } = testData;
-  const handleDelete = () => {
-    const newArr = {};
-    localStorage.setItem(id, JSON.stringify(newArr));
-  };
+const UpsideCompareBox = ({ testData, onDelete }) => {
+  const { key, loanName, companyName } = testData;
 
   return (
     <LoanContainer>
@@ -17,7 +13,7 @@ const UpsideCompareBox = ({ testData }) => {
         <CloseButton
           src={CloseIcon}
           alt="close-button"
-          onClick={() => handleDelete()}
+          onClick={() => onDelete(key)}
         />
         <LoanImage src={Lotte} alt="loan-image" />
         <LoanContentBox>
