@@ -3,19 +3,15 @@ import DownArrow from "../assets/images/DownArrow.svg";
 import UpArrow from "../assets/images/UpArrow.svg";
 import { useState } from "react";
 
-const InformationBox = ({ data }) => {
-  const { img, title, content } = data;
+const InformationBox = ({ MainData }) => {
+  const { img, title, content, explain } = MainData;
 
-  const [showDetail, setshowDetail] = useState(false);
-
-  const handleShowDetail = () => {
-    setshowDetail((prev) => !prev);
-  };
+  const [showDetail, setShowDetail] = useState(false);
 
   return (
     <Layout>
       {showDetail ? (
-        <DetailContainer onClick={handleShowDetail}>
+        <DetailContainer onClick={() => setShowDetail(!showDetail)}>
           <MainBox>
             <Image src={img} alt="설명 이미지" />
             <Title>{title}</Title>
@@ -23,16 +19,11 @@ const InformationBox = ({ data }) => {
             <Arrow src={UpArrow} alt="위 화살표" />
           </MainBox>
           <ExplainBox>
-            <ExplainText>
-              이 상품은 예금자보호법에 따라 예금보험공사가 1인당 “최고 5천만원”
-              한도로 보호합니다.
-              <br />
-              (단, 법인 계약 제외)
-            </ExplainText>
+            <ExplainText>{explain}</ExplainText>
           </ExplainBox>
         </DetailContainer>
       ) : (
-        <DetailTextContainer onClick={handleShowDetail}>
+        <DetailTextContainer onClick={() => setShowDetail(!showDetail)}>
           <Image src={img} alt="설명 이미지" />
           <Title>{title}</Title>
           <Content>{content}</Content>
@@ -60,7 +51,7 @@ const DetailContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.WHITE};
   margin-bottom: 20px;
   padding: 30px 40px 20px 40px;
-  box-shadow: 0px 2px 10px rgb(0, 0, 0, 0.15);
+  box-shadow: 0 2px 10px rgb(0, 0, 0, 0.15);
 
   &:hover {
     cursor: pointer;
@@ -110,7 +101,7 @@ const Arrow = styled.img`
 const ExplainBox = styled.div`
   width: 1070px;
   height: 170px;
-  background-color: #f9f9f9;
+  background-color: ${({ theme }) => theme.colors.LIGHTGRAY2};
   border-radius: 20px;
   margin-top: 20px;
   display: flex;

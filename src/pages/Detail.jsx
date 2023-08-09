@@ -24,31 +24,37 @@ const MAIN_INFORMATION = [
     img: Protect,
     title: "예금자보호",
     content: "1인당 최고 5천만원",
+    explain:
+      "이 상품은 예금자보호법에 따라 예금보험공사가 1인당 “최고 5천만원” 한도로 보호합니다. (단, 법인 계약 제외)",
   },
 
   {
     img: Guarantee,
     title: "보장성보험",
     content: "상해, 질병 등",
+    explain: "이 상품은 만기시 환급금이 총 납입한 보혐료를 초과하지 않습니다.",
   },
 
   {
     img: Calender,
     title: "청약철회기간",
     content: "청약 후 30일 이내",
+    explain:
+      "이 상품은 청약을 한 날부터 30일 이내(보험증권을 받은 날부터 15일 이내)에 청약철회가 가능합니다.",
   },
 
   {
     img: Price,
     title: "보험가격지수",
     content: "N% (낮을수록 저렴)",
+    explain:
+      "이 상품은 예금자보호법에 따라 예금보험공사가 1인당 “최고 5천만원” 한도로 보호합니다. (단, 법인 계약 제외)",
   },
 ];
 
 const Detail = () => {
   return (
     <Background>
-      {/* 헤더 */}
       <AboveContainer>
         <LeftArea>
           <Image src={lotte} alt="보험사 이미지" />
@@ -67,7 +73,7 @@ const Detail = () => {
           </InsuranceNameContainer>
           <InsuranceDetailContainer>
             {INSURANCE_DATA.map((item, index) => (
-              <DetailBox id={index} data={item} key={item.title} />
+              <DetailBox id={index} InsuranceData={item} key={item.title} />
             ))}
           </InsuranceDetailContainer>
           <LargeButton>사이트 이동</LargeButton>
@@ -77,7 +83,7 @@ const Detail = () => {
         <MainText>주요정보</MainText>
         <InformationContainer>
           {MAIN_INFORMATION.map((item, index) => (
-            <InformationBox id={index} data={item} key={item.title} />
+            <InformationBox id={index} MainData={item} key={item.title} />
           ))}
         </InformationContainer>
       </BelowContainer>

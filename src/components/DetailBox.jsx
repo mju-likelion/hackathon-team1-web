@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
-const DetailBox = ({ data }) => {
-  const { title, content } = data;
+const DetailBox = ({ InsuranceData }) => {
+  const { title, content } = InsuranceData;
 
   return (
     <InsuranceDetailBox>
