@@ -4,20 +4,22 @@ import NotFound from "./pages/Error/NotFound";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Detail from "./pages/Detail";
 
-function App() {
+const App = () => {
   return (
     <>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
         <Router>
           <Routes>
+            <Route path="/detail" element={<Detail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </ThemeProvider>
     </>
   );
-}
+};
 
 export default App;

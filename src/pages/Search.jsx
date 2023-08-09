@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import Meritz from "../assets/Meritz.svg";
-import Kookmin from "../assets/KookMin.svg";
-import Hyundai from "../assets/Hyundai.svg";
+import Kookmin from "../assets/images/KookMin.svg";
+import Hyundai from "../assets/images/Hyundai.svg";
 import Dongboo from "../assets/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
