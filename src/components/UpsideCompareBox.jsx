@@ -5,7 +5,7 @@ import LargeButton from "./LargeButton";
 
 /*보험이 있을 경우 컴포넌트*/
 const UpsideCompareBox = ({ testData, onDelete }) => {
-  const { key, loanName, companyName } = testData;
+  const { id, loanName, company } = testData;
 
   return (
     <LoanContainer>
@@ -13,12 +13,12 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
         <CloseButton
           src={CloseIcon}
           alt="close-button"
-          onClick={() => onDelete(key)}
+          onClick={() => onDelete(id)}
         />
         <LoanImage src={Lotte} alt="loan-image" />
         <LoanContentBox>
           <MainTitle>{loanName}</MainTitle>
-          <SubTitle>{companyName}</SubTitle>
+          <SubTitle>{company}</SubTitle>
           <LargeButton text="상세 페이지 이동" />
         </LoanContentBox>
       </LoanBox>
