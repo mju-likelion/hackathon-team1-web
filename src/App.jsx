@@ -1,5 +1,6 @@
 import "./App.css";
 import GlobalStyle from "./styles/GlobalStyle";
+import Main from "./pages/Main";
 import NotFound from "./pages/Error/NotFound";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
@@ -13,6 +14,7 @@ const App = () => {
         <GlobalStyle />
         <Router>
           <Routes>
+            <Route path="/" element={<Main />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
