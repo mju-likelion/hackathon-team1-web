@@ -4,9 +4,8 @@ import Logo from "../assets/images/Logo.svg";
 import Airplane from "../assets/images/Airplane.svg";
 
 const Main = () => {
-
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('KOR');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("KOR");
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -25,14 +24,20 @@ const Main = () => {
     <div>
       <LogoImg src={Logo} alt="LogoImg" />
       <SearchForm onSubmit={handleSubmit}>
-        <SearchLanguageSelect value={selectedLanguage} onChange={handleLanguageChange}>
+        <SearchLanguageSelect
+          value={selectedLanguage}
+          onChange={handleLanguageChange}
+        >
           <option value="KR">KR</option>
           <option value="EN">EN</option>
           <option value="CN">CN</option>
         </SearchLanguageSelect>
-        <SearchInput value={searchTerm} onChange={handleInputChange}></SearchInput>
+        <SearchInput
+          value={searchTerm}
+          onChange={handleInputChange}
+        ></SearchInput>
         <SearchButton>
-          <SearchButtonImg src={Airplane} alt="AirplaneImg"/>
+          <SearchButtonImg src={Airplane} alt="AirplaneImg" />
         </SearchButton>
       </SearchForm>
       <SearchExample>질문은 이렇게 해주세요..!</SearchExample>
@@ -46,19 +51,19 @@ const LogoImg = styled.img`
   margin: auto;
   margin-top: 130px;
   display: flex;
-`
+`;
 
 const SearchForm = styled.form`
   width: 900px;
   height: 95px;
-  border: 1px solid #168CE3;
+  border: 1px solid #168ce3;
   border-radius: 25px;
   margin: auto;
   margin-top: 24px;
   padding: 20px;
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const SearchLanguageSelect = styled.select`
   width: 70px;
@@ -66,33 +71,31 @@ const SearchLanguageSelect = styled.select`
   border: 0;
   border-radius: 25px;
   font-size: 23px;
-`
+`;
 
-
-const SearchInput =styled.input`
+const SearchInput = styled.input`
   width: 600px;
   height: 100%;
   border: 0;
   font-size: 25px;
-`
+`;
 
 const SearchButton = styled.button`
   width: 48px;
   height: 100%;
-  /* background-color: black; */
-`
+`;
 
 const SearchButtonImg = styled.img`
   width: 48px;
   height: 48px;
-`
+`;
 const SearchExample = styled.p`
   width: 900px;
   height: auto;
   font-size: 30px;
-  color: #7E7D7D;
+  color: #7e7d7d;
   margin: auto;
   margin-top: 35px;
-`
+`;
 
 export default Main;
