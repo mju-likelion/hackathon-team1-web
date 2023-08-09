@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 const NotFound = () => {
   const navigate = useNavigate();
 
-  const goHome = () => {
-    navigate("/Main");
-  };
-
   return (
     <Layout>
       <WhiteBackGround>
@@ -15,7 +11,7 @@ const NotFound = () => {
       </WhiteBackGround>
       <MintBackGround>
         <ErrorText>죄송합니다. 페이지를 찾을 수 없습니다.</ErrorText>
-        <Button onClick={goHome}>홈으로 돌아가기</Button>
+        <Button onClick={() => navigate("/Main")}>홈으로 돌아가기</Button>
       </MintBackGround>
     </Layout>
   );
