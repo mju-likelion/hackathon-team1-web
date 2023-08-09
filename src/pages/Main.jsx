@@ -19,8 +19,6 @@ const Main = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // 여기에 검색어를 이용한 검색 로직을 추가하세요.
-    console.log('선택된 언어:', selectedLanguage);
-    console.log('검색어:', searchTerm);
   };
 
   return (
