@@ -5,7 +5,55 @@ import Header from "../components/Header";
 import { useState } from "react";
 import CompareDetailBox from "../components/CompareDetailBox";
 
-const Insurances = [
+const Compare = () => {
+  const [compareInsurance, setCompareInsurance] = useState(
+    JSON.parse(localStorage.getItem("insurances")) || []
+  );
+
+  const onDelete = (id) => {
+    const filterdItem = compareInsurance.filter((item) => id !== item.id);
+    localStorage.setItem("insurances", JSON.stringify(filterdItem));
+    setCompareInsurance(filterdItem);
+  };
+
+  const rendering = (insurances) => {
+    if (insurances.length === 0) {
+      return (
+        <GridItem>
+          <UpsideEmptyBox />
+        </GridItem>
+      );
+    }
+
+    const result = insurances.map((item) => (
+      <GridItem>
+        <UpsideCompareBox key={item.id} testData={item} onDelete={onDelete} />
+      </GridItem>
+    ));
+
+    if (result.length < MAX_COMPARE_AMOUNT) {
+      result.push(
+        <GridItem>
+          <UpsideEmptyBox />
+        </GridItem>
+      );
+    }
+
+    return result;
+  };
+
+  return (
+    <>
+      <Header />
+      <CompareContainer>
+        <UpsideArea>{rendering(compareInsurance)}</UpsideArea>
+        <CompareDetailBox compareInsurance={compareInsurance} />
+      </CompareContainer>
+    </>
+  );
+};
+
+const INSURANCES = [
   {
     id: 0,
     loanName: "손해보험",
@@ -35,44 +83,8 @@ const Insurances = [
   },
 ];
 
-localStorage.setItem("insurances", JSON.stringify(Insurances));
-
-const Compare = () => {
-  const [compareInsurance, setCompareInsurance] = useState(
-    localStorage.getItem("insurances")
-  );
-  const loanArr = JSON.parse(compareInsurance);
-
-  const onDelete = (id) => {
-    const newArr = loanArr.filter((item) => id !== item.id);
-    localStorage.setItem("insurances", JSON.stringify(newArr));
-    setCompareInsurance(localStorage.getItem("insurances"));
-  };
-
-  const rendering = (loanArr) => {
-    const result = [];
-    if (loanArr.length === 0) {
-      result.push(<UpsideEmptyBox />);
-    }
-    loanArr.map((item, idx) => {
-      result[idx] = <UpsideCompareBox testData={item} onDelete={onDelete} />;
-      if (idx !== 2) {
-        result[idx + 1] = <UpsideEmptyBox />;
-      }
-    });
-    return result;
-  };
-
-  return (
-    <>
-      <Header />
-      <CompareContainer>
-        <UpsideArea>{rendering(loanArr)}</UpsideArea>
-        <CompareDetailBox />
-      </CompareContainer>
-    </>
-  );
-};
+localStorage.setItem("insurances", JSON.stringify(INSURANCES));
+const MAX_COMPARE_AMOUNT = 3;
 
 const CompareContainer = styled.div`
   width: 100%;
@@ -83,12 +95,24 @@ const CompareContainer = styled.div`
 `;
 
 const UpsideArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   width: 1160px;
   height: 659px;
   border-radius: 25px;
-  display: flex;
   background-color: ${({ theme }) => theme.colors.WHITE};
-  margin-top: 29px;
+  margin: 29px auto 54px auto;
+  justify-items: center;
+
+  span:not(:last-child) {
+    border-right: 1px ${({ theme }) => theme.colors.STONE} solid;
+  }
+`;
+
+const GridItem = styled.span`
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export default Compare;

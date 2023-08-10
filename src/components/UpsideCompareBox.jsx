@@ -9,34 +9,40 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
 
   return (
     <LoanContainer>
-      <LoanBox>
-        <CloseButton
-          src={CloseIcon}
-          alt="close-button"
-          onClick={() => onDelete(id)}
-        />
-        <LoanImage src={Lotte} alt="loan-image" />
-        <LoanContentBox>
-          <MainTitle>{loanName}</MainTitle>
-          <SubTitle>{company}</SubTitle>
-          <LargeButton text="상세 페이지 이동" />
-        </LoanContentBox>
-      </LoanBox>
+      <CloseButton
+        src={CloseIcon}
+        alt="close-button"
+        onClick={() => onDelete(id)}
+      />
+      <LoanArea>
+        <LoanBox>
+          <LoanImage src={Lotte} alt="loan-image" />
+          <LoanContentBox>
+            <MainTitle>{loanName}</MainTitle>
+            <SubTitle>{company}</SubTitle>
+            <LargeButton text="상세 페이지 이동" />
+          </LoanContentBox>
+        </LoanBox>
+      </LoanArea>
     </LoanContainer>
   );
 };
 
 const LoanContainer = styled.div`
   width: 308px;
-  height: 492px;
+  height: 659px;
   margin-left: 35px;
   margin-right: 43px;
 `;
 
+const LoanArea = styled.div`
+  width: 300px;
+  height: 404px;
+`;
+
 const CloseButton = styled.img`
   cursor: pointer;
-  align-self: flex-start;
-  margin: 35px 35px;
+  margin-top: 35px;
 `;
 
 const LoanBox = styled.div`
@@ -45,7 +51,7 @@ const LoanBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 68px;
+  margin-top: 73px;
 `;
 
 const LoanImage = styled.img`
