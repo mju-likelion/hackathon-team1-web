@@ -2,12 +2,21 @@ import styled from "styled-components";
 import logo from "../assets/images/Logo.svg";
 import locker from "../assets/images/Locker.svg";
 import Select from "./Select";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ isVisible }) => {
   // Main 에서는 $isVisible이 false가 되어야 합니다.
+
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <Logo src={logo} alt="로고 이미지" $isVisible={isVisible} />
+      <Logo
+        src={logo}
+        alt="로고 이미지"
+        $isVisible={isVisible}
+        onClick={() => navigate("/")}
+      />
       <Locker src={locker} alt="보관함 이미지" />
       <Select />
     </Container>

@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import Logo from "../assets/images/Logo.svg";
 import Airplane from "../assets/images/Airplane.svg";
 
-const Main = () => {
+const Main = ({ setLogoVisible }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("KOR");
+
+  useEffect(() => {
+    setLogoVisible(false);
+  }, [setLogoVisible]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
