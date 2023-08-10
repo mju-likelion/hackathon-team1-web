@@ -6,7 +6,6 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Detail from "./pages/Detail";
-import Loading from "./components/Loading";
 
 const App = () => {
   return (
@@ -17,7 +16,6 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/detail" element={<Detail />} />
-            <Route path="/loading" element={<Loading />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

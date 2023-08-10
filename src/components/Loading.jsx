@@ -31,7 +31,9 @@ const SpinnerImgBox = styled.div`
 `;
 
 const SpinnerImg = styled.img`
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const LoadingText = styled.p`
