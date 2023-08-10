@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Detail from "./pages/Detail";
+import Search from "./pages/Search";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

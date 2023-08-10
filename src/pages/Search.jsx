@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
-import Meritz from "../assets/Meritz.svg";
+import Meritz from "../assets/images/Meritz.svg";
 import Kookmin from "../assets/images/KookMin.svg";
 import Hyundai from "../assets/images/Hyundai.svg";
-import Dongboo from "../assets/DongBoo.svg";
+import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
 
@@ -49,26 +49,33 @@ const LOAN_DATA = [
 const Search = () => {
   return (
     <>
-      {/* 헤더 */}
-
       <TopContainer>
         <LeftContainer>
           <QuestionArea>
-            '40세 남성 보험료가 6000원 이하 보험 추천 부탁'질문에 대한
+            '40세 남성 보험료가 6000원 이하 보험 추천 부탁' 질문에 대한
           </QuestionArea>
           <CountArea>
-            <LeftCount>N개 보험</LeftCount>
+            <LeftCount>{LOAN_DATA.length}개 보험</LeftCount>
             <RightCount>검색 결과</RightCount>
           </CountArea>
         </LeftContainer>
         <SmallButton text="다시 질문하기" />
       </TopContainer>
       <BottomArea>
-        <BottomContainer>
-          {LOAN_DATA.map((item) => (
-            <InsuranceBox key={item.main} loanData={item} />
-          ))}
-        </BottomContainer>
+        {LOAN_DATA.length === 0 ? (
+          <ResultNothingContainer>
+            <ResultNothingBox>
+              <NothingLargeText>검색 결과를 찾을 수 없습니다.</NothingLargeText>
+              <NothingSmallText>다시 질문 해주세요!</NothingSmallText>
+            </ResultNothingBox>
+          </ResultNothingContainer>
+        ) : (
+          <BottomContainer>
+            {LOAN_DATA.map((item) => (
+              <InsuranceBox key={item.loanName} loanData={item} />
+            ))}
+          </BottomContainer>
+        )}
       </BottomArea>
     </>
   );
@@ -84,13 +91,17 @@ const TopContainer = styled.div`
 
 const BottomArea = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
 `;
 
 const BottomContainer = styled.div`
   width: 1170px;
+  height: 100%;
   margin: 37px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const LeftContainer = styled.div`
@@ -119,6 +130,37 @@ const LeftCount = styled.p`
 
 const RightCount = styled.p`
   font-size: 25px;
+`;
+
+const ResultNothingContainer = styled.div`
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+`;
+
+const ResultNothingBox = styled.div`
+  width: 100%;
+  height: auto;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+`;
+
+const NothingLargeText = styled.p`
+  color: ${(props) => props.theme.colors.BLACK};
+  font-size: 35px;
+  font-weight: 700;
+  margin: 0;
+`;
+
+const NothingSmallText = styled.p`
+  color: ${(props) => props.theme.colors.LIGHTGRAY};
+  font-size: 25px;
+  font-weight: 700;
+  margin: 0;
 `;
 
 export default Search;
