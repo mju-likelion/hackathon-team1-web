@@ -1,9 +1,7 @@
 import { styled } from "styled-components";
 import Meritz from "../assets/images/Meritz.svg";
-import Meritz from "../assets/images/Meritz.svg";
 import Kookmin from "../assets/images/KookMin.svg";
 import Hyundai from "../assets/images/Hyundai.svg";
-import Dongboo from "../assets/images/DongBoo.svg";
 import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
@@ -103,7 +101,7 @@ const Search = () => {
           </ResultNothingContainer>
         ) : (
           <BottomContainer>
-            {LOAN_DATA.map((item) => (
+            {currentInsurance.map((item) => (
               <InsuranceBox key={item.loanName} loanData={item} />
             ))}
           </BottomContainer>
