@@ -1,18 +1,18 @@
 import Pagination from "react-js-pagination";
 import { styled } from "styled-components";
 
+/*
+activePage : 현재 페이지
+itemsCountPerPage : 한 페이지 당 보여줄 보험 개수
+totalItemsCount : 총 아이템 수
+pageRangeDisplayed : paginator에서 보여줄 페이지 범위
+예를 들어, pageRangeDisplayed를 5로 설정한 경우, 현재 페이지를 기준으로 앞뒤로 총 5개의 페이지 버튼이 보여짐.
+prevPageText : 이전 페이지로 가기를 나타내는 텍스트
+nextPageText : 다음 페이지로 가기를 나타내는 텍스트
+*/
+
 const Paging = ({ page, count, setPage }) => {
   return (
-    /*
-    activePage : 현재 페이지
-    itemsCountPerPage : 한 페이지 당 보여줄 보험 개수
-    totalItemsCount : 총 아이템 수
-    pageRangeDisplayed : paginator에서 보여줄 페이지 범위
-    예를 들어, pageRangeDisplayed를 5로 설정한 경우, 현재 페이지를 기준으로 앞뒤로 총 5개의 페이지 버튼이 보여짐.
-    prevPageText : 이전 페이지로 가기를 나타내는 텍스트
-    nextPageText : 다음 페이지로 가기를 나타내는 텍스트
-    */
-
     <StyledPagination>
       <Pagination
         activePage={page}
