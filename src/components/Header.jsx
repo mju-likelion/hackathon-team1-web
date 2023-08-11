@@ -2,12 +2,13 @@ import styled from "styled-components";
 import logo from "../assets/images/Logo.svg";
 import locker from "../assets/images/Locker.svg";
 import Select from "./Select";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-const Header = ({ isVisible }) => {
-  // Main 에서는 $isVisible이 false가 되어야 합니다.
-
+const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isVisible = location.pathname !== "/";
 
   return (
     <Container>
@@ -17,7 +18,11 @@ const Header = ({ isVisible }) => {
         $isVisible={isVisible}
         onClick={() => navigate("/")}
       />
-      <Locker src={locker} alt="보관함 이미지" />
+      <Locker
+        src={locker}
+        alt="보관함 이미지"
+        onClick={() => navigate("/compare")}
+      />
       <Select />
     </Container>
   );
@@ -31,7 +36,7 @@ const Container = styled.div`
   width: 100%;
   height: 117px;
   padding: 0px 33px;
-  box-shadow: 0px 2px 10px rgb(0, 0, 0, 0.15);
+  box-shadow: 0 2px 10px rgb(0, 0, 0, 0.15);
 `;
 
 const Logo = styled.img`
