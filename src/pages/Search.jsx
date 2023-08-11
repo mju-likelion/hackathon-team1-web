@@ -1,10 +1,14 @@
 import { styled } from "styled-components";
 import Meritz from "../assets/images/Meritz.svg";
+import Meritz from "../assets/images/Meritz.svg";
 import Kookmin from "../assets/images/KookMin.svg";
 import Hyundai from "../assets/images/Hyundai.svg";
 import Dongboo from "../assets/images/DongBoo.svg";
+import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
+import Paging from "./Paging";
+import { useState, useEffect } from "react";
 
 const LOAN_DATA = [
   // 샘플 데이터
@@ -47,6 +51,34 @@ const LOAN_DATA = [
 ];
 
 const Search = () => {
+  const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
+  const [count, setCount] = useState(0); // 보험 총 개수
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지, 기본 값 1
+  const [insuracePerPage] = useState(3); // 한 페이지에 보여질 보험 개수
+  const [indexOfFirstInsurance, setIndexOfFirstInsurance] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
+  const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
+  const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
+
+  const setPage = (error) => {
+    setCurrentPage(error);
+  };
+
+  useEffect(() => {
+    setInsurance(LOAN_DATA);
+    setCount(insurance.length);
+    setIndexOfLastInsurance(currentPage * insuracePerPage);
+    setIndexOfFirstInsurance(indexOfLastInsurance - insuracePerPage);
+    setCurrentInsurance(
+      insurance.slice(indexOfFirstInsurance, indexOfLastInsurance)
+    );
+  }, [
+    currentPage,
+    indexOfLastInsurance,
+    indexOfFirstInsurance,
+    insurance,
+    insuracePerPage,
+  ]);
+
   return (
     <>
       <TopContainer>
@@ -77,6 +109,7 @@ const Search = () => {
           </BottomContainer>
         )}
       </BottomArea>
+      <Paging page={currentPage} count={count} setPage={setPage} />
     </>
   );
 };

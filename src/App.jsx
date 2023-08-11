@@ -1,6 +1,7 @@
 import "./App.css";
 import GlobalStyle from "./styles/GlobalStyle";
 import Main from "./pages/Main";
+import Search from "./pages/Search";
 import NotFound from "./pages/Error/NotFound";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
