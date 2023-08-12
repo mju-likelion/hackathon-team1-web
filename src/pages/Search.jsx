@@ -58,9 +58,7 @@ const Search = () => {
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
 
-  const storedFormData = localStorage.getItem("formData");
-  const formData = JSON.parse(storedFormData);
-  const { term } = formData;
+  const { term } = JSON.parse(localStorage.getItem("formData"));
 
   const setPage = (error) => {
     setCurrentPage(error);
