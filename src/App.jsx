@@ -7,6 +7,7 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Detail from "./pages/Detail";
+import Compare from "./pages/Compare";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/search" element={<Search />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="/compare" element={<Compare />} />
           </Routes>
         </Router>
       </ThemeProvider>
