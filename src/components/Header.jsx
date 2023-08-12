@@ -17,7 +17,10 @@ const Header = ({ isVisible }) => {
     window.location.reload();
   };
 
-  return (
+  const allowedPaths = ["/", "/detail", "/compare", "/search"];
+  const showHeader = allowedPaths.includes(location.pathname);
+
+  return showHeader ? (
     <Container>
       <Logo
         src={logo}
@@ -28,7 +31,7 @@ const Header = ({ isVisible }) => {
       <Locker src={locker} alt="보관함 이미지" onClick={handleGoLocker} />
       <Select />
     </Container>
-  );
+  ) : null;
 };
 
 export default Header;
@@ -38,7 +41,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 117px;
-  padding: 0px 33px;
+  padding: 0 33px;
   box-shadow: 0 2px 10px rgb(0, 0, 0, 0.15);
   z-index: 100;
 `;
