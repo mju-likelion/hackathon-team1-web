@@ -5,6 +5,7 @@ import Hyundai from "../assets/images/Hyundai.svg";
 import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
+import ResultNothing from "../components/ResultNothing";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
 
@@ -93,12 +94,7 @@ const Search = () => {
       </TopContainer>
       <BottomArea>
         {LOAN_DATA.length === 0 ? (
-          <ResultNothingContainer>
-            <ResultNothingBox>
-              <NothingLargeText>검색 결과를 찾을 수 없습니다.</NothingLargeText>
-              <NothingSmallText>다시 질문 해주세요!</NothingSmallText>
-            </ResultNothingBox>
-          </ResultNothingContainer>
+          <ResultNothing />
         ) : (
           <BottomContainer>
             {currentInsurance.map((item) => (
@@ -161,37 +157,6 @@ const LeftCount = styled.p`
 
 const RightCount = styled.p`
   font-size: 25px;
-`;
-
-const ResultNothingContainer = styled.div`
-  width: 100%;
-  height: 60vh;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-`;
-
-const ResultNothingBox = styled.div`
-  width: 100%;
-  height: auto;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-`;
-
-const NothingLargeText = styled.p`
-  color: ${(props) => props.theme.colors.BLACK};
-  font-size: 35px;
-  font-weight: 700;
-  margin: 0;
-`;
-
-const NothingSmallText = styled.p`
-  color: ${(props) => props.theme.colors.LIGHTGRAY};
-  font-size: 25px;
-  font-weight: 700;
-  margin: 0;
 `;
 
 export default Search;
