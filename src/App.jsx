@@ -9,12 +9,17 @@ import Detail from "./pages/Detail";
 import Header from "./components/Header";
 
 const App = () => {
+  console.log(window.location.pathname);
+  const isVisible = window.location.pathname !== "/";
+  const allowedPaths = ["/", "/detail", "/compare", "/search"];
+  const showHeader = allowedPaths.includes(window.location.pathname);
+
   return (
     <>
       <ThemeProvider theme={Theme}>
         <GlobalStyle />
         <Router>
-          <Header />
+          {showHeader ? <Header isVisible={isVisible} /> : null}
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/detail" element={<Detail />} />

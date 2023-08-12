@@ -2,13 +2,20 @@ import styled from "styled-components";
 import logo from "../assets/images/Logo.svg";
 import locker from "../assets/images/Locker.svg";
 import Select from "./Select";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isVisible }) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const isVisible = location.pathname !== "/";
+  const handleGoMain = () => {
+    navigate("/");
+    window.location.reload();
+  };
+
+  const handleGoLocker = () => {
+    navigate("/compare");
+    window.location.reload();
+  };
 
   return (
     <Container>
@@ -16,13 +23,9 @@ const Header = () => {
         src={logo}
         alt="로고 이미지"
         $isVisible={isVisible}
-        onClick={() => navigate("/")}
+        onClick={handleGoMain}
       />
-      <Locker
-        src={locker}
-        alt="보관함 이미지"
-        onClick={() => navigate("/compare")}
-      />
+      <Locker src={locker} alt="보관함 이미지" onClick={handleGoLocker} />
       <Select />
     </Container>
   );
@@ -37,6 +40,7 @@ const Container = styled.div`
   height: 117px;
   padding: 0px 33px;
   box-shadow: 0 2px 10px rgb(0, 0, 0, 0.15);
+  z-index: 100;
 `;
 
 const Logo = styled.img`
