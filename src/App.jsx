@@ -11,7 +11,6 @@ import Header from "./components/Header";
 import Compare from "./pages/Compare";
 
 const App = () => {
-  console.log(window.location.pathname);
   const isVisible = window.location.pathname !== "/";
   const allowedPaths = ["/", "/detail", "/compare", "/search"];
   const showHeader = allowedPaths.includes(window.location.pathname);

@@ -17,10 +17,7 @@ const Header = ({ isVisible }) => {
     window.location.reload();
   };
 
-  const allowedPaths = ["/", "/detail", "/compare", "/search"];
-  const showHeader = allowedPaths.includes(location.pathname);
-
-  return showHeader ? (
+  return (
     <Container>
       <Logo
         src={logo}
@@ -31,7 +28,7 @@ const Header = ({ isVisible }) => {
       <Locker src={locker} alt="보관함 이미지" onClick={handleGoLocker} />
       <Select />
     </Container>
-  ) : null;
+  );
 };
 
 export default Header;
