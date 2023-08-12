@@ -3,14 +3,27 @@ import { styled } from "styled-components";
 import Logo from "../assets/images/Logo.svg";
 import Airplane from "../assets/images/Airplane.svg";
 import { useNavigate } from "react-router-dom";
+import { DetectLanguage } from "../api/DetectLanguage";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("ko");
+  const [detectedLanguage, setDetectedLanguage] = useState("");
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+    if (event.target.value.length > 2) {
+      DetectLanguage(event.target.value)
+        .then((language) => {
+          console.log(language);
+          setDetectedLanguage(language);
+        })
+        .catch((error) => {
+          console.log("Error detecting language:", error);
+          setDetectedLanguage("");
+        });
+    }
   };
 
   const handleLanguageChange = (event) => {
@@ -19,12 +32,14 @@ const Main = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const formData = {
-      language: selectedLanguage,
-      term: searchTerm,
+      text: searchTerm,
     };
+
     localStorage.setItem("formData", JSON.stringify(formData));
-    navigate(`/search/${selectedLanguage}/${searchTerm}`);
+
+    navigate(`/search/${searchTerm}`);
     // 여기에 검색어를 이용한 검색 로직을 추가하세요.
   };
 
@@ -36,9 +51,11 @@ const Main = () => {
           value={selectedLanguage}
           onChange={handleLanguageChange}
         >
-          <option value="ko">KR</option>
-          <option value="en">EN</option>
-          <option value="zh">CN</option>
+          {detectedLanguage === "ko" && (
+            <option value={detectedLanguage}>KO</option>
+          )}
+          {detectedLanguage === "en" && <option value="en">EN</option>}
+          {detectedLanguage === "zh" && <option value="zh">ZH</option>}
         </SearchLanguageSelect>
         <SearchInput
           value={searchTerm}
