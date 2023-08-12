@@ -10,7 +10,10 @@ const Header = () => {
 
   const isVisible = location.pathname !== "/";
 
-  return (
+  const allowedPaths = ["/", "/detail", "/compare", "/search"];
+  const showHeader = allowedPaths.includes(location.pathname);
+
+  return showHeader ? (
     <Container>
       <Logo
         src={logo}
@@ -25,7 +28,7 @@ const Header = () => {
       />
       <Select />
     </Container>
-  );
+  ) : null;
 };
 
 export default Header;

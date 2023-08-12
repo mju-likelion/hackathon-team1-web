@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import UpsideCompareBox from "../components/UpsideCompareBox";
 import UpsideEmptyBox from "../components/UpsideEmptyBox";
-import Header from "../components/Header";
 import { useState } from "react";
 import CompareDetailBox from "../components/CompareDetailBox";
 
@@ -44,7 +43,6 @@ const Compare = () => {
 
   return (
     <>
-      <Header />
       <CompareContainer>
         <UpsideArea>{rendering(compareInsurance)}</UpsideArea>
         <CompareDetailBox compareInsurance={compareInsurance} />
