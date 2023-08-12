@@ -1,9 +1,15 @@
 import { styled } from "styled-components";
 import SmallButton from "./SmallButton";
 import InsuranceDetail from "./InsuranceDetail";
+import { useNavigate } from "react-router";
 
 const InsuranceBox = ({ loanData }) => {
-  const { img, loanName, company, startAge, endAge, cost, loanType } = loanData;
+  const { img, infoId, loanName, company, startAge, endAge, cost, loanType } =
+    loanData;
+  const navigate = useNavigate();
+  const goDetail = (id) => {
+    navigate(`/detail/${id}`);
+  };
   return (
     <>
       <ContentArea>
@@ -16,7 +22,10 @@ const InsuranceBox = ({ loanData }) => {
               <MainName>{loanName}</MainName>
               <SubName>{company}</SubName>
             </NameArea>
-            <SmallButton text="자세히 보기" />
+            <SmallButton
+              text="자세히 보기"
+              handleclick={() => goDetail(infoId)}
+            />
           </TopArea>
           <BottomArea>
             <InsuranceDetail

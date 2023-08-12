@@ -1,14 +1,25 @@
+import { useNavigate } from "react-router";
 import { styled } from "styled-components";
 
 /*보험이 없을 경우(빈 경우) 컴포넌트*/
 const UpsideEmptyBox = () => {
+  const navigate = useNavigate();
+
+  const goMain = () => {
+    navigate("/");
+  };
+
+  const goSearch = () => {
+    navigate("/search");
+  };
+
   return (
     <EmptyContainer>
       <OuterCircle>
         <InnerBox>+</InnerBox>
       </OuterCircle>
-      <SelectButton>검색 결과 페이지로</SelectButton>
-      <SelectButton>다시 검색하기</SelectButton>
+      <SelectButton onClick={() => goSearch()}>검색 결과 페이지로</SelectButton>
+      <SelectButton onClick={() => goMain()}>다시 검색하기</SelectButton>
     </EmptyContainer>
   );
 };

@@ -3,9 +3,11 @@ import styled from "styled-components";
 
 const CompareDetailBox = ({ compareInsurance }) => {
   const rendering = (item, idx) => {
-    const key = item + idx;
     return (
-      <DetailContent key={key} idx={idx === 0 ? "85px" : "248px"}>
+      <DetailContent
+        key={new Date().getTime() + idx}
+        idx={idx === 0 ? "85px" : "248px"}
+      >
         {item}
       </DetailContent>
     );

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
-const LargeButton = ({ text }) => {
-  return <Button>{text}</Button>;
+const LargeButton = ({ text, handleclick }) => {
+  return <Button onClick={handleclick}>{text}</Button>;
 };
 
 const Button = styled.button`
