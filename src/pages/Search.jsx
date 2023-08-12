@@ -58,6 +58,8 @@ const Search = () => {
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
 
+  const { term } = JSON.parse(localStorage.getItem("formData"));
+
   const setPage = (error) => {
     setCurrentPage(error);
   };
@@ -82,9 +84,7 @@ const Search = () => {
     <>
       <TopContainer>
         <LeftContainer>
-          <QuestionArea>
-            '40세 남성 보험료가 6000원 이하 보험 추천 부탁' 질문에 대한
-          </QuestionArea>
+          <QuestionArea>"{term}" 질문에 대한</QuestionArea>
           <CountArea>
             <LeftCount>{LOAN_DATA.length}개 보험</LeftCount>
             <RightCount>검색 결과</RightCount>

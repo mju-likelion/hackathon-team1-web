@@ -2,10 +2,12 @@ import { useState } from "react";
 import { styled } from "styled-components";
 import Logo from "../assets/images/Logo.svg";
 import Airplane from "../assets/images/Airplane.svg";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState("KOR");
+  const [selectedLanguage, setSelectedLanguage] = useState("ko");
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -17,6 +19,12 @@ const Main = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const formData = {
+      language: selectedLanguage,
+      term: searchTerm,
+    };
+    localStorage.setItem("formData", JSON.stringify(formData));
+    navigate(`/search/${selectedLanguage}/${searchTerm}`);
     // 여기에 검색어를 이용한 검색 로직을 추가하세요.
   };
 
@@ -28,9 +36,9 @@ const Main = () => {
           value={selectedLanguage}
           onChange={handleLanguageChange}
         >
-          <option value="KR">KR</option>
-          <option value="EN">EN</option>
-          <option value="CN">CN</option>
+          <option value="ko">KR</option>
+          <option value="en">EN</option>
+          <option value="zh">CN</option>
         </SearchLanguageSelect>
         <SearchInput
           value={searchTerm}
@@ -91,11 +99,9 @@ const SearchButtonImg = styled.img`
 `;
 const SearchExample = styled.p`
   width: 900px;
-  height: auto;
   font-size: 30px;
   color: #7e7d7d;
-  margin: auto;
-  margin-top: 35px;
+  margin: 35px auto auto auto;
 `;
 
 export default Main;
