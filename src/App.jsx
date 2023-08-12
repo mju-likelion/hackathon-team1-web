@@ -1,6 +1,7 @@
 import "./App.css";
 import GlobalStyle from "./styles/GlobalStyle";
 import Main from "./pages/Main";
+import Search from "./pages/Search";
 import NotFound from "./pages/Error/NotFound";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "./styles/Theme";
@@ -16,6 +17,7 @@ const App = () => {
         <Router>
           <Routes>
             <Route path="/" element={<Main />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/compare" element={<Compare />} />

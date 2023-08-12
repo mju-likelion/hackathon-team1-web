@@ -1,10 +1,13 @@
 import { styled } from "styled-components";
-import Meritz from "../assets/Meritz.svg";
+import Meritz from "../assets/images/Meritz.svg";
 import Kookmin from "../assets/images/KookMin.svg";
 import Hyundai from "../assets/images/Hyundai.svg";
-import Dongboo from "../assets/DongBoo.svg";
+import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
+import ResultNothing from "../components/ResultNothing";
+import Paging from "./Paging";
+import { useState, useEffect } from "react";
 
 const LOAN_DATA = [
   // 샘플 데이터
@@ -47,29 +50,60 @@ const LOAN_DATA = [
 ];
 
 const Search = () => {
+  const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
+  const [count, setCount] = useState(0); // 보험 총 개수
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지, 기본 값 1
+  const [insuracePerPage] = useState(3); // 한 페이지에 보여질 보험 개수
+  const [indexOfFirstInsurance, setIndexOfFirstInsurance] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
+  const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
+  const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
+
+  const setPage = (error) => {
+    setCurrentPage(error);
+  };
+
+  useEffect(() => {
+    setInsurance(LOAN_DATA);
+    setCount(insurance.length);
+    setIndexOfLastInsurance(currentPage * insuracePerPage);
+    setIndexOfFirstInsurance(indexOfLastInsurance - insuracePerPage);
+    setCurrentInsurance(
+      insurance.slice(indexOfFirstInsurance, indexOfLastInsurance)
+    );
+  }, [
+    currentPage,
+    indexOfLastInsurance,
+    indexOfFirstInsurance,
+    insurance,
+    insuracePerPage,
+  ]);
+
   return (
     <>
-      {/* 헤더 */}
-
       <TopContainer>
         <LeftContainer>
           <QuestionArea>
-            '40세 남성 보험료가 6000원 이하 보험 추천 부탁'질문에 대한
+            '40세 남성 보험료가 6000원 이하 보험 추천 부탁' 질문에 대한
           </QuestionArea>
           <CountArea>
-            <LeftCount>N개 보험</LeftCount>
+            <LeftCount>{LOAN_DATA.length}개 보험</LeftCount>
             <RightCount>검색 결과</RightCount>
           </CountArea>
         </LeftContainer>
         <SmallButton text="다시 질문하기" />
       </TopContainer>
       <BottomArea>
-        <BottomContainer>
-          {LOAN_DATA.map((item) => (
-            <InsuranceBox key={item.main} loanData={item} />
-          ))}
-        </BottomContainer>
+        {LOAN_DATA.length === 0 ? (
+          <ResultNothing />
+        ) : (
+          <BottomContainer>
+            {currentInsurance.map((item) => (
+              <InsuranceBox key={item.loanName} loanData={item} />
+            ))}
+          </BottomContainer>
+        )}
       </BottomArea>
+      <Paging page={currentPage} count={count} setPage={setPage} />
     </>
   );
 };
@@ -84,13 +118,17 @@ const TopContainer = styled.div`
 
 const BottomArea = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
 `;
 
 const BottomContainer = styled.div`
   width: 1170px;
+  height: 100%;
   margin: 37px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const LeftContainer = styled.div`
