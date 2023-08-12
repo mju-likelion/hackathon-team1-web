@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import CloseIcon from "../assets/CloseIcon.svg";
-import Lotte from "../assets/Lotte.svg";
+import CloseIcon from "../assets/images/CloseIcon.svg";
+import Lotte from "../assets/images/Lotte.svg";
 import LargeButton from "./LargeButton";
 
 /*보험이 있을 경우 컴포넌트*/

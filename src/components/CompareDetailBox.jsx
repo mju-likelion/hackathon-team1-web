@@ -1,16 +1,14 @@
+import React from "react";
 import styled from "styled-components";
 
 const CompareDetailBox = ({ compareInsurance }) => {
   const rendering = (item, idx) => {
-    const result = [];
-    result.push(
-      <DetailContent
-        style={idx === 0 ? { marginLeft: "85px" } : { marginLeft: "248px" }}
-      >
+    const key = item + idx;
+    return (
+      <DetailContent key={key} idx={idx === 0 ? "85px" : "248px"}>
         {item}
       </DetailContent>
     );
-    return result;
   };
 
   return (
@@ -60,6 +58,7 @@ const DetailBox = styled.div`
 
 const DetailContent = styled.div`
   width: 150px;
+  margin-left: ${(props) => props.idx};
   font-size: 25px;
   font-weight: 600;
   display: flex;

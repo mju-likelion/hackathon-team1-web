@@ -11,9 +11,9 @@ const Compare = () => {
   );
 
   const onDelete = (id) => {
-    const filterdItem = compareInsurance.filter((item) => id !== item.id);
-    localStorage.setItem("insurances", JSON.stringify(filterdItem));
-    setCompareInsurance(filterdItem);
+    const filteredItem = compareInsurance.filter((item) => id !== item.id);
+    localStorage.setItem("insurances", JSON.stringify(filteredItem));
+    setCompareInsurance(filteredItem);
   };
 
   const rendering = (insurances) => {
@@ -26,8 +26,8 @@ const Compare = () => {
     }
 
     const result = insurances.map((item) => (
-      <GridItem>
-        <UpsideCompareBox key={item.id} testData={item} onDelete={onDelete} />
+      <GridItem key={item.id}>
+        <UpsideCompareBox testData={item} onDelete={onDelete} />
       </GridItem>
     ));
 
@@ -65,7 +65,7 @@ const INSURANCES = [
   },
   {
     id: 1,
-    loanName: "삼성보험",
+    loanName: "손해보험",
     company: "삼성해상",
     startAge: 19,
     endAge: 59,
