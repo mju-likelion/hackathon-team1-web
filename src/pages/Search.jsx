@@ -100,7 +100,7 @@ const Search = () => {
             <RightCount>검색 결과</RightCount>
           </CountArea>
         </LeftContainer>
-        <SmallButton text="다시 질문하기" handleclick={() => goMain()} />
+        <SmallButton text="다시 질문하기" handleclick={goMain} />
       </TopContainer>
       <BottomArea>
         {LOAN_DATA.length === 0 ? (

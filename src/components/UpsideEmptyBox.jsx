@@ -18,8 +18,8 @@ const UpsideEmptyBox = () => {
       <OuterCircle>
         <InnerBox>+</InnerBox>
       </OuterCircle>
-      <SelectButton onClick={() => goSearch()}>검색 결과 페이지로</SelectButton>
-      <SelectButton onClick={() => goMain()}>다시 검색하기</SelectButton>
+      <SelectButton onClick={goSearch}>검색 결과 페이지로</SelectButton>
+      <SelectButton onClick={goMain}>다시 검색하기</SelectButton>
     </EmptyContainer>
   );
 };

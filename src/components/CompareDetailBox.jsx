@@ -6,7 +6,7 @@ const CompareDetailBox = ({ compareInsurance }) => {
     return (
       <DetailContent
         key={new Date().getTime() + idx}
-        idx={idx === 0 ? "85px" : "248px"}
+        margin={idx === 0 ? "85px" : "248px"}
       >
         {item}
       </DetailContent>
@@ -60,7 +60,7 @@ const DetailBox = styled.div`
 
 const DetailContent = styled.div`
   width: 150px;
-  margin-left: ${(props) => props.idx};
+  margin-left: ${(props) => props.margin};
   font-size: 25px;
   font-weight: 600;
   display: flex;
