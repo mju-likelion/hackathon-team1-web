@@ -6,8 +6,10 @@ import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
 import ResultNothing from "../components/ResultNothing";
+import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
+import { AxiosSearch } from "../api/SearchResult";
 
 const LOAN_DATA = [
   // 샘플 데이터
@@ -57,13 +59,27 @@ const Search = () => {
   const [indexOfFirstInsurance, setIndexOfFirstInsurance] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
+  const [loading, setLoading] = useState(true);
+
+  const getInsurance = () => {
+    // 질문 페이지에서 질문 값과 언어 값을 가져와서 입력
+
+    AxiosSearch("50대 남성인데 보험 가입 지수가 낮은 상품 추천해줘", "ko")
+      .then((loanData) => {
+        console.log("loaded");
+        setInsurance(loanData);
+        setLoading(false);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(getInsurance, []);
 
   const setPage = (error) => {
     setCurrentPage(error);
   };
 
   useEffect(() => {
-    setInsurance(LOAN_DATA);
     setCount(insurance.length);
     setIndexOfLastInsurance(currentPage * insuracePerPage);
     setIndexOfFirstInsurance(indexOfLastInsurance - insuracePerPage);
@@ -80,33 +96,41 @@ const Search = () => {
 
   return (
     <>
-      <TopContainer>
-        <LeftContainer>
-          <QuestionArea>
-            '40세 남성 보험료가 6000원 이하 보험 추천 부탁' 질문에 대한
-          </QuestionArea>
-          <CountArea>
-            <LeftCount>{LOAN_DATA.length}개 보험</LeftCount>
-            <RightCount>검색 결과</RightCount>
-          </CountArea>
-        </LeftContainer>
-        <SmallButton text="다시 질문하기" />
-      </TopContainer>
-      <BottomArea>
-        {LOAN_DATA.length === 0 ? (
-          <ResultNothing />
-        ) : (
-          <BottomContainer>
-            {currentInsurance.map((item) => (
-              <InsuranceBox key={item.loanName} loanData={item} />
-            ))}
-          </BottomContainer>
-        )}
-      </BottomArea>
-      <Paging page={currentPage} count={count} setPage={setPage} />
+      {loading ? <Loading /> : null}
+      <PageArea visible={!loading}>
+        <TopContainer>
+          <LeftContainer>
+            <QuestionArea>
+              '40세 남성 보험료가 6000원 이하 보험 추천 부탁' 질문에 대한
+            </QuestionArea>
+            <CountArea>
+              <LeftCount>{insurance.length}개 보험</LeftCount>
+              <RightCount>검색 결과</RightCount>
+            </CountArea>
+          </LeftContainer>
+          <SmallButton text="다시 질문하기" />
+        </TopContainer>
+        <BottomArea>
+          {insurance.length === 0 ? (
+            <ResultNothing />
+          ) : (
+            <BottomContainer>
+              {currentInsurance.map((item) => (
+                <InsuranceBox key={item.infoId} loanData={item} />
+              ))}
+            </BottomContainer>
+          )}
+        </BottomArea>
+        <Paging page={currentPage} count={count} setPage={setPage} />
+      </PageArea>
     </>
   );
 };
+
+const PageArea = styled.div`
+  width: 100%;
+  display: ${({ visible }) => (visible ? "block" : "none")};
+`;
 
 const TopContainer = styled.div`
   width: 100%;
