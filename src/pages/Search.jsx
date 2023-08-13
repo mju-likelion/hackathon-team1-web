@@ -8,11 +8,13 @@ import InsuranceBox from "../components/InsuranceBox";
 import ResultNothing from "../components/ResultNothing";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const LOAN_DATA = [
   // 샘플 데이터
   {
     img: Meritz,
+    infoId: "0",
     loanName: "메리츠손해보험",
     company: "메리츠화재",
     startAge: 15,
@@ -22,6 +24,7 @@ const LOAN_DATA = [
   },
   {
     img: Kookmin,
+    infoId: "1",
     loanName: "KB보장보험",
     company: "KB손해보험",
     startAge: 15,
@@ -31,6 +34,7 @@ const LOAN_DATA = [
   },
   {
     img: Hyundai,
+    infoId: "2",
     loanName: "현대손해보험",
     company: "현대해상",
     startAge: 15,
@@ -40,6 +44,7 @@ const LOAN_DATA = [
   },
   {
     img: Dongboo,
+    infoId: "3",
     loanName: "DB보장보험",
     company: "DB손해보험",
     startAge: 0,
@@ -80,6 +85,11 @@ const Search = () => {
     insuracePerPage,
   ]);
 
+  const navigate = useNavigate();
+  const goMain = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <TopContainer>
@@ -90,7 +100,7 @@ const Search = () => {
             <RightCount>검색 결과</RightCount>
           </CountArea>
         </LeftContainer>
-        <SmallButton text="다시 질문하기" />
+        <SmallButton text="다시 질문하기" handleclick={goMain} />
       </TopContainer>
       <BottomArea>
         {LOAN_DATA.length === 0 ? (
