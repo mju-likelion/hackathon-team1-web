@@ -2,6 +2,7 @@ import Locker from "../assets/images/Locker.svg";
 import Call from "../assets/images/Call.svg";
 import XIcon from "../assets/images/XIcon.svg";
 import { styled } from "styled-components";
+import ReactDOM from "react-dom";
 
 const Modal = ({ iconName, callNum, handleModalClose }) => {
   // iconName 은 Call, LockerIn, LockerFull 로 넘겨줌
@@ -15,20 +16,23 @@ const Modal = ({ iconName, callNum, handleModalClose }) => {
     else if (iconName === "LockerIn") return "비교함에\n담았습니다!";
     else return "비교함이\n꽉 찼습니다!";
   };
-  return (
-    <Background>
-      <ModalBox>
-        <XBtn onClick={handleModalClose}>
-          <XImg src={XIcon} alt="XIcon" />
-        </XBtn>
-        <Content>
-          <IconBox>
-            <IconImg src={iconImg()} alt="Icon" />
-          </IconBox>
-          <Text>{infoText()}</Text>
-        </Content>
-      </ModalBox>
-    </Background>
+  return ReactDOM.createPortal(
+    <div className="modal">
+      <Background>
+        <ModalBox>
+          <XBtn onClick={handleModalClose}>
+            <XImg src={XIcon} alt="XIcon" />
+          </XBtn>
+          <Content>
+            <IconBox>
+              <IconImg src={iconImg()} alt="Icon" />
+            </IconBox>
+            <Text>{infoText()}</Text>
+          </Content>
+        </ModalBox>
+      </Background>
+    </div>,
+    document.getElementById("modal-root") // 외부 DOM 노드 선택
   );
 };
 
@@ -39,6 +43,8 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
 `;
 
 const ModalBox = styled.div`
