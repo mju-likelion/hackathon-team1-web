@@ -15,7 +15,6 @@ const Main = () => {
     if (event.target.value.length > 2) {
       DetectLanguage(event.target.value)
         .then((language) => {
-          console.log(language);
           setDetectedLanguage(language);
         })
         .catch((error) => {
@@ -33,7 +32,7 @@ const Main = () => {
     };
 
     localStorage.setItem("formData", JSON.stringify(formData));
-    navigate(`/search/${searchTerm}`);
+    navigate(`/nestjs/api/insurance-suggesters`);
     // 여기에 검색어를 이용한 검색 로직을 추가하세요.
   };
 
