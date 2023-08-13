@@ -6,6 +6,7 @@ import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
 import { AxiosSearch } from "../api/SearchResult";
+import NotFound from "./Error/NotFound";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
@@ -26,7 +27,7 @@ const Search = () => {
         setInsurance(loanData);
         setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => <NotFound number={500} />);
   };
 
   useEffect(getInsurance, []);
@@ -52,8 +53,8 @@ const Search = () => {
 
   return (
     <>
-      {loading ? <Loading /> : null}
-      <PageArea visible={!loading}>
+      {loading && <Loading />}
+      <PageArea visible={+!loading}>
         <TopContainer>
           <LeftContainer>
             <QuestionArea>

@@ -1,8 +1,6 @@
 import Axios from "./Axios";
 
-export const AxiosSearch = async (text, language) => {
-  const question = text;
-  const sourceLanguage = language;
+export const AxiosSearch = async (question, sourceLanguage) => {
   try {
     const response = await Axios.post(`nestjs/api/insurance-suggesters`, {
       question,
