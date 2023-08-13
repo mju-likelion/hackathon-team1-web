@@ -1,8 +1,6 @@
 import { Axios } from "./Axios";
 
-export const DetectLanguage = async (data) => {
-  const text = data;
-
+export const DetectLanguage = async (text) => {
   try {
     const response = await Axios.post(`/fastapi/detect-language`, {
       text,
