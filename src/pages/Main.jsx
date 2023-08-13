@@ -29,6 +29,7 @@ const Main = () => {
 
     const formData = {
       text: searchTerm,
+      language: detectedLanguage,
     };
 
     localStorage.setItem("formData", JSON.stringify(formData));
