@@ -1,8 +1,4 @@
 import { styled } from "styled-components";
-import Meritz from "../assets/images/Meritz.svg";
-import Kookmin from "../assets/images/KookMin.svg";
-import Hyundai from "../assets/images/Hyundai.svg";
-import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
 import ResultNothing from "../components/ResultNothing";
@@ -10,46 +6,6 @@ import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
 import { AxiosSearch } from "../api/SearchResult";
-
-const LOAN_DATA = [
-  // 샘플 데이터
-  {
-    img: Meritz,
-    loanName: "메리츠손해보험",
-    company: "메리츠화재",
-    startAge: 15,
-    endAge: 99,
-    cost: 3770,
-    loanType: "온라인 가입",
-  },
-  {
-    img: Kookmin,
-    loanName: "KB보장보험",
-    company: "KB손해보험",
-    startAge: 15,
-    endAge: 88,
-    cost: 6770,
-    loanType: "온라인 가입",
-  },
-  {
-    img: Hyundai,
-    loanName: "현대손해보험",
-    company: "현대해상",
-    startAge: 15,
-    endAge: 99,
-    cost: 5770,
-    loanType: "설계사 상담",
-  },
-  {
-    img: Dongboo,
-    loanName: "DB보장보험",
-    company: "DB손해보험",
-    startAge: 0,
-    endAge: 99,
-    cost: 1770,
-    loanType: "설계사 상담",
-  },
-];
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
