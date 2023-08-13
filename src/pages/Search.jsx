@@ -17,11 +17,12 @@ const Search = () => {
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
   const [loading, setLoading] = useState(true);
+  const { text } = JSON.parse(localStorage.getItem("formData"));
 
   const getInsurance = () => {
     // 질문 페이지에서 질문 값과 언어 값을 가져와서 입력
 
-    AxiosSearch("50대 남성인데 보험 가입 지수가 낮은 상품 추천해줘", "ko")
+    AxiosSearch(text, "ko")
       .then((loanData) => {
         console.log("loaded");
         setInsurance(loanData);
@@ -30,7 +31,7 @@ const Search = () => {
       .catch((error) => <NotFound number={500} />);
   };
 
-  useEffect(getInsurance, []);
+  useEffect(getInsurance, [text]);
 
   const setPage = (error) => {
     setCurrentPage(error);
@@ -57,9 +58,7 @@ const Search = () => {
       <PageArea visible={+!loading}>
         <TopContainer>
           <LeftContainer>
-            <QuestionArea>
-              '40세 남성 보험료가 6000원 이하 보험 추천 부탁' 질문에 대한
-            </QuestionArea>
+            <QuestionArea>{text} 질문에 대한</QuestionArea>
             <CountArea>
               <LeftCount>{insurance.length}개 보험</LeftCount>
               <RightCount>검색 결과</RightCount>
