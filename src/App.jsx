@@ -18,7 +18,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/search/*" element={<Search />} />
-            <Route path="/detail/:infoId" element={<Detail />} />
+            <Route path="/detail" element={<Detail />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/compare" element={<Compare />} />
           </Routes>
