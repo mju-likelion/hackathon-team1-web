@@ -7,6 +7,7 @@ import Paging from "./Paging";
 import { useState, useEffect } from "react";
 import { AxiosSearch } from "../api/SearchResult";
 import NotFound from "./Error/NotFound";
+import { useNavigate } from "react-router";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
@@ -52,6 +53,11 @@ const Search = () => {
     insuracePerPage,
   ]);
 
+  const navigate = useNavigate();
+  const goMain = () => {
+    navigate("/");
+  };
+
   return (
     <>
       {loading && <Loading />}
@@ -64,7 +70,7 @@ const Search = () => {
               <RightCount>검색 결과</RightCount>
             </CountArea>
           </LeftContainer>
-          <SmallButton text="다시 질문하기" />
+          <SmallButton text="다시 질문하기" handleclick={goMain} />
         </TopContainer>
         <BottomArea>
           {insurance.length === 0 ? (

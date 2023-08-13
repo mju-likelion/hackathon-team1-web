@@ -2,17 +2,22 @@ import { styled } from "styled-components";
 import CloseIcon from "../assets/images/CloseIcon.svg";
 import Lotte from "../assets/images/Lotte.svg";
 import LargeButton from "./LargeButton";
+import { useNavigate } from "react-router";
 
 /*보험이 있을 경우 컴포넌트*/
 const UpsideCompareBox = ({ testData, onDelete }) => {
-  const { id, loanName, company } = testData;
+  const { infoId, loanName, company } = testData;
+  const navigate = useNavigate();
+  const goDetail = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
   return (
     <LoanContainer>
       <CloseButton
         src={CloseIcon}
         alt="close-button"
-        onClick={() => onDelete(id)}
+        onClick={() => onDelete(infoId)}
       />
       <LoanArea>
         <LoanBox>
@@ -20,7 +25,10 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
           <LoanContentBox>
             <MainTitle>{loanName}</MainTitle>
             <SubTitle>{company}</SubTitle>
-            <LargeButton text="상세 페이지 이동" />
+            <LargeButton
+              text="상세 페이지 이동"
+              handleclick={() => goDetail(infoId)}
+            />
           </LoanContentBox>
         </LoanBox>
       </LoanArea>
