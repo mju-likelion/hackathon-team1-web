@@ -10,9 +10,11 @@ import { AxiosDetail } from "../api/AxiosDetail";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import LargeButton from "../components/LargeButton";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const Detail = () => {
+  const { infoId } = useParams();
+
   const [insurance, setInsurance] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +24,7 @@ const Detail = () => {
 
   const fetchData = async () => {
     try {
-      await AxiosDetail((res) => setInsurance(res));
+      await AxiosDetail(infoId, (res) => setInsurance(res));
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);

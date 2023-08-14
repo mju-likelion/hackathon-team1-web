@@ -11,7 +11,7 @@ const NotFound = ({ number }) => {
       </WhiteBackGround>
       <MintBackGround>
         <ErrorText>죄송합니다. 페이지를 찾을 수 없습니다.</ErrorText>
-        <Button onClick={() => navigate("/Main")}>홈으로 돌아가기</Button>
+        <Button onClick={() => navigate("/")}>홈으로 돌아가기</Button>
       </MintBackGround>
     </Layout>
   );
