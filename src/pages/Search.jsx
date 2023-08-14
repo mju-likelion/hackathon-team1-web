@@ -18,21 +18,20 @@ const Search = () => {
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
   const [loading, setLoading] = useState(true);
-  const { text } = JSON.parse(localStorage.getItem("formData"));
+  const { text, language } = JSON.parse(localStorage.getItem("formData"));
 
   const getInsurance = () => {
     // 질문 페이지에서 질문 값과 언어 값을 가져와서 입력
 
-    AxiosSearch(text, "ko")
+    AxiosSearch(text, language)
       .then((loanData) => {
-        console.log("loaded");
         setInsurance(loanData);
         setLoading(false);
       })
       .catch((error) => <NotFound number={500} />);
   };
 
-  useEffect(getInsurance, [text]);
+  useEffect(getInsurance, [text, language]);
 
   const setPage = (error) => {
     setCurrentPage(error);
