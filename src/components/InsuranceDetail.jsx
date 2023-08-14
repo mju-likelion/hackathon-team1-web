@@ -22,7 +22,7 @@ const DetailTitle = styled.p`
 `;
 
 const DetailBox = styled.div`
-  width: 110px;
+  width: 250px;
   height: 29px;
   display: flex;
   margin-top: 10px;

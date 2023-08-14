@@ -1,26 +1,38 @@
 import { styled } from "styled-components";
 import SmallButton from "./SmallButton";
 import InsuranceDetail from "./InsuranceDetail";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const InsuranceBox = ({ loanData }) => {
-  const { img, infoId, loanName, company, startAge, endAge, cost, loanType } =
-    loanData;
+  const {
+    infoId,
+    insuranceLogo,
+    productName,
+    companyName,
+    insuranceAgeGroupStart,
+    insuranceAgeGroupEnd,
+    premiumMale,
+    premiumFemale,
+    registrationType,
+  } = loanData;
+
   const navigate = useNavigate();
-  const goDetail = (id) => {
-    navigate(`/detail/${id}`);
+
+  const goDetail = (infoId) => {
+    navigate(`/detail/${infoId}`);
   };
+
   return (
     <>
       <ContentArea>
         <LeftBox>
-          <LoanImage src={img} alt="loan-image" />
+          <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
         </LeftBox>
         <RightBox>
           <TopArea>
             <NameArea>
-              <MainName>{loanName}</MainName>
-              <SubName>{company}</SubName>
+              <MainName>{productName}</MainName>
+              <SubName>{companyName}</SubName>
             </NameArea>
             <SmallButton
               text="자세히 보기"
@@ -30,13 +42,17 @@ const InsuranceBox = ({ loanData }) => {
           <BottomArea>
             <InsuranceDetail
               title="가입연령"
-              content={`${startAge}~${endAge}`}
+              content={`${insuranceAgeGroupStart}~${insuranceAgeGroupEnd}`}
               unit="세"
             />
             <BreakLine />
-            <InsuranceDetail title="보험료" content={cost} unit="원" />
+            <InsuranceDetail
+              title="보험료"
+              content={`남 ${premiumMale} / 여 ${premiumFemale}`}
+              unit="원"
+            />
             <BreakLine />
-            <InsuranceDetail title="가입형태" content={loanType} />
+            <InsuranceDetail title="가입형태" content={registrationType} />
           </BottomArea>
         </RightBox>
       </ContentArea>
@@ -79,7 +95,7 @@ const TopArea = styled.div`
 `;
 
 const NameArea = styled.div`
-  width: 360px;
+  width: 660px;
   height: 42px;
   display: flex;
   justify-content: space-between;
@@ -87,12 +103,12 @@ const NameArea = styled.div`
 `;
 
 const MainName = styled.p`
-  font-size: 35px;
-  font-weight: 600;
+  font-size: 25px;
+  font-weight: bold;
 `;
 
 const SubName = styled.p`
-  font-size: 25px;
+  font-size: 22px;
   color: ${({ theme }) => theme.colors.LIGHTGRAY};
 `;
 
