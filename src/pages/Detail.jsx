@@ -10,6 +10,7 @@ import { AxiosDetail } from "../api/AxiosDetail";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import LargeButton from "../components/LargeButton";
+import { Link } from "react-router-dom";
 
 const Detail = () => {
   const [insurance, setInsurance] = useState([]);
@@ -32,7 +33,8 @@ const Detail = () => {
   }, []);
 
   const goSite = () => {
-    window.location.href = insurance.registrationLink;
+    // insurance.registrationLink로 이동
+    <Link to={insurance.registrationLink}></Link>;
   };
 
   const insuranceArr = [
@@ -80,7 +82,7 @@ const Detail = () => {
       title: "보험가격지수",
       content: `${insurance.priceIndex}% (낮을수록 저렴)`,
       explain:
-        "[보험가격지수] 보험가격지수 / 남성 / 표준형 계약 기준 산출식 = 영업보험료 ÷ (참조순보험료 + 상품군별 평균사업비) X 100 보험업계 평균가격대비 상품의 보험가격 수준(대표계약 기준)을 비교하는 지수로 보장내역이 동일한 경우 100% 초과이면 업계 평균보다 가격 수준이 높고, 100% 미만이면 업계 평균보다 가격수준이 낮습니다. * 다만, 보험가격지수는 업계평균 영업보험료 대비 동상품의 영업보험료 수준을 나타내는 지표로써, 회사별로 사업비가 상이하므로 보험가격지수가 낮다고 하여 반드시 보험료가 저렴한 것은 아닙니다.",
+        "[보험가격지수] 보험가격지수 / 성별 / 표준형 계약 기준 산출식 = 영업보험료 ÷ (참조순보험료 + 상품군별 평균사업비) X 100 보험업계 평균가격대비 상품의 보험가격 수준(대표계약 기준)을 비교하는 지수로 보장내역이 동일한 경우 100% 초과이면 업계 평균보다 가격 수준이 높고, 100% 미만이면 업계 평균보다 가격수준이 낮습니다. * 다만, 보험가격지수는 업계평균 영업보험료 대비 동상품의 영업보험료 수준을 나타내는 지표로써, 회사별로 사업비가 상이하므로 보험가격지수가 낮다고 하여 반드시 보험료가 저렴한 것은 아닙니다.",
     },
   ];
 
