@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const NotFound = () => {
+const NotFound = ({ number }) => {
   const navigate = useNavigate();
 
   return (
     <Layout>
       <WhiteBackGround>
-        <ErrorCode>404</ErrorCode>
+        <ErrorCode>{number}</ErrorCode>
       </WhiteBackGround>
       <MintBackGround>
         <ErrorText>죄송합니다. 페이지를 찾을 수 없습니다.</ErrorText>
