@@ -113,7 +113,10 @@ const Detail = () => {
           {insurance.registrationType === null ? (
             <LargeButton text="바로가기 정보가 없습니다." />
           ) : (
-            <LargeButton onClick={goSite} text={insurance.registrationType} />
+            <LargeButton
+              handleClick={goSite}
+              text={insurance.registrationType}
+            />
           )}
         </RightArea>
       </AboveContainer>
