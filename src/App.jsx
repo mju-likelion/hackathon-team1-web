@@ -27,13 +27,6 @@ const App = () => {
     }
   }, [path]);
 
-  /**
-   * 1. 전체를 관리하는 app.jsx에서, path에 관련된 state를 관리한다.
-   * 2. 1번을 가지고 useeffect를 돌리는데, main 페이지라면 로고를 보여주는 atom을 false로, 아니면 true로
-   * 3. 헤더안에서 logo에 대한 렌더링 조건을 선행 조건으로 건다.
-   * 4. 그러면 app.jsx에서 상태를 관리하고, 그 상태에 대한 렌더링은 헤더에서 이뤄지는 구조가 완성된다.
-   */
-
   return (
     <>
       <ThemeProvider theme={Theme}>
