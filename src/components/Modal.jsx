@@ -51,7 +51,7 @@ const Background = styled.div`
 const ModalBox = styled.div`
   width: 670px;
   height: 407px;
-  background-color: ${(props) => props.theme.colors.WHITE};
+  background-color: ${({ theme }) => theme.colors.WHITE};
   border-radius: 25px;
 `;
 
@@ -92,7 +92,7 @@ const Text = styled.p`
   font-size: 35px;
   font-style: normal;
   font-weight: 700;
-  color: ${(props) => props.theme.colors.BLACK};
+  color: ${({ theme }) => theme.colors.BLACK};
   white-space: pre-wrap;
   line-height: 120%;
 `;

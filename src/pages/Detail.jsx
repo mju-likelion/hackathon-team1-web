@@ -19,12 +19,12 @@ const Detail = () => {
   const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
-  const handleBtnModal = (prev) => {
-    setIsBtnModalOpen(!prev);
+  const handleBtnModal = () => {
+    setIsBtnModalOpen((prev) => !prev);
   };
 
-  const handleCompareModal = (prev) => {
-    setIsCompareModalOpen(!prev);
+  const handleCompareModal = () => {
+    setIsCompareModalOpen((prev) => !prev);
   };
 
   const [insurance, setInsurance] = useState([]);
@@ -32,6 +32,7 @@ const Detail = () => {
 
   const addCompare = () => {
     localStorage.setItem("insurances", JSON.stringify(insurance));
+    handleCompareModal();
   };
 
   const fetchData = async () => {
@@ -48,6 +49,18 @@ const Detail = () => {
 
   const goSite = () => {
     window.location.href = insurance.registrationLink;
+  };
+
+  const modalText = () => {
+    if (insurance.registrationType === "온라인가입") {
+      goSite();
+    } else if (insurance.registrationType === "설계사 상담") {
+      if (insurance.registrationLink.startsWith() === "http") {
+        goSite();
+      } else {
+        handleBtnModal();
+      }
+    }
   };
 
   const insuranceArr = [
@@ -101,63 +114,59 @@ const Detail = () => {
 
   const imgUrl = insurance?.insuranceLogo?.imageUrl;
 
-  return;
-  {
-    isBtnModalOpen && (
-      <Modal
-        iconName="Call"
-        callNum="010-1234-5678"
-        handleModalClose={handleBtnModal}
-      />
-    );
-  }
-  {
-    isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />;
-  }
-
-  !isLoading ? (
-    <Background>
-      <AboveContainer>
-        <LeftArea>
-          {imgUrl ? (
-            <Image src={imgUrl} alt="보험사 이미지" />
-          ) : (
-            <div>loading</div>
-          )}
-          <ImageText onClick={addCompare}>
-            <CompareImage src={Box} alt="비교함 담기 이미지" />
-            비교함 담기
-          </ImageText>
-        </LeftArea>
-        <RightArea>
-          <InsuranceNameContainer>
-            <InsuranceName>{insurance.productName}</InsuranceName>
-            <CompanyName>{insurance.companyName}</CompanyName>
-          </InsuranceNameContainer>
-          <InsuranceDetailContainer>
-            {insuranceArr.map((item, index) => (
-              <DetailBox insuranceData={item} key={index} />
+  return !isLoading ? (
+    <>
+      {isBtnModalOpen && (
+        <Modal
+          iconName="Call"
+          callNum={insurance.registrationLink}
+          handleModalClose={handleBtnModal}
+        />
+      )}
+      {isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />}
+      <Background>
+        <AboveContainer>
+          <LeftArea>
+            {imgUrl ? (
+              <Image src={imgUrl} alt="보험사 이미지" />
+            ) : (
+              <div>loading</div>
+            )}
+            <ImageText onClick={addCompare}>
+              <CompareImage src={Box} alt="비교함 담기 이미지" />
+              비교함 담기
+            </ImageText>
+          </LeftArea>
+          <RightArea>
+            <InsuranceNameContainer>
+              <InsuranceName>{insurance.productName}</InsuranceName>
+              <CompanyName>{insurance.companyName}</CompanyName>
+            </InsuranceNameContainer>
+            <InsuranceDetailContainer>
+              {insuranceArr.map((item, index) => (
+                <DetailBox insuranceData={item} key={index} />
+              ))}
+            </InsuranceDetailContainer>
+            {insurance.registrationType === null ? (
+              <LargeButton text="바로가기 정보가 없습니다." />
+            ) : (
+              <LargeButton
+                handleClick={modalText}
+                text={insurance.registrationType}
+              />
+            )}
+          </RightArea>
+        </AboveContainer>
+        <BelowContainer>
+          <MainText>주요정보</MainText>
+          <InformationContainer>
+            {mainArr.map((item, index) => (
+              <InformationBox MainData={item} key={index} />
             ))}
-          </InsuranceDetailContainer>
-          {insurance.registrationType === null ? (
-            <LargeButton text="바로가기 정보가 없습니다." />
-          ) : (
-            <LargeButton
-              handleClick={goSite}
-              text={insurance.registrationType}
-            />
-          )}
-        </RightArea>
-      </AboveContainer>
-      <BelowContainer>
-        <MainText>주요정보</MainText>
-        <InformationContainer>
-          {mainArr.map((item, index) => (
-            <InformationBox MainData={item} key={index} />
-          ))}
-        </InformationContainer>
-      </BelowContainer>
-    </Background>
+          </InformationContainer>
+        </BelowContainer>
+      </Background>
+    </>
   ) : (
     <Loading />
   );
@@ -248,7 +257,6 @@ const CompanyName = styled.div`
 const InsuranceDetailContainer = styled.div`
   width: 100%;
   height: 226px;
-  margin-bottom: 53px;
 `;
 
 const BelowContainer = styled(AboveContainer)`
