@@ -47,7 +47,6 @@ const Container = styled.div`
   width: 100%;
   height: 117px;
   padding: 0 33px;
-  box-shadow: 0 2px 10px rgb(0, 0, 0, 0.15);
   z-index: 100;
 `;
 
