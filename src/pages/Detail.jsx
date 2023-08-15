@@ -16,7 +16,11 @@ import Modal from "../components/Modal";
 const Detail = () => {
   const { infoId } = useParams();
 
-  const [compareBox, setCompareBox] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const [compareBox, setCompareBox] = useState(
+    JSON.parse(localStorage.getItem("insurances")) || []
+  );
 
   const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
@@ -32,12 +36,6 @@ const Detail = () => {
   const [insurance, setInsurance] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const addCompare = () => {
-    setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
-    localStorage.setItem("insurances", JSON.stringify(compareBox));
-    handleCompareModal();
-  };
-
   const fetchData = async () => {
     try {
       await AxiosDetail(infoId, (res) => setInsurance(res));
@@ -46,9 +44,25 @@ const Detail = () => {
       console.error("Error fetching data:", error);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  const addCompare = () => {
+    if (compareBox.length < 3) {
+      setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
+      handleCompareModal();
+    } else {
+      setIsCompareModalOpen(true);
+    }
+    setCount((prev) => prev + 1);
+    console.log(count);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("insurances", JSON.stringify(compareBox));
+  }, [compareBox]);
 
   const goSite = () => {
     window.location.href = insurance.registrationLink;
@@ -59,7 +73,6 @@ const Detail = () => {
       goSite();
     } else if (insurance.registrationType.startsWith("설계")) {
       if (insurance.registrationLink === null) {
-        // return <Modal handleModalClose={handleBtnModal} />;
         alert("정보가 없습니다");
       } else if (insurance.registrationLink.startsWith("http")) {
         goSite();
@@ -127,7 +140,12 @@ const Detail = () => {
           handleModalClose={handleBtnModal}
         />
       )}
-      {isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />}
+      {isCompareModalOpen && (
+        <Modal
+          iconName={count > 3 ? "LockerFull" : "LockerIn"}
+          handleModalClose={handleCompareModal}
+        />
+      )}
       <Background>
         <AboveContainer>
           <LeftArea>
