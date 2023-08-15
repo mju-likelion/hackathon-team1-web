@@ -33,8 +33,12 @@ const Main = () => {
     };
 
     localStorage.setItem("formData", JSON.stringify(formData));
-    navigate(`/nestjs/api/insurance-suggesters`);
-    // 여기에 검색어를 이용한 검색 로직을 추가하세요.
+
+    if (searchTerm === "") {
+      navigate(`/nestjs/api/insurance-suggesters/all`);
+    } else {
+      navigate(`/nestjs/api/insurance-suggesters`);
+    }
   };
 
   const NowSelectedLanguage = () => {
