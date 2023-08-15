@@ -11,6 +11,7 @@ const Modal = ({ iconName, callNum, handleModalClose }) => {
       return Call;
     } else return Locker;
   };
+
   const infoText = () => {
     if (iconName === "Call") return "설계사 연락처\n" + callNum;
     else if (iconName === "LockerIn") return "비교함에\n담았습니다!";

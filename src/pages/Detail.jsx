@@ -58,29 +58,32 @@ const Detail = () => {
   const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
-  const onBtnModalClose = () => {
-    setIsBtnModalOpen(false);
+  const handleBtnModal = (prev) => {
+    setIsBtnModalOpen(!prev);
   };
 
-  const onCompareModalClose = () => {
-    setIsCompareModalOpen(false);
+  const handleCompareModal = (prev) => {
+    setIsCompareModalOpen(!prev);
   };
+
   return (
     <>
       {isBtnModalOpen && (
         <Modal
           iconName="Call"
           callNum="010-1234-5678"
-          handleModalClose={onBtnModalClose}
+          handleModalClose={handleBtnModal}
         />
       )}
-      {isCompareModalOpen && <Modal handleModalClose={onCompareModalClose} />}
+      {isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />}
 
       <Background>
         <AboveContainer>
           <LeftArea>
             <Image src={lotte} alt="보험사 이미지" />
-            <ImageText onClick={() => setIsCompareModalOpen(true)}>
+            <ImageText
+              onClick={() => setIsCompareModalOpen(!isCompareModalOpen)}
+            >
               <CompareImage src={Box} alt="비교함 담기 이미지" />
               비교함 담기
             </ImageText>
@@ -98,7 +101,7 @@ const Detail = () => {
                 <DetailBox id={index} InsuranceData={item} key={item.title} />
               ))}
             </InsuranceDetailContainer>
-            <LargeButton onClick={() => setIsBtnModalOpen(true)}>
+            <LargeButton onClick={() => setIsBtnModalOpen(!isBtnModalOpen)}>
               상담사 연결
             </LargeButton>
           </RightArea>
