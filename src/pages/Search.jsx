@@ -1,53 +1,13 @@
 import { styled } from "styled-components";
-import Meritz from "../assets/images/Meritz.svg";
-import Kookmin from "../assets/images/KookMin.svg";
-import Hyundai from "../assets/images/Hyundai.svg";
-import Dongboo from "../assets/images/DongBoo.svg";
 import SmallButton from "../components/SmallButton";
 import InsuranceBox from "../components/InsuranceBox";
 import ResultNothing from "../components/ResultNothing";
+import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
-
-const LOAN_DATA = [
-  // 샘플 데이터
-  {
-    img: Meritz,
-    loanName: "메리츠손해보험",
-    company: "메리츠화재",
-    startAge: 15,
-    endAge: 99,
-    cost: 3770,
-    loanType: "온라인 가입",
-  },
-  {
-    img: Kookmin,
-    loanName: "KB보장보험",
-    company: "KB손해보험",
-    startAge: 15,
-    endAge: 88,
-    cost: 6770,
-    loanType: "온라인 가입",
-  },
-  {
-    img: Hyundai,
-    loanName: "현대손해보험",
-    company: "현대해상",
-    startAge: 15,
-    endAge: 99,
-    cost: 5770,
-    loanType: "설계사 상담",
-  },
-  {
-    img: Dongboo,
-    loanName: "DB보장보험",
-    company: "DB손해보험",
-    startAge: 0,
-    endAge: 99,
-    cost: 1770,
-    loanType: "설계사 상담",
-  },
-];
+import { AxiosSearch } from "../api/SearchResult";
+import NotFound from "./Error/NotFound";
+import { useNavigate } from "react-router";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
@@ -57,15 +17,27 @@ const Search = () => {
   const [indexOfFirstInsurance, setIndexOfFirstInsurance] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
+  const [loading, setLoading] = useState(true);
+  const { text, language } = JSON.parse(localStorage.getItem("formData"));
 
-  const { term } = JSON.parse(localStorage.getItem("formData"));
+  const getInsurance = () => {
+    // 질문 페이지에서 질문 값과 언어 값을 가져와서 입력
+
+    AxiosSearch(text, language)
+      .then((loanData) => {
+        setInsurance(loanData);
+        setLoading(false);
+      })
+      .catch((error) => <NotFound number={500} />);
+  };
+
+  useEffect(getInsurance, [text, language]);
 
   const setPage = (error) => {
     setCurrentPage(error);
   };
 
   useEffect(() => {
-    setInsurance(LOAN_DATA);
     setCount(insurance.length);
     setIndexOfLastInsurance(currentPage * insuracePerPage);
     setIndexOfFirstInsurance(indexOfLastInsurance - insuracePerPage);
@@ -80,33 +52,46 @@ const Search = () => {
     insuracePerPage,
   ]);
 
+  const navigate = useNavigate();
+  const goMain = () => {
+    navigate("/");
+  };
+
   return (
     <>
-      <TopContainer>
-        <LeftContainer>
-          <QuestionArea>"{term}" 질문에 대한</QuestionArea>
-          <CountArea>
-            <LeftCount>{LOAN_DATA.length}개 보험</LeftCount>
-            <RightCount>검색 결과</RightCount>
-          </CountArea>
-        </LeftContainer>
-        <SmallButton text="다시 질문하기" />
-      </TopContainer>
-      <BottomArea>
-        {LOAN_DATA.length === 0 ? (
-          <ResultNothing />
-        ) : (
-          <BottomContainer>
-            {currentInsurance.map((item) => (
-              <InsuranceBox key={item.loanName} loanData={item} />
-            ))}
-          </BottomContainer>
-        )}
-      </BottomArea>
-      <Paging page={currentPage} count={count} setPage={setPage} />
+      {loading && <Loading />}
+      <PageArea visible={+!loading}>
+        <TopContainer>
+          <LeftContainer>
+            <QuestionArea>{text} 질문에 대한</QuestionArea>
+            <CountArea>
+              <LeftCount>{insurance.length}개 보험</LeftCount>
+              <RightCount>검색 결과</RightCount>
+            </CountArea>
+          </LeftContainer>
+          <SmallButton text="다시 질문하기" handleclick={goMain} />
+        </TopContainer>
+        <BottomArea>
+          {insurance.length === 0 ? (
+            <ResultNothing />
+          ) : (
+            <BottomContainer>
+              {currentInsurance.map((item) => (
+                <InsuranceBox key={item.infoId} loanData={item} />
+              ))}
+            </BottomContainer>
+          )}
+        </BottomArea>
+        <Paging page={currentPage} count={count} setPage={setPage} />
+      </PageArea>
     </>
   );
 };
+
+const PageArea = styled.div`
+  width: 100%;
+  display: ${({ visible }) => (visible ? "block" : "none")};
+`;
 
 const TopContainer = styled.div`
   width: 100%;
