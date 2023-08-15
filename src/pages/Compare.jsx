@@ -9,8 +9,10 @@ const Compare = () => {
     JSON.parse(localStorage.getItem("insurances")) || []
   );
 
-  const onDelete = (id) => {
-    const filteredItem = compareInsurance.filter((item) => id !== item.id);
+  const onDelete = (infoId) => {
+    const filteredItem = compareInsurance.filter(
+      (item) => infoId !== item.infoId
+    );
     localStorage.setItem("insurances", JSON.stringify(filteredItem));
     setCompareInsurance(filteredItem);
   };
@@ -18,21 +20,21 @@ const Compare = () => {
   const rendering = (insurances) => {
     if (insurances.length === 0) {
       return (
-        <GridItem>
+        <GridItem key={Math.random()}>
           <UpsideEmptyBox />
         </GridItem>
       );
     }
 
     const result = insurances.map((item) => (
-      <GridItem key={item.id}>
+      <GridItem key={item.infoId}>
         <UpsideCompareBox testData={item} onDelete={onDelete} />
       </GridItem>
     ));
 
     if (result.length < MAX_COMPARE_AMOUNT) {
       result.push(
-        <GridItem>
+        <GridItem key={Math.random()}>
           <UpsideEmptyBox />
         </GridItem>
       );
@@ -53,7 +55,7 @@ const Compare = () => {
 
 const INSURANCES = [
   {
-    id: 0,
+    infoId: "0",
     loanName: "손해보험",
     company: "롯데해상",
     startAge: 19,
@@ -62,7 +64,7 @@ const INSURANCES = [
     type: "온라인 가입",
   },
   {
-    id: 1,
+    infoId: "1",
     loanName: "손해보험",
     company: "삼성해상",
     startAge: 19,
@@ -71,7 +73,7 @@ const INSURANCES = [
     type: "온라인 가입",
   },
   {
-    id: 2,
+    infoId: "2",
     loanName: "동부보험",
     company: "동부해상",
     startAge: 19,

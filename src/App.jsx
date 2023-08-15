@@ -23,10 +23,12 @@ const App = () => {
           {showHeader ? <Header isVisible={isVisible} /> : null}
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/search" element={<Search />} />
+            <Route
+              path="/nestjs/api/insurance-suggesters"
+              element={<Search />}
+            />
             <Route path="/detail" element={<Detail />} />
             <Route path="/compare" element={<Compare />} />
-            <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>
       </ThemeProvider>

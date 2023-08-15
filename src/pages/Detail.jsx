@@ -7,6 +7,8 @@ import Price from "../assets/images/Price.svg";
 import Calender from "../assets/images/Calender.svg";
 import Guarantee from "../assets/images/Guarantee.svg";
 import InformationBox from "../components/InformationBox";
+import { useState } from "react";
+import Modal from "../components/Modal";
 
 const INSURANCE_DATA = [
   {
@@ -53,41 +55,67 @@ const MAIN_INFORMATION = [
 ];
 
 const Detail = () => {
+  const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+  const handleBtnModal = (prev) => {
+    setIsBtnModalOpen(!prev);
+  };
+
+  const handleCompareModal = (prev) => {
+    setIsCompareModalOpen(!prev);
+  };
+
   return (
-    <Background>
-      <AboveContainer>
-        <LeftArea>
-          <Image src={lotte} alt="보험사 이미지" />
-          <ImageText>
-            <CompareImage src={Box} alt="비교함 담기 이미지" />
-            비교함 담기
-          </ImageText>
-        </LeftArea>
-        <RightArea>
-          <InsuranceNameContainer>
-            <InsuranceExplain>
-              짱구 같은 김효리 최대 5대 때리기
-            </InsuranceExplain>
-            <InsuranceName>김효리보장보험</InsuranceName>
-            <CompanyName>롯데손해보험</CompanyName>
-          </InsuranceNameContainer>
-          <InsuranceDetailContainer>
-            {INSURANCE_DATA.map((item, index) => (
-              <DetailBox id={index} InsuranceData={item} key={item.title} />
+    <>
+      {isBtnModalOpen && (
+        <Modal
+          iconName="Call"
+          callNum="010-1234-5678"
+          handleModalClose={handleBtnModal}
+        />
+      )}
+      {isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />}
+
+      <Background>
+        <AboveContainer>
+          <LeftArea>
+            <Image src={lotte} alt="보험사 이미지" />
+            <ImageText
+              onClick={() => setIsCompareModalOpen(!isCompareModalOpen)}
+            >
+              <CompareImage src={Box} alt="비교함 담기 이미지" />
+              비교함 담기
+            </ImageText>
+          </LeftArea>
+          <RightArea>
+            <InsuranceNameContainer>
+              <InsuranceExplain>
+                짱구 같은 김효리 최대 5대 때리기
+              </InsuranceExplain>
+              <InsuranceName>김효리보장보험</InsuranceName>
+              <CompanyName>롯데손해보험</CompanyName>
+            </InsuranceNameContainer>
+            <InsuranceDetailContainer>
+              {INSURANCE_DATA.map((item, index) => (
+                <DetailBox id={index} InsuranceData={item} key={item.title} />
+              ))}
+            </InsuranceDetailContainer>
+            <LargeButton onClick={() => setIsBtnModalOpen(!isBtnModalOpen)}>
+              상담사 연결
+            </LargeButton>
+          </RightArea>
+        </AboveContainer>
+        <BelowContainer>
+          <MainText>주요정보</MainText>
+          <InformationContainer>
+            {MAIN_INFORMATION.map((item, index) => (
+              <InformationBox id={index} MainData={item} key={item.title} />
             ))}
-          </InsuranceDetailContainer>
-          <LargeButton>사이트 이동</LargeButton>
-        </RightArea>
-      </AboveContainer>
-      <BelowContainer>
-        <MainText>주요정보</MainText>
-        <InformationContainer>
-          {MAIN_INFORMATION.map((item, index) => (
-            <InformationBox id={index} MainData={item} key={item.title} />
-          ))}
-        </InformationContainer>
-      </BelowContainer>
-    </Background>
+          </InformationContainer>
+        </BelowContainer>
+      </Background>
+    </>
   );
 };
 
