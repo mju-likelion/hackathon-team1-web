@@ -10,10 +10,22 @@ import { AxiosDetail } from "../api/AxiosDetail";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import LargeButton from "../components/LargeButton";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Modal from "../components/Modal";
 
 const Detail = () => {
   const { infoId } = useParams();
+
+  const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+  const handleBtnModal = (prev) => {
+    setIsBtnModalOpen(!prev);
+  };
+
+  const handleCompareModal = (prev) => {
+    setIsCompareModalOpen(!prev);
+  };
 
   const [insurance, setInsurance] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +101,21 @@ const Detail = () => {
 
   const imgUrl = insurance?.insuranceLogo?.imageUrl;
 
-  return !isLoading ? (
+  return;
+  {
+    isBtnModalOpen && (
+      <Modal
+        iconName="Call"
+        callNum="010-1234-5678"
+        handleModalClose={handleBtnModal}
+      />
+    );
+  }
+  {
+    isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />;
+  }
+
+  !isLoading ? (
     <Background>
       <AboveContainer>
         <LeftArea>
