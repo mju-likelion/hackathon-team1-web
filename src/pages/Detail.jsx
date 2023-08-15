@@ -61,7 +61,6 @@ const Detail = () => {
       setIsCompareModalOpen(true);
     }
     setCount((prev) => prev + 1);
-    console.log(count);
   };
 
   useEffect(() => {
