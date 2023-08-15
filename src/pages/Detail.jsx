@@ -16,6 +16,8 @@ import Modal from "../components/Modal";
 const Detail = () => {
   const { infoId } = useParams();
 
+  const [compareBox, setCompareBox] = useState([]);
+
   const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
@@ -31,7 +33,8 @@ const Detail = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const addCompare = () => {
-    localStorage.setItem("insurances", JSON.stringify(insurance));
+    setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
+    localStorage.setItem("insurances", JSON.stringify(compareBox));
     handleCompareModal();
   };
 
@@ -54,11 +57,12 @@ const Detail = () => {
   const modalText = () => {
     if (insurance.registrationType === "온라인가입") {
       goSite();
-    } else if (insurance.registrationType === "설계사 상담") {
-      if (insurance.registrationLink.startsWith() === "http") {
+    } else if (insurance.registrationType.startsWith("설계")) {
+      if (insurance.registrationLink === null) {
+        // return <Modal handleModalClose={handleBtnModal} />;
+        alert("정보가 없습니다");
+      } else if (insurance.registrationLink.startsWith("http")) {
         goSite();
-      } else {
-        handleBtnModal();
       }
     }
   };
@@ -148,7 +152,7 @@ const Detail = () => {
               ))}
             </InsuranceDetailContainer>
             {insurance.registrationType === null ? (
-              <LargeButton text="바로가기 정보가 없습니다." />
+              <LargeButton text="바로가기 정보가 없습니다" />
             ) : (
               <LargeButton
                 handleClick={modalText}

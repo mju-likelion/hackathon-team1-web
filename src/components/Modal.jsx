@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 
 const Modal = ({ iconName, callNum, handleModalClose }) => {
   // iconName 은 Call, LockerIn, LockerFull 로 넘겨줌
+
   const iconImg = () => {
     if (iconName === "Call") {
       return Call;
@@ -17,6 +18,7 @@ const Modal = ({ iconName, callNum, handleModalClose }) => {
     else if (iconName === "LockerIn") return "비교함에\n담았습니다!";
     else return "비교함이\n꽉 찼습니다!";
   };
+
   return ReactDOM.createPortal(
     <div className="modal">
       <Background>
