@@ -6,7 +6,6 @@ const NotFound = () => {
 
   const handleClick = () => {
     navigate("/");
-    window.location.reload();
   };
 
   return (

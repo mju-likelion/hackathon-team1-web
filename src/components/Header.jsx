@@ -3,18 +3,22 @@ import logo from "../assets/images/Logo.svg";
 import locker from "../assets/images/Locker.svg";
 import Select from "./Select";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { LogoAtom } from "../assets/atom/LogoAtom";
 
-const Header = ({ isVisible }) => {
+const Header = () => {
   const navigate = useNavigate();
+
+  const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
 
   const handleGoMain = () => {
     navigate("/");
-    window.location.reload();
+    setShowLogo(false);
   };
 
   const handleGoLocker = () => {
     navigate("/compare");
-    window.location.reload();
+    setShowLogo(true);
   };
 
   return (
@@ -22,7 +26,7 @@ const Header = ({ isVisible }) => {
       <Logo
         src={logo}
         alt="로고 이미지"
-        $isVisible={isVisible}
+        $isVisible={showLogo}
         onClick={handleGoMain}
       />
       <Locker src={locker} alt="보관함 이미지" onClick={handleGoLocker} />
