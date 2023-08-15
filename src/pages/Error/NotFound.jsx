@@ -1,8 +1,17 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { LogoAtom } from "../../assets/atom/LogoAtom";
 
 const NotFound = ({ number }) => {
   const navigate = useNavigate();
+
+  const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
+
+  const handleClick = () => {
+    navigate("/");
+    setShowLogo(false);
+  };
 
   return (
     <Layout>
@@ -11,7 +20,7 @@ const NotFound = ({ number }) => {
       </WhiteBackGround>
       <MintBackGround>
         <ErrorText>죄송합니다. 페이지를 찾을 수 없습니다.</ErrorText>
-        <Button onClick={() => navigate("/")}>홈으로 돌아가기</Button>
+        <Button onClick={handleClick}>홈으로 돌아가기</Button>
       </MintBackGround>
     </Layout>
   );
