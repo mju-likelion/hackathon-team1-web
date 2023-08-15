@@ -1,10 +1,15 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const DetailBox = ({ insuranceData }) => {
-  const { firstContent, secondContent, title } = insuranceData;
+  const { firstContent, secondContent, title, englishTitle, chineseTitle } =
+    insuranceData;
 
   const navigate = useNavigate();
+
+  const pageLanguage = useRecoilValue(LanguageAtom);
 
   if (!insuranceData) {
     navigate("/");
@@ -14,14 +19,28 @@ const DetailBox = ({ insuranceData }) => {
     <>
       <InsuranceDetailBox>
         <DetailTextBox>
-          <DetailTitle>{title}</DetailTitle>
+          <DetailTitle>
+            {pageLanguage === "KOR"
+              ? title
+              : pageLanguage === "ENG"
+              ? englishTitle
+              : chineseTitle}
+          </DetailTitle>
           {title === "가입연령" ? (
             <DetailContent>
-              {firstContent}~{secondContent}세
+              {pageLanguage === "KOR"
+                ? `${firstContent}~${secondContent}세`
+                : pageLanguage === "ENG"
+                ? `${firstContent}~${secondContent}years`
+                : `${firstContent}~${secondContent}岁`}
             </DetailContent>
           ) : (
             <DetailContent>
-              남 {firstContent}원{"\n"}여 {secondContent}원
+              {pageLanguage === "KOR"
+                ? `남 ${firstContent}원${"\n"}여 ${secondContent}원`
+                : pageLanguage === "ENG"
+                ? `Male ${firstContent}won${"\n"}Female ${secondContent}won`
+                : `男 ${firstContent}元${"\n"}女 ${secondContent}元`}
             </DetailContent>
           )}
         </DetailTextBox>
@@ -55,7 +74,7 @@ const DetailTitle = styled.div`
 `;
 
 const DetailContent = styled.div`
-  width: 141px;
+  width: 220px;
   height: 33px;
   font-size: 25px;
   line-height: 33px;
