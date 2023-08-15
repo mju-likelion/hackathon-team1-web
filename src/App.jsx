@@ -46,7 +46,7 @@ const App = () => {
               path="/nestjs/api/insurance-suggesters"
               element={<Search />}
             />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/detail/:infoId" element={<Detail />} />
             <Route path="*" element={<NotFound number={404} />} />
             <Route path="/compare" element={<Compare />} />
           </Routes>

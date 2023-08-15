@@ -53,37 +53,37 @@ const Compare = () => {
   );
 };
 
-const INSURANCES = [
-  {
-    infoId: "0",
-    loanName: "손해보험",
-    company: "롯데해상",
-    startAge: 19,
-    endAge: 99,
-    cost: 5990,
-    type: "온라인 가입",
-  },
-  {
-    infoId: "1",
-    loanName: "손해보험",
-    company: "삼성해상",
-    startAge: 19,
-    endAge: 59,
-    cost: 2990,
-    type: "온라인 가입",
-  },
-  {
-    infoId: "2",
-    loanName: "동부보험",
-    company: "동부해상",
-    startAge: 19,
-    endAge: 79,
-    cost: 3990,
-    type: "설계사 상담",
-  },
-];
+// const INSURANCES = [
+//   {
+//     infoId: "0",
+//     loanName: "손해보험",
+//     company: "롯데해상",
+//     startAge: 19,
+//     endAge: 99,
+//     cost: 5990,
+//     type: "온라인 가입",
+//   },
+//   {
+//     infoId: "1",
+//     loanName: "손해보험",
+//     company: "삼성해상",
+//     startAge: 19,
+//     endAge: 59,
+//     cost: 2990,
+//     type: "온라인 가입",
+//   },
+//   {
+//     infoId: "2",
+//     loanName: "동부보험",
+//     company: "동부해상",
+//     startAge: 19,
+//     endAge: 79,
+//     cost: 3990,
+//     type: "설계사 상담",
+//   },
+// ];
 
-localStorage.setItem("insurances", JSON.stringify(INSURANCES));
+// localStorage.setItem("insurances", JSON.stringify(INSURANCES));
 const MAX_COMPARE_AMOUNT = 3;
 
 const CompareContainer = styled.div`

@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import lotte from "../assets/images/Lotte.svg";
 import DetailBox from "../components/DetailBox";
 import Box from "../assets/images/Box.svg";
 import Protect from "../assets/images/Protect.svg";
@@ -7,115 +6,191 @@ import Price from "../assets/images/Price.svg";
 import Calender from "../assets/images/Calender.svg";
 import Guarantee from "../assets/images/Guarantee.svg";
 import InformationBox from "../components/InformationBox";
-import { useState } from "react";
+import { AxiosDetail } from "../api/AxiosDetail";
+import { useEffect, useState } from "react";
+import Loading from "../components/Loading";
+import LargeButton from "../components/LargeButton";
+import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 
-const INSURANCE_DATA = [
-  {
-    title: "가입연령",
-    content: "19~49세",
-  },
-  {
-    title: "보험료",
-    content: "남 5,467 원 여 5,380 원",
-  },
-];
-
-const MAIN_INFORMATION = [
-  {
-    img: Protect,
-    title: "예금자보호",
-    content: "1인당 최고 5천만원",
-    explain:
-      "이 상품은 예금자보호법에 따라 예금보험공사가 1인당 “최고 5천만원” 한도로 보호합니다. (단, 법인 계약 제외)",
-  },
-
-  {
-    img: Guarantee,
-    title: "보장성보험",
-    content: "상해, 질병 등",
-    explain: "이 상품은 만기시 환급금이 총 납입한 보혐료를 초과하지 않습니다.",
-  },
-
-  {
-    img: Calender,
-    title: "청약철회기간",
-    content: "청약 후 30일 이내",
-    explain:
-      "이 상품은 청약을 한 날부터 30일 이내(보험증권을 받은 날부터 15일 이내)에 청약철회가 가능합니다.",
-  },
-
-  {
-    img: Price,
-    title: "보험가격지수",
-    content: "N% (낮을수록 저렴)",
-    explain:
-      "이 상품은 예금자보호법에 따라 예금보험공사가 1인당 “최고 5천만원” 한도로 보호합니다. (단, 법인 계약 제외)",
-  },
-];
-
 const Detail = () => {
+  const { infoId } = useParams();
+
+  const [count, setCount] = useState(0);
+
+  const [compareBox, setCompareBox] = useState(
+    JSON.parse(localStorage.getItem("insurances")) || []
+  );
+
   const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
-  const handleBtnModal = (prev) => {
-    setIsBtnModalOpen(!prev);
+  const handleBtnModal = () => {
+    setIsBtnModalOpen((prev) => !prev);
   };
 
-  const handleCompareModal = (prev) => {
-    setIsCompareModalOpen(!prev);
+  const handleCompareModal = () => {
+    setIsCompareModalOpen((prev) => !prev);
   };
 
-  return (
+  const [insurance, setInsurance] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      await AxiosDetail(infoId, (res) => setInsurance(res));
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const addCompare = () => {
+    if (compareBox.length < 3) {
+      setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
+      handleCompareModal();
+    } else {
+      setIsCompareModalOpen(true);
+    }
+    setCount((prev) => prev + 1);
+    console.log(count);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("insurances", JSON.stringify(compareBox));
+  }, [compareBox]);
+
+  const goSite = () => {
+    window.location.href = insurance.registrationLink;
+  };
+
+  const modalText = () => {
+    if (insurance.registrationType === "온라인가입") {
+      goSite();
+    } else if (insurance.registrationType.startsWith("설계")) {
+      if (insurance.registrationLink === null) {
+        alert("정보가 없습니다");
+      } else if (insurance.registrationLink.startsWith("http")) {
+        goSite();
+      }
+    }
+  };
+
+  const insuranceArr = [
+    {
+      title: "가입연령",
+      firstContent: insurance.insuranceAgeGroupStart,
+      secondContent: insurance.insuranceAgeGroupEnd,
+    },
+    {
+      title: "보험료",
+      firstContent: insurance.premiumMale,
+      secondContent: insurance.premiumFemale,
+    },
+  ];
+
+  const mainArr = [
+    {
+      img: Protect,
+      title: "예금자보호",
+      content: `1인당 최고 ${insurance.depositorProtection}만원`,
+      explain: `이 상품은 예금자보호법에 따라 예금보험공사가 1인당 “최고 ${insurance.depositorProtection}만원” 한도로 보호합니다. (단, 법인 계약 제외)`,
+    },
+
+    {
+      img: Guarantee,
+      title: "보장성보험",
+      content: "상해, 질병 등",
+      explain:
+        "이 상품은 만기시 환급금이 총 납입한 보험료를 초과하지 않습니다.",
+    },
+
+    {
+      img: Calender,
+      title: "청약철회기간",
+      content: `청약 후 ${insurance.cancellationPeriod}일 이내`,
+      explain: `이 상품은 청약을 한 날부터 ${
+        insurance.cancellationPeriod
+      }일 이내(보험증권을 받은 날부터 ${
+        insurance.cancellationPeriod / 2
+      }일 이내)에 청약철회가 가능합니다.`,
+    },
+
+    {
+      img: Price,
+      title: "보험가격지수",
+      content: `${insurance.priceIndex}% (낮을수록 저렴)`,
+      explain:
+        "[보험가격지수] 보험가격지수 / 성별 / 표준형 계약 기준 산출식 = 영업보험료 ÷ (참조순보험료 + 상품군별 평균사업비) X 100 보험업계 평균가격대비 상품의 보험가격 수준(대표계약 기준)을 비교하는 지수로 보장내역이 동일한 경우 100% 초과이면 업계 평균보다 가격 수준이 높고, 100% 미만이면 업계 평균보다 가격수준이 낮습니다. * 다만, 보험가격지수는 업계평균 영업보험료 대비 동상품의 영업보험료 수준을 나타내는 지표로써, 회사별로 사업비가 상이하므로 보험가격지수가 낮다고 하여 반드시 보험료가 저렴한 것은 아닙니다.",
+    },
+  ];
+
+  const imgUrl = insurance?.insuranceLogo?.imageUrl;
+
+  return !isLoading ? (
     <>
       {isBtnModalOpen && (
         <Modal
           iconName="Call"
-          callNum="010-1234-5678"
+          callNum={insurance.registrationLink}
           handleModalClose={handleBtnModal}
         />
       )}
-      {isCompareModalOpen && <Modal handleModalClose={handleCompareModal} />}
-
+      {isCompareModalOpen && (
+        <Modal
+          iconName={count > 3 ? "LockerFull" : "LockerIn"}
+          handleModalClose={handleCompareModal}
+        />
+      )}
       <Background>
         <AboveContainer>
           <LeftArea>
-            <Image src={lotte} alt="보험사 이미지" />
-            <ImageText
-              onClick={() => setIsCompareModalOpen(!isCompareModalOpen)}
-            >
+            {imgUrl ? (
+              <Image src={imgUrl} alt="보험사 이미지" />
+            ) : (
+              <div>loading</div>
+            )}
+            <ImageText onClick={addCompare}>
               <CompareImage src={Box} alt="비교함 담기 이미지" />
               비교함 담기
             </ImageText>
           </LeftArea>
           <RightArea>
             <InsuranceNameContainer>
-              <InsuranceExplain>
-                짱구 같은 김효리 최대 5대 때리기
-              </InsuranceExplain>
-              <InsuranceName>김효리보장보험</InsuranceName>
-              <CompanyName>롯데손해보험</CompanyName>
+              <InsuranceName>{insurance.productName}</InsuranceName>
+              <CompanyName>{insurance.companyName}</CompanyName>
             </InsuranceNameContainer>
             <InsuranceDetailContainer>
-              {INSURANCE_DATA.map((item, index) => (
-                <DetailBox id={index} InsuranceData={item} key={item.title} />
+              {insuranceArr.map((item, index) => (
+                <DetailBox insuranceData={item} key={index} />
               ))}
             </InsuranceDetailContainer>
-            <LargeButton onClick={() => setIsBtnModalOpen(!isBtnModalOpen)}>
-              상담사 연결
-            </LargeButton>
+            {insurance.registrationType === null ? (
+              <LargeButton text="바로가기 정보가 없습니다" />
+            ) : (
+              <LargeButton
+                handleClick={modalText}
+                text={insurance.registrationType}
+              />
+            )}
           </RightArea>
         </AboveContainer>
         <BelowContainer>
           <MainText>주요정보</MainText>
           <InformationContainer>
-            {MAIN_INFORMATION.map((item, index) => (
-              <InformationBox id={index} MainData={item} key={item.title} />
+            {mainArr.map((item, index) => (
+              <InformationBox MainData={item} key={index} />
             ))}
           </InformationContainer>
         </BelowContainer>
       </Background>
     </>
+  ) : (
+    <Loading />
   );
 };
 
@@ -136,7 +211,7 @@ const AboveContainer = styled.div`
   align-items: center;
   width: 1160px;
   height: 659px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.WHITE};
   border-radius: 25px;
   margin-top: 30px;
 `;
@@ -187,15 +262,8 @@ const InsuranceNameContainer = styled.div`
   margin-bottom: 53px;
 `;
 
-const InsuranceExplain = styled.div`
-  font-size: 25px;
-  width: 100%;
-  height: 30px;
-`;
-
 const InsuranceName = styled.div`
-  width: 100%;
-  height: 42px;
+  width: 500px;
   font-size: 35px;
   font-weight: bold;
   margin: 12px 0;
@@ -211,17 +279,6 @@ const CompanyName = styled.div`
 const InsuranceDetailContainer = styled.div`
   width: 100%;
   height: 226px;
-  margin-bottom: 53px;
-`;
-
-const LargeButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.BLUE};
-  color: ${({ theme }) => theme.colors.WHITE};
-  width: 300px;
-  height: 50px;
-  border-radius: 25px;
-  font-size: 23px;
-  font-weight: bold;
 `;
 
 const BelowContainer = styled(AboveContainer)`

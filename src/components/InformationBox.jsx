@@ -5,7 +5,6 @@ import { useState } from "react";
 
 const InformationBox = ({ MainData }) => {
   const { img, title, content, explain } = MainData;
-
   const [showDetail, setShowDetail] = useState(false);
 
   return (
