@@ -35,8 +35,7 @@ const Detail = () => {
   }, []);
 
   const goSite = () => {
-    // insurance.registrationLink로 이동
-    <Link to={insurance.registrationLink}></Link>;
+    window.location.href = insurance.registrationLink;
   };
 
   const insuranceArr = [
