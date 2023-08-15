@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { LogoAtom } from "../../assets/atom/LogoAtom";
 
 const NotFound = ({ number }) => {
   const navigate = useNavigate();
 
+  const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
+
   const handleClick = () => {
     navigate("/");
+    setShowLogo(false);
   };
 
   return (

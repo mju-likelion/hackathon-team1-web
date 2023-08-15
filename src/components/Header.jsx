@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { LogoAtom } from "../assets/atom/LogoAtom";
 
-const Header = () => {
+const Header = ({ isVisible }) => {
   const navigate = useNavigate();
 
   const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
@@ -23,12 +23,16 @@ const Header = () => {
 
   return (
     <Container>
-      <Logo
-        src={logo}
-        alt="로고 이미지"
-        $isVisible={showLogo}
-        onClick={handleGoMain}
-      />
+      {showLogo ? (
+        <Logo
+          src={logo}
+          alt="로고 이미지"
+          $isVisible={isVisible}
+          onClick={handleGoMain}
+        />
+      ) : (
+        <EmptyBox></EmptyBox>
+      )}
       <Locker src={locker} alt="보관함 이미지" onClick={handleGoLocker} />
       <Select />
     </Container>
@@ -65,4 +69,10 @@ const Locker = styled.img`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const EmptyBox = styled.div`
+  margin-right: auto;
+  width: 300px;
+  height: 58px;
 `;
