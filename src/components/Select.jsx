@@ -67,13 +67,14 @@ const Container = styled.div`
 const CountryImg = styled.img`
   width: 35px;
   height: 35px;
+  margin-right: 10px;
 `;
 
 const SelectBox = styled.select`
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  color: #168ce3;
+  color: ${({ theme }) => theme.colors.BLUE};
   border: none;
   font-size: 25px;
   &:hover {
