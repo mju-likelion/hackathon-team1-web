@@ -1,13 +1,23 @@
 import styled from "styled-components";
 import Spinner from "../assets/images/Spinner.gif";
+import { useRecoilState } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Loading = () => {
+  const pageLanguage = useRecoilState(LanguageAtom);
+  console.log(pageLanguage[0]);
   return (
     <Background>
       <SpinnerImgBox>
         <SpinnerImg src={Spinner} alt="Spinner" />
       </SpinnerImgBox>
-      <LoadingText>열심히 보험을 찾고 있어요!</LoadingText>
+      <LoadingText>
+        {pageLanguage[0] === "KOR"
+          ? "열심히 보험을 찾고 있어요!"
+          : pageLanguage[0] === "ENG"
+          ? "Looking for insurance!"
+          : "我在找保险！"}
+      </LoadingText>
     </Background>
   );
 };
