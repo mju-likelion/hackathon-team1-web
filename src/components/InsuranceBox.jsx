@@ -97,11 +97,13 @@ const InsuranceBox = ({ loanData }) => {
                   : insuranceAgeGroup
               }
               unit={
-                pageLanguage === "KOR"
-                  ? "대"
-                  : pageLanguage === "ENG"
-                  ? "'s"
-                  : "多岁"
+                insuranceAgeGroup !== 0
+                  ? pageLanguage === "KOR"
+                    ? "대"
+                    : pageLanguage === "ENG"
+                    ? "'s"
+                    : "多岁"
+                  : ""
               }
             />
             <BreakLine />
