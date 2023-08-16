@@ -86,7 +86,7 @@ const Search = () => {
             <QuestionArea>
               {text !== ""
                 ? pageLanguage[0] === "KOR"
-                  ? `${text} 질문에 대한`
+                  ? `'${text}' 질문에 대한`
                   : pageLanguage[0] === "ENG"
                   ? `For question ${text}`
                   : `${text} 为了`
@@ -99,7 +99,7 @@ const Search = () => {
             <CountArea>
               <LeftCount>
                 {pageLanguage[0] === "KOR"
-                  ? `${insurance.length} 개 보험`
+                  ? `${insurance.length}개 보험`
                   : pageLanguage[0] === "ENG"
                   ? `${insurance.length} insurances`
                   : `${insurance.length} 保险`}
@@ -135,11 +135,17 @@ const Search = () => {
             </BottomContainer>
           )}
         </BottomArea>
-        <Paging page={currentPage} count={count} setPage={setPage} />
+        <PaginationArea>
+          <Paging page={currentPage} count={count} setPage={setPage} />
+        </PaginationArea>
       </PageArea>
     </>
   );
 };
+
+const PaginationArea = styled.div`
+  margin-bottom: 20px;
+`;
 
 const PageArea = styled.div`
   width: 100%;
@@ -177,13 +183,13 @@ const LeftContainer = styled.div`
 const QuestionArea = styled.div`
   width: 700px;
   height: 25px;
-  font-size: 20px;
+  font-size: 23px;
   font-weight: 600;
 `;
 
 const CountArea = styled.div`
   width: 400px;
-  height: 65px;
+  height: 50px;
   display: flex;
   align-items: center;
 `;
@@ -195,6 +201,7 @@ const LeftCount = styled.p`
 
 const RightCount = styled.p`
   font-size: 25px;
+  margin-left: 8px;
 `;
 
 export default Search;

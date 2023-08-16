@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { DetectLanguage } from "../api/DetectLanguage";
 import { useRecoilState } from "recoil";
 import { HeaderAtom } from "../assets/atom/HeaderAtom";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,8 +15,8 @@ const Main = () => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [searchBarClick, setSearchBarClick] = useState(false);
   const searchInputRef = useRef(null);
-
   const navigate = useNavigate();
+  const pageLanguage = useRecoilState(LanguageAtom);
 
   const [path, setPath] = useRecoilState(HeaderAtom);
 
@@ -88,7 +89,13 @@ const Main = () => {
     } else if (detectedLanguage === "zh-CN") {
       return "你正在输入中文！";
     } else {
-      return "한국어, 中国人, English 중에서 입력 해주세요!";
+      if (pageLanguage[0] === "ENG") {
+        return "Please enter Korean, Chinese, and English";
+      } else if (pageLanguage[0] === "CHN") {
+        return "请输入韩语，中文，英语。";
+      } else {
+        return "한국어, 중국어, 영어 중에서 입력 해주세요!";
+      }
     }
   };
 
@@ -216,7 +223,6 @@ const SearchButtonImg = styled.img`
 `;
 
 const ResentResearchLine = styled.div`
-  font-size: 30px;
   border-top: 3px solid ${(props) => props.theme.colors.BLUE};
   margin-top: 12px;
 `;
@@ -233,7 +239,7 @@ const ResentResearchTextLine = styled.div`
 const ResentResearchTextBtn = styled.button`
   width: auto;
   height: 100%;
-  font-size: 30px;
+  font-size: 25px;
   text-align: left;
 `;
 
