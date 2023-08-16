@@ -11,6 +11,7 @@ const InsuranceBox = ({ loanData }) => {
     insuranceLogo,
     insuranceAgeGroupStart,
     insuranceAgeGroupEnd,
+    insuranceAgeGroup,
     premiumMale,
     premiumFemale,
     languages,
@@ -81,6 +82,24 @@ const InsuranceBox = ({ loanData }) => {
             <InsuranceDetail
               title={
                 pageLanguage === "KOR"
+                  ? "가입연령대"
+                  : pageLanguage === "ENG"
+                  ? "Join Age Group"
+                  : "订阅年龄组"
+              }
+              content={insuranceAgeGroup}
+              unit={
+                pageLanguage === "KOR"
+                  ? "대"
+                  : pageLanguage === "ENG"
+                  ? "'s"
+                  : "多岁"
+              }
+            />
+            <BreakLine />
+            <InsuranceDetail
+              title={
+                pageLanguage === "KOR"
                   ? "보험료"
                   : pageLanguage === "ENG"
                   ? "Premium"
@@ -88,10 +107,16 @@ const InsuranceBox = ({ loanData }) => {
               }
               content={
                 pageLanguage === "KOR"
-                  ? `남 ${premiumMale} / 여 ${premiumFemale}`
+                  ? `남 ${premiumMale.toLocaleString(
+                      "en-US"
+                    )} 여 ${premiumFemale.toLocaleString("en-US")}`
                   : pageLanguage === "ENG"
-                  ? `M ${premiumMale} / F ${premiumFemale}`
-                  : `男 ${premiumMale} / 女 ${premiumFemale}`
+                  ? `M ${premiumMale.toLocaleString(
+                      "en-US"
+                    )} F ${premiumFemale.toLocaleString("en-US")}`
+                  : `男 ${premiumMale.toLocaleString(
+                      "en-US"
+                    )} 女 ${premiumFemale.toLocaleString("en-US")}`
               }
               unit={
                 pageLanguage === "KOR"
@@ -178,7 +203,7 @@ const SubName = styled.p`
 `;
 
 const BottomArea = styled.div`
-  width: 650px;
+  width: 780px;
   height: 61px;
   margin-top: 14px;
   display: flex;
@@ -189,7 +214,7 @@ const BreakLine = styled.div`
   width: 2px;
   height: 57px;
   background-color: ${({ theme }) => theme.colors.LIGHTGRAY};
-  margin-left: 150px;
+  margin-left: 80px;
 `;
 
 export default InsuranceBox;
