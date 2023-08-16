@@ -18,6 +18,8 @@ import { useLocation } from "react-router-dom";
 import { HeaderAtom } from "../assets/atom/HeaderAtom";
 import { CountAtom } from "../assets/atom/CountAtom";
 
+// 한번이 씹힘 ㅠㅠ
+
 const Detail = () => {
   const { infoId } = useParams();
 
@@ -67,23 +69,25 @@ const Detail = () => {
   const insurancesJSON = localStorage.getItem("insurances");
   const insurancesArray = JSON.parse(insurancesJSON);
 
-  // 각 객체에서 infoId 값을 추출하여 새로운 배열 생성
   const infoIdArray = insurancesArray?.map((item) => item.infoId);
 
-  const isInfoIdDuplicated = infoIdArray.includes(infoId);
+  console.log(infoIdArray);
+
+  const isInfoIdDuplicated = infoIdArray?.includes(infoId);
+  console.log(isInfoIdDuplicated);
+
   const addCompare = () => {
-    if (isInfoIdDuplicated) {
+    if (compareBox.length < 3 && isInfoIdDuplicated) {
       handleCompareModal();
+      setCountCompareNumber((prev) => prev + 1);
     } else if (compareBox.length < 3 && !isInfoIdDuplicated) {
       setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
       setCountCompareNumber((prev) => prev + 1);
       handleCompareModal();
-    } else {
+    } else if (compareBox.length >= 3) {
       setIsCompareModalOpen(true);
       setCountCompareNumber((prev) => prev + 1);
     }
-
-    console.log(countCompareNumber);
   };
 
   useEffect(() => {
@@ -118,8 +122,8 @@ const Detail = () => {
       title: "보험료",
       englishTitle: "Insurance Premium",
       chineseTitle: "保险费",
-      firstContent: insurance.premiumMale,
-      secondContent: insurance.premiumFemale,
+      firstContent: insurance.premiumMale?.toLocaleString("en-US"),
+      secondContent: insurance.premiumFemale?.toLocaleString("en-US"),
     },
     {
       title: "기준연령",
@@ -212,19 +216,23 @@ const Detail = () => {
           handleModalClose={handleBtnModal}
         />
       )}
+
       {isCompareModalOpen && (
-        <Modal
-          iconName={countCompareNumber > 3 ? "LockerFull" : "LockerIn"} // 맞음
-          handleModalClose={handleCompareModal}
-        />
+        <>
+          {!isInfoIdDuplicated && countCompareNumber <= 3 && (
+            <Modal iconName="LockerIn" handleModalClose={handleCompareModal} />
+          )}
+          {isInfoIdDuplicated && countCompareNumber > 3 && (
+            <Modal handleModalClose={handleCompareModal} />
+          )}
+          {!isInfoIdDuplicated && countCompareNumber > 3 && (
+            <Modal
+              iconName="LockerFull"
+              handleModalClose={handleCompareModal}
+            />
+          )}
+        </>
       )}
-      {isCompareModalOpen &&
-        isInfoIdDuplicated(
-          <Modal
-            iconName={countCompareNumber > 3 ? "LockerFull" : "LockerIn"} // 바꾸기
-            handleModalClose={handleCompareModal}
-          />
-        )}
 
       <Background>
         <AboveContainer>
