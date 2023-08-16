@@ -7,7 +7,7 @@ import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 /*보험이 있을 경우 컴포넌트*/
 const UpsideCompareBox = ({ testData, onDelete }) => {
-  const { infoId, productName, companyName, insuranceLogo } = testData;
+  const { infoId, languages, insuranceLogo } = testData;
   const navigate = useNavigate();
   const pageLanguage = useRecoilValue(LanguageAtom);
   const goDetail = (id) => {
@@ -25,8 +25,20 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
         <LoanBox>
           <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
           <LoanContentBox>
-            <MainTitle>{productName}</MainTitle>
-            <SubTitle>{companyName}</SubTitle>
+            <MainTitle>
+              {pageLanguage === "KOR"
+                ? languages["insurance name"]["KR"]
+                : pageLanguage === "ENG"
+                ? languages["insurance name"]["EN"]
+                : languages["insurance name"]["CN"]}
+            </MainTitle>
+            <SubTitle>
+              {pageLanguage === "KOR"
+                ? languages["insurance company"]["KR"]
+                : pageLanguage === "ENG"
+                ? languages["insurance company"]["EN"]
+                : languages["insurance company"]["CN"]}
+            </SubTitle>
             <LargeButton
               text={
                 pageLanguage === "KOR"
