@@ -109,14 +109,14 @@ const InsuranceBox = ({ loanData }) => {
                 pageLanguage === "KOR"
                   ? `남 ${premiumMale.toLocaleString(
                       "en-US"
-                    )} 여 ${premiumFemale.toLocaleString("en-US")}`
+                    )}${"\n"}여 ${premiumFemale.toLocaleString("en-US")}`
                   : pageLanguage === "ENG"
                   ? `M ${premiumMale.toLocaleString(
                       "en-US"
-                    )} F ${premiumFemale.toLocaleString("en-US")}`
+                    )}${"\n"}F ${premiumFemale.toLocaleString("en-US")}`
                   : `男 ${premiumMale.toLocaleString(
                       "en-US"
-                    )} 女 ${premiumFemale.toLocaleString("en-US")}`
+                    )}${"\n"}女 ${premiumFemale.toLocaleString("en-US")}`
               }
               unit={
                 pageLanguage === "KOR"
@@ -212,9 +212,9 @@ const BottomArea = styled.div`
 
 const BreakLine = styled.div`
   width: 2px;
-  height: 57px;
+  height: 90px;
   background-color: ${({ theme }) => theme.colors.LIGHTGRAY};
-  margin-left: 80px;
+  margin-left: 60px;
 `;
 
 export default InsuranceBox;
