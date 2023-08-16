@@ -61,7 +61,6 @@ const Detail = () => {
       setIsCompareModalOpen(true);
     }
     setCount((prev) => prev + 1);
-    console.log(count);
   };
 
   useEffect(() => {
@@ -98,6 +97,12 @@ const Detail = () => {
       chineseTitle: "保险费",
       firstContent: insurance.premiumMale,
       secondContent: insurance.premiumFemale,
+    },
+    {
+      title: "기준연령",
+      englishTitle: "Age Criteria",
+      chineseTitle: "年龄标准",
+      firstContent: insurance.insuranceAgeGroup,
     },
   ];
 
@@ -333,6 +338,7 @@ const CompanyName = styled.div`
 const InsuranceDetailContainer = styled.div`
   width: 100%;
   height: 226px;
+  margin-bottom: 40px;
 `;
 
 const BelowContainer = styled(AboveContainer)`
