@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Korea from "../assets/images/Korea.svg";
-import English from "../assets/images/Usa.svg";
+import English from "../assets/images/UsaImg.svg";
 import Chinese from "../assets/images/China.svg";
 import Option from "./Option";
 import { useRecoilState } from "recoil";
