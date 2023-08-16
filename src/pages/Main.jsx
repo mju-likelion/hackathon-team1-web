@@ -5,6 +5,8 @@ import Airplane from "../assets/images/Airplane.svg";
 import XIcon from "../assets/images/XIcon.svg";
 import { useNavigate } from "react-router-dom";
 import { DetectLanguage } from "../api/DetectLanguage";
+import { useRecoilState } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,8 +14,8 @@ const Main = () => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [searchBarClick, setSearchBarClick] = useState(false);
   const searchInputRef = useRef(null);
-
   const navigate = useNavigate();
+  const pageLanguage = useRecoilState(LanguageAtom);
 
   useEffect(() => {
     const storedHistory =
@@ -77,7 +79,13 @@ const Main = () => {
     } else if (detectedLanguage === "zh-CN") {
       return "你正在输入中文！";
     } else {
-      return "한국어, 中国人, English 중에서 입력 해주세요!";
+      if (pageLanguage[0] === "ENG") {
+        return "Please enter Korean, Chinese, and English";
+      } else if (pageLanguage[0] === "CHN") {
+        return "请输入韩语，中文，英语。";
+      } else {
+        return "한국어, 중국어, 영어 중에서 입력 해주세요!";
+      }
     }
   };
 
