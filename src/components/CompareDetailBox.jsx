@@ -10,7 +10,7 @@ const CompareDetailBox = ({ compareInsurance }) => {
     return (
       <DetailContent
         key={new Date().getTime() + idx}
-        margin={idx === 0 ? "85px" : "105px"}
+        margin={idx === 0 ? "85px" : "75px"}
       >
         {item}
       </DetailContent>
@@ -19,25 +19,51 @@ const CompareDetailBox = ({ compareInsurance }) => {
 
   return (
     <CompareDetailArea>
-      <CompareDetailBoxTitle>가입연령</CompareDetailBoxTitle>
+      <CompareDetailBoxTitle>
+        {pageLanguage === "KOR"
+          ? "가입연령"
+          : pageLanguage === "ENG"
+          ? "Join age"
+          : "入学年龄"}
+      </CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
           rendering(
-            `${item.insuranceAgeGroupStart}~${item.insuranceAgeGroupEnd}세`,
+            pageLanguage === "KOR"
+              ? `${item.insuranceAgeGroupStart}~${item.insuranceAgeGroupEnd}세`
+              : pageLanguage === "ENG"
+              ? `${item.insuranceAgeGroupStart}~${item.insuranceAgeGroupEnd}years`
+              : `${item.insuranceAgeGroupStart}~${item.insuranceAgeGroupEnd}岁`,
             idx
           )
         )}
       </DetailBox>
-      <CompareDetailBoxTitle>보험료</CompareDetailBoxTitle>
+      <CompareDetailBoxTitle>
+        {pageLanguage === "KOR"
+          ? "보험료"
+          : pageLanguage === "ENG"
+          ? "Premium"
+          : "优质的"}
+      </CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
           rendering(
-            `남 ${item.premiumMale} ${"\n"} / 여 ${item.premiumFemale}원`,
+            pageLanguage === "KOR"
+              ? `남 ${item.premiumMale} / 여 ${item.premiumFemale}원`
+              : pageLanguage === "ENG"
+              ? `M ${item.premiumMale} / F ${item.premiumFemale}won`
+              : `男 ${item.premiumMale} / 女 ${item.premiumFemale}元`,
             idx
           )
         )}
       </DetailBox>
-      <CompareDetailBoxTitle>가입형태</CompareDetailBoxTitle>
+      <CompareDetailBoxTitle>
+        {pageLanguage === "KOR"
+          ? "가입형태"
+          : pageLanguage === "ENG"
+          ? "Type"
+          : "订阅类型"}
+      </CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
           rendering(item.registrationType, idx)
@@ -73,7 +99,7 @@ const DetailBox = styled.div`
 `;
 
 const DetailContent = styled.div`
-  width: 245px;
+  width: 265px;
   margin-left: ${(props) => props.margin};
   font-size: 25px;
   font-weight: 600;
