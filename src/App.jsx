@@ -15,9 +15,9 @@ import { LogoAtom } from "./assets/atom/LogoAtom";
 import ResultNothing from "./components/ResultNothing";
 
 const App = () => {
-  const path = window.location.pathname;
-  const allowedPaths = ["/", "/compare", "/search", "/detail/*"];
-  const showHeader = allowedPaths.includes(window.location.pathname);
+  const path = "/" + window.location.pathname.split("/")[1];
+  const allowedPaths = ["/", "/compare", "/search", "/detail"];
+  const showHeader = allowedPaths.includes(path);
   const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
 
   useEffect(() => {
@@ -25,6 +25,9 @@ const App = () => {
       setShowLogo(false);
     } else {
       setShowLogo(true);
+      console.log(window.location.pathname.split("/"));
+      console.log(path);
+      console.log(showHeader);
     }
   }, [path]);
 

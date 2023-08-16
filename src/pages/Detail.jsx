@@ -57,6 +57,8 @@ const Detail = () => {
   }, []);
 
   const addCompare = () => {
+    console.log(JSON.parse(localStorage.getItem("insurances")));
+    console.log(compareBox.keys());
     if (compareBox.length < 3) {
       setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
       handleCompareModal();
