@@ -27,31 +27,46 @@ const Search = () => {
   const [path, setPath] = useRecoilState(HeaderAtom);
 
   const url = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPath(url.pathname);
     console.log(path);
   }, [path]);
 
-  const getInsurance = () => {
-    text === ""
-      ? SearchAll()
-          .then((loanData) => {
-            setInsurance(loanData.data);
-            setLoading(false);
-          })
-          .catch((error) => navigate("/404"))
-      : AxiosSearch(text, language)
-          .then((loanData) => {
-            setInsurance(loanData);
-            setLoading(false);
-          })
-          .catch((error) => {
-            navigate(`/404/${text}`);
-          });
-  };
-
-  useEffect(getInsurance, []);
+  useEffect(() => {
+    const getInsurance = () => {
+      const item =
+        localStorage.getItem(text) && JSON.parse(localStorage.getItem(text));
+      if (item && item.length > 0) {
+        setInsurance(item);
+        setLoading(false);
+      } else {
+        let data = undefined;
+        text === ""
+          ? SearchAll()
+              .then((loanData) => {
+                data = loanData.data;
+                setInsurance(data);
+                setLoading(false);
+                localStorage.setItem(`${text}`, JSON.stringify(data));
+              })
+              .catch((error) => navigate("/404"))
+          : AxiosSearch(text, language)
+              .then((loanData) => {
+                console.log("loaded");
+                data = loanData;
+                setInsurance(data);
+                setLoading(false);
+                localStorage.setItem(`${text}`, JSON.stringify(data));
+              })
+              .catch((error) => {
+                navigate(`/404/${text}`);
+              });
+      }
+    };
+    getInsurance();
+  }, [language, navigate, text]);
 
   const setPage = (error) => {
     setCurrentPage(error);
@@ -72,7 +87,6 @@ const Search = () => {
     insuracePerPage,
   ]);
 
-  const navigate = useNavigate();
   const goMain = () => {
     navigate("/");
   };
