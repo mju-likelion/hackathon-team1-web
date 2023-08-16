@@ -6,7 +6,6 @@ import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
 import { AxiosSearch } from "../api/SearchResult";
-import NotFound from "./Error/NotFound";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
@@ -38,12 +37,11 @@ const Search = () => {
             setLoading(false);
           })
           .catch((error) => {
-            navigate("/400");
-            setTimeout(console.log("hi"), 3000);
+            navigate(`/400/${text}`);
           });
   };
 
-  useEffect(getInsurance, [text, language]);
+  useEffect(getInsurance, []);
 
   const setPage = (error) => {
     setCurrentPage(error);
