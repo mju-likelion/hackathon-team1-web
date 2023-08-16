@@ -80,7 +80,7 @@ const InsuranceBox = ({ loanData }) => {
                 pageLanguage === "KOR"
                   ? `남 ${premiumMale} / 여 ${premiumFemale}`
                   : pageLanguage === "ENG"
-                  ? `Male ${premiumMale} / Female ${premiumFemale}`
+                  ? `M ${premiumMale} / F ${premiumFemale}`
                   : `男 ${premiumMale} / 女 ${premiumFemale}`
               }
               unit={
