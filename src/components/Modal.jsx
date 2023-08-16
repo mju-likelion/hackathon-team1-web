@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Modal = ({ iconName, callNum, handleModalClose }) => {
-  // iconName 은 Call, LockerIn, LockerFull 로 넘겨줌
+  // iconName 은 Call, LockerIn, LockerFull, LockerSame 로 넘겨줌
 
   const pageLanguage = useRecoilState(LanguageAtom);
 
@@ -28,11 +28,15 @@ const Modal = ({ iconName, callNum, handleModalClose }) => {
       else if (pageLanguage[0] === "ENG")
         return "Add to compare\nbox complete!";
       else return "已加入比较篮！";
-    else {
+    else if (iconName === "LockerFull") {
       if (pageLanguage[0] === "KOR") return "비교함이\n꽉 찼습니다!";
       else if (pageLanguage[0] === "ENG")
         return "The comparison\ncart is full!";
       else return "比较篮已满！";
+    } else {
+      if (pageLanguage[0] === "KOR") return "이미 담겨진\n보험입니다!";
+      else if (pageLanguage[0] === "ENG") return "It's already\nin the locker!";
+      else return "已经装在保管箱里的保险！";
     }
   };
 

@@ -9,13 +9,11 @@ const InsuranceBox = ({ loanData }) => {
   const {
     infoId,
     insuranceLogo,
-    productName,
-    companyName,
     insuranceAgeGroupStart,
     insuranceAgeGroupEnd,
     premiumMale,
     premiumFemale,
-    registrationType,
+    languages,
   } = loanData;
 
   const navigate = useNavigate();
@@ -35,8 +33,20 @@ const InsuranceBox = ({ loanData }) => {
         <RightBox>
           <TopArea>
             <NameArea>
-              <MainName>{productName}</MainName>
-              <SubName>{companyName}</SubName>
+              <MainName>
+                {pageLanguage === "KOR"
+                  ? languages["insurance name"]["KR"]
+                  : pageLanguage === "ENG"
+                  ? languages["insurance name"]["EN"]
+                  : languages["insurance name"]["CN"]}
+              </MainName>
+              <SubName>
+                {pageLanguage === "KOR"
+                  ? languages["insurance company"]["KR"]
+                  : pageLanguage === "ENG"
+                  ? languages["insurance company"]["EN"]
+                  : languages["insurance company"]["CN"]}
+              </SubName>
             </NameArea>
             <SmallButton
               text={
@@ -100,7 +110,13 @@ const InsuranceBox = ({ loanData }) => {
                   ? "Type"
                   : "订阅类型"
               }
-              content={registrationType}
+              content={
+                pageLanguage === "KOR"
+                  ? languages["registration type"]["KR"]
+                  : pageLanguage === "ENG"
+                  ? languages["registration type"]["EN"]
+                  : languages["registration type"]["CN"]
+              }
             />
           </BottomArea>
         </RightBox>
@@ -157,7 +173,7 @@ const MainName = styled.p`
 `;
 
 const SubName = styled.p`
-  font-size: 22px;
+  font-size: 17px;
   color: ${({ theme }) => theme.colors.LIGHTGRAY};
 `;
 
