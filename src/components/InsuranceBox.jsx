@@ -11,6 +11,7 @@ const InsuranceBox = ({ loanData }) => {
     insuranceLogo,
     productName,
     companyName,
+    insuranceAgeGroup,
     insuranceAgeGroupStart,
     insuranceAgeGroupEnd,
     premiumMale,
@@ -22,6 +23,8 @@ const InsuranceBox = ({ loanData }) => {
 
   const pageLanguage = useRecoilValue(LanguageAtom);
 
+  const imgUrl = insuranceLogo?.imageUrl;
+
   const goDetail = (infoId) => {
     navigate(`/detail/${infoId}`);
   };
@@ -30,7 +33,11 @@ const InsuranceBox = ({ loanData }) => {
     <>
       <ContentArea>
         <LeftBox>
-          <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
+          {imgUrl ? (
+            <LoanImage src={imgUrl} alt="loan-image" />
+          ) : (
+            <div>loading</div>
+          )}
         </LeftBox>
         <RightBox>
           <TopArea>
@@ -65,6 +72,24 @@ const InsuranceBox = ({ loanData }) => {
                   : pageLanguage === "ENG"
                   ? "years"
                   : "岁"
+              }
+            />
+            <BreakLine />
+            <InsuranceDetail
+              title={
+                pageLanguage === "KOR"
+                  ? "가입연령대"
+                  : pageLanguage === "ENG"
+                  ? "Join Age Group"
+                  : "订阅年龄组"
+              }
+              content={`${insuranceAgeGroup}`}
+              unit={
+                pageLanguage === "KOR"
+                  ? "대"
+                  : pageLanguage === "ENG"
+                  ? "'s"
+                  : "多岁"
               }
             />
             <BreakLine />
@@ -162,11 +187,11 @@ const SubName = styled.p`
 `;
 
 const BottomArea = styled.div`
-  width: 650px;
+  width: 850px;
   height: 61px;
   margin-top: 14px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 
 const BreakLine = styled.div`

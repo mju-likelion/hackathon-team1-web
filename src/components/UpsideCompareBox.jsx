@@ -9,6 +9,7 @@ import { LanguageAtom } from "../assets/atom/LanguageAtom";
 const UpsideCompareBox = ({ testData, onDelete }) => {
   const { infoId, productName, companyName, insuranceLogo } = testData;
   const navigate = useNavigate();
+  const imgUrl = insuranceLogo?.imageUrl;
   const pageLanguage = useRecoilValue(LanguageAtom);
   const goDetail = (id) => {
     navigate(`/detail/${id}`);
@@ -23,7 +24,11 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
       />
       <LoanArea>
         <LoanBox>
-          <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
+          {imgUrl ? (
+            <LoanImage src={imgUrl} alt="loan-image" />
+          ) : (
+            <div>loading</div>
+          )}
           <LoanContentBox>
             <MainTitle>{productName}</MainTitle>
             <SubTitle>{companyName}</SubTitle>
