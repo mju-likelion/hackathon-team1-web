@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 
 const Modal = ({ iconName, callNum, handleModalClose }) => {
   // iconName 은 Call, LockerIn, LockerFull 로 넘겨줌
+
   const iconImg = () => {
     if (iconName === "Call") {
       return Call;
@@ -17,6 +18,7 @@ const Modal = ({ iconName, callNum, handleModalClose }) => {
     else if (iconName === "LockerIn") return "비교함에\n담았습니다!";
     else return "비교함이\n꽉 찼습니다!";
   };
+
   return ReactDOM.createPortal(
     <div className="modal">
       <Background>
@@ -51,7 +53,7 @@ const Background = styled.div`
 const ModalBox = styled.div`
   width: 670px;
   height: 407px;
-  background-color: ${(props) => props.theme.colors.WHITE};
+  background-color: ${({ theme }) => theme.colors.WHITE};
   border-radius: 25px;
 `;
 
@@ -92,7 +94,7 @@ const Text = styled.p`
   font-size: 35px;
   font-style: normal;
   font-weight: 700;
-  color: ${(props) => props.theme.colors.BLACK};
+  color: ${({ theme }) => theme.colors.BLACK};
   white-space: pre-wrap;
   line-height: 120%;
 `;

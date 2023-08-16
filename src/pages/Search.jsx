@@ -6,8 +6,10 @@ import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
 import { AxiosSearch } from "../api/SearchResult";
-import NotFound from "./Error/NotFound";
 import { useNavigate } from "react-router";
+import { useRecoilState } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
+import { SearchAll } from "../api/AllResult";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
@@ -19,19 +21,27 @@ const Search = () => {
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
   const [loading, setLoading] = useState(true);
   const { text, language } = JSON.parse(localStorage.getItem("formData"));
+  const pageLanguage = useRecoilState(LanguageAtom);
 
   const getInsurance = () => {
-    // 질문 페이지에서 질문 값과 언어 값을 가져와서 입력
-
-    AxiosSearch(text, language)
-      .then((loanData) => {
-        setInsurance(loanData);
-        setLoading(false);
-      })
-      .catch((error) => <NotFound number={500} />);
+    text === ""
+      ? SearchAll()
+          .then((loanData) => {
+            setInsurance(loanData.data);
+            setLoading(false);
+          })
+          .catch((error) => navigate("/404"))
+      : AxiosSearch(text, language)
+          .then((loanData) => {
+            setInsurance(loanData);
+            setLoading(false);
+          })
+          .catch((error) => {
+            navigate(`/404/${text}`);
+          });
   };
 
-  useEffect(getInsurance, [text, language]);
+  useEffect(getInsurance, []);
 
   const setPage = (error) => {
     setCurrentPage(error);
@@ -63,13 +73,46 @@ const Search = () => {
       <PageArea visible={+!loading}>
         <TopContainer>
           <LeftContainer>
-            <QuestionArea>{text} 질문에 대한</QuestionArea>
+            <QuestionArea>
+              {text !== ""
+                ? pageLanguage[0] === "KOR"
+                  ? `${text} 질문에 대한`
+                  : pageLanguage[0] === "ENG"
+                  ? `For question ${text}`
+                  : `${text} 为了`
+                : pageLanguage[0] === "KOR"
+                ? "전체 보험"
+                : pageLanguage[0] === "ENG"
+                ? "All Insurances"
+                : "全额保险"}
+            </QuestionArea>
             <CountArea>
-              <LeftCount>{insurance.length}개 보험</LeftCount>
-              <RightCount>검색 결과</RightCount>
+              <LeftCount>
+                {pageLanguage[0] === "KOR"
+                  ? `${insurance.length} 개 보험`
+                  : pageLanguage[0] === "ENG"
+                  ? `${insurance.length} insurances`
+                  : `${insurance.length} 保险`}
+              </LeftCount>
+              <RightCount>
+                {pageLanguage[0] === "KOR"
+                  ? "검색 결과"
+                  : pageLanguage[0] === "ENG"
+                  ? "Search Results"
+                  : "搜索结果"}
+              </RightCount>
             </CountArea>
           </LeftContainer>
-          <SmallButton text="다시 질문하기" handleclick={goMain} />
+          <SmallButton
+            text={
+              pageLanguage[0] === "KOR"
+                ? "다시 질문하기"
+                : pageLanguage[0] === "ENG"
+                ? "Ask Again"
+                : "再问一遍"
+            }
+            handleclick={goMain}
+          />
         </TopContainer>
         <BottomArea>
           {insurance.length === 0 ? (
@@ -129,7 +172,7 @@ const QuestionArea = styled.div`
 `;
 
 const CountArea = styled.div`
-  width: 300px;
+  width: 400px;
   height: 65px;
   display: flex;
   align-items: center;

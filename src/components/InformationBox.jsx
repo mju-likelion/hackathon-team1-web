@@ -2,11 +2,25 @@ import styled from "styled-components";
 import DownArrow from "../assets/images/DownArrow.svg";
 import UpArrow from "../assets/images/UpArrow.svg";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const InformationBox = ({ MainData }) => {
-  const { img, title, content, explain } = MainData;
-
+  const {
+    img,
+    title,
+    englishTitle,
+    chineseTitle,
+    content,
+    englishContent,
+    chineseContent,
+    explain,
+    englishExplain,
+    chineseExplain,
+  } = MainData;
   const [showDetail, setShowDetail] = useState(false);
+
+  const pageLanguage = useRecoilState(LanguageAtom);
 
   return (
     <Layout>
@@ -14,19 +28,49 @@ const InformationBox = ({ MainData }) => {
         <DetailContainer onClick={() => setShowDetail(!showDetail)}>
           <MainBox>
             <Image src={img} alt="설명 이미지" />
-            <Title>{title}</Title>
-            <Content>{content}</Content>
+            <Title>
+              {pageLanguage[0] === "KOR"
+                ? title
+                : pageLanguage[0] === "ENG"
+                ? englishTitle
+                : chineseTitle}
+            </Title>
+            <Content>
+              {pageLanguage[0] === "KOR"
+                ? content
+                : pageLanguage[0] === "ENG"
+                ? englishContent
+                : chineseContent}
+            </Content>
             <Arrow src={UpArrow} alt="위 화살표" />
           </MainBox>
           <ExplainBox>
-            <ExplainText>{explain}</ExplainText>
+            <ExplainText>
+              {pageLanguage[0] === "KOR"
+                ? explain
+                : pageLanguage[0] === "ENG"
+                ? englishExplain
+                : chineseExplain}
+            </ExplainText>
           </ExplainBox>
         </DetailContainer>
       ) : (
         <DetailTextContainer onClick={() => setShowDetail(!showDetail)}>
           <Image src={img} alt="설명 이미지" />
-          <Title>{title}</Title>
-          <Content>{content}</Content>
+          <Title>
+            {pageLanguage[0] === "KOR"
+              ? title
+              : pageLanguage[0] === "ENG"
+              ? englishTitle
+              : chineseTitle}
+          </Title>
+          <Content>
+            {pageLanguage[0] === "KOR"
+              ? content
+              : pageLanguage[0] === "ENG"
+              ? englishContent
+              : chineseContent}
+          </Content>
           <Arrow src={DownArrow} alt="아래 화살표" />
         </DetailTextContainer>
       )}
@@ -100,7 +144,9 @@ const Arrow = styled.img`
 
 const ExplainBox = styled.div`
   width: 1070px;
-  height: 170px;
+  height: auto;
+  padding: 40px 0;
+  line-height: 27px;
   background-color: ${({ theme }) => theme.colors.LIGHTGRAY2};
   border-radius: 20px;
   margin-top: 20px;

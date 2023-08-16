@@ -2,6 +2,8 @@ import { styled } from "styled-components";
 import SmallButton from "./SmallButton";
 import InsuranceDetail from "./InsuranceDetail";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const InsuranceBox = ({ loanData }) => {
   const {
@@ -17,6 +19,8 @@ const InsuranceBox = ({ loanData }) => {
   } = loanData;
 
   const navigate = useNavigate();
+
+  const pageLanguage = useRecoilValue(LanguageAtom);
 
   const goDetail = (infoId) => {
     navigate(`/detail/${infoId}`);
@@ -35,24 +39,69 @@ const InsuranceBox = ({ loanData }) => {
               <SubName>{companyName}</SubName>
             </NameArea>
             <SmallButton
-              text="자세히 보기"
+              text={
+                pageLanguage === "KOR"
+                  ? "자세히 보기"
+                  : pageLanguage === "ENG"
+                  ? "See More"
+                  : "查看更多"
+              }
               handleclick={() => goDetail(infoId)}
             />
           </TopArea>
           <BottomArea>
             <InsuranceDetail
-              title="가입연령"
+              title={
+                pageLanguage === "KOR"
+                  ? "가입연령"
+                  : pageLanguage === "ENG"
+                  ? "Join age"
+                  : "入学年龄"
+              }
               content={`${insuranceAgeGroupStart}~${insuranceAgeGroupEnd}`}
-              unit="세"
+              unit={
+                pageLanguage === "KOR"
+                  ? "세"
+                  : pageLanguage === "ENG"
+                  ? "years"
+                  : "岁"
+              }
             />
             <BreakLine />
             <InsuranceDetail
-              title="보험료"
-              content={`남 ${premiumMale} / 여 ${premiumFemale}`}
-              unit="원"
+              title={
+                pageLanguage === "KOR"
+                  ? "보험료"
+                  : pageLanguage === "ENG"
+                  ? "Premium"
+                  : "优质的"
+              }
+              content={
+                pageLanguage === "KOR"
+                  ? `남 ${premiumMale} / 여 ${premiumFemale}`
+                  : pageLanguage === "ENG"
+                  ? `Male ${premiumMale} / Female ${premiumFemale}`
+                  : `男 ${premiumMale} / 女 ${premiumFemale}`
+              }
+              unit={
+                pageLanguage === "KOR"
+                  ? "원"
+                  : pageLanguage === "ENG"
+                  ? "won"
+                  : "元"
+              }
             />
             <BreakLine />
-            <InsuranceDetail title="가입형태" content={registrationType} />
+            <InsuranceDetail
+              title={
+                pageLanguage === "KOR"
+                  ? "가입형태"
+                  : pageLanguage === "ENG"
+                  ? "Type"
+                  : "订阅类型"
+              }
+              content={registrationType}
+            />
           </BottomArea>
         </RightBox>
       </ContentArea>
@@ -95,7 +144,7 @@ const TopArea = styled.div`
 `;
 
 const NameArea = styled.div`
-  width: 660px;
+  width: 675px;
   height: 42px;
   display: flex;
   justify-content: space-between;
