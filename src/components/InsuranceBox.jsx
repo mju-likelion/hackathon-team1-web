@@ -87,7 +87,15 @@ const InsuranceBox = ({ loanData }) => {
                   ? "Join Age Group"
                   : "订阅年龄组"
               }
-              content={insuranceAgeGroup}
+              content={
+                insuranceAgeGroup === 0
+                  ? pageLanguage === "KOR"
+                    ? "10대 이하"
+                    : pageLanguage === "ENG"
+                    ? "Under 10's"
+                    : "10岁以下"
+                  : insuranceAgeGroup
+              }
               unit={
                 pageLanguage === "KOR"
                   ? "대"
@@ -185,7 +193,7 @@ const TopArea = styled.div`
 `;
 
 const NameArea = styled.div`
-  width: 675px;
+  width: 690px;
   height: 42px;
   display: flex;
   justify-content: space-between;
@@ -193,7 +201,7 @@ const NameArea = styled.div`
 `;
 
 const MainName = styled.p`
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
 `;
 

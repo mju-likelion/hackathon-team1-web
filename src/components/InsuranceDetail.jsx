@@ -22,7 +22,7 @@ const DetailTitle = styled.p`
 `;
 
 const DetailBox = styled.div`
-  width: 136px;
+  width: 150px;
   height: 29px;
   display: flex;
   margin-top: 10px;
@@ -37,6 +37,7 @@ const DetailContent = styled.p`
 const DetailUnit = styled.p`
   font-size: 18px;
   line-height: 25px;
+  margin-left: 5px;
 `;
 
 export default InsuranceDetail;
