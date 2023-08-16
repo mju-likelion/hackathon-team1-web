@@ -3,9 +3,13 @@ import Call from "../assets/images/Call.svg";
 import XIcon from "../assets/images/XIcon.svg";
 import { styled } from "styled-components";
 import ReactDOM from "react-dom";
+import { useRecoilState } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Modal = ({ iconName, callNum, handleModalClose }) => {
   // iconName 은 Call, LockerIn, LockerFull 로 넘겨줌
+
+  const pageLanguage = useRecoilState(LanguageAtom);
 
   const iconImg = () => {
     if (iconName === "Call") {
@@ -14,9 +18,22 @@ const Modal = ({ iconName, callNum, handleModalClose }) => {
   };
 
   const infoText = () => {
-    if (iconName === "Call") return "설계사 연락처\n" + callNum;
-    else if (iconName === "LockerIn") return "비교함에\n담았습니다!";
-    else return "비교함이\n꽉 찼습니다!";
+    if (iconName === "Call")
+      if (pageLanguage[0] === "KOR") return "설계사 연락처\n" + callNum;
+      else if (pageLanguage[0] === "ENG")
+        return "Insurance Agent Contact Information\n" + callNum;
+      else return "保险规划师联系方式\n" + callNum;
+    else if (iconName === "LockerIn")
+      if (pageLanguage[0] === "KOR") return "비교함에\n담았습니다!";
+      else if (pageLanguage[0] === "ENG")
+        return "Add to compare\nbox complete!";
+      else return "已加入比较篮！";
+    else {
+      if (pageLanguage[0] === "KOR") return "비교함이\n꽉 찼습니다!";
+      else if (pageLanguage[0] === "ENG")
+        return "The comparison\ncart is full!";
+      else return "比较篮已满！";
+    }
   };
 
   return ReactDOM.createPortal(
@@ -69,10 +86,10 @@ const XImg = styled.img`
 `;
 
 const Content = styled.div`
-  width: 460px;
+  width: 470px;
   height: 90px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,7 +109,6 @@ const IconImg = styled.img`
 
 const Text = styled.p`
   font-size: 35px;
-  font-style: normal;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.BLACK};
   white-space: pre-wrap;

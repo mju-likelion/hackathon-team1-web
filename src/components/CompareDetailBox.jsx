@@ -66,7 +66,14 @@ const CompareDetailBox = ({ compareInsurance }) => {
       </CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
-          rendering(item.registrationType, idx)
+          rendering(
+            pageLanguage === "KOR"
+              ? item.languages["registration type"]["KR"]
+              : pageLanguage === "ENG"
+              ? item.languages["registration type"]["EN"]
+              : item.languages["registration type"]["CN"],
+            idx
+          )
         )}
       </DetailBox>
     </CompareDetailArea>
@@ -85,15 +92,15 @@ const CompareDetailArea = styled.div`
 const CompareDetailBoxTitle = styled.div`
   width: 1110px;
   height: 23px;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
 `;
 
 const DetailBox = styled.div`
   width: 1110px;
   height: 106px;
-  margin: 11px auto;
-  box-shadow: 0 2px 10px 0 ${({ theme }) => theme.colors.LIGHTGRAY};
+  margin: 25px auto;
+  box-shadow: 0 4px 10px 0 rgba(217, 217, 217, 0.7);
   border-radius: 25px;
   display: flex;
 `;

@@ -14,11 +14,21 @@ import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
+import { useLocation } from "react-router-dom";
+import { HeaderAtom } from "../assets/atom/HeaderAtom";
 
 const Detail = () => {
   const { infoId } = useParams();
 
   const pageLanguage = useRecoilState(LanguageAtom);
+
+  const [path, setPath] = useRecoilState(HeaderAtom);
+
+  const url = useLocation();
+
+  useEffect(() => {
+    setPath(url.pathname);
+  }, [path]);
 
   const [count, setCount] = useState(0);
 
@@ -54,6 +64,8 @@ const Detail = () => {
   }, []);
 
   const addCompare = () => {
+    console.log(JSON.parse(localStorage.getItem("insurances")));
+
     if (compareBox.length < 3) {
       setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
       handleCompareModal();
@@ -61,7 +73,6 @@ const Detail = () => {
       setIsCompareModalOpen(true);
     }
     setCount((prev) => prev + 1);
-    console.log(count);
   };
 
   useEffect(() => {
@@ -98,6 +109,12 @@ const Detail = () => {
       chineseTitle: "保险费",
       firstContent: insurance.premiumMale,
       secondContent: insurance.premiumFemale,
+    },
+    {
+      title: "기준연령",
+      englishTitle: "Age Criteria",
+      chineseTitle: "年龄标准",
+      firstContent: insurance.insuranceAgeGroup,
     },
   ];
 
@@ -209,8 +226,20 @@ const Detail = () => {
           </LeftArea>
           <RightArea>
             <InsuranceNameContainer>
-              <InsuranceName>{insurance.productName}</InsuranceName>
-              <CompanyName>{insurance.companyName}</CompanyName>
+              <InsuranceName>
+                {pageLanguage[0] === "KOR"
+                  ? insurance.languages["insurance name"]["KR"]
+                  : pageLanguage[0] === "ENG"
+                  ? insurance.languages["insurance name"]["EN"]
+                  : insurance.languages["insurance name"]["CN"]}
+              </InsuranceName>
+              <CompanyName>
+                {pageLanguage[0] === "KOR"
+                  ? insurance.languages["insurance company"]["KR"]
+                  : pageLanguage[0] === "ENG"
+                  ? insurance.languages["insurance company"]["EN"]
+                  : insurance.languages["insurance company"]["CN"]}
+              </CompanyName>
             </InsuranceNameContainer>
             <InsuranceDetailContainer>
               {insuranceArr.map((item, index) => (
@@ -222,7 +251,13 @@ const Detail = () => {
             ) : (
               <LargeButton
                 handleClick={modalText}
-                text={insurance.registrationType}
+                text={
+                  pageLanguage[0] === "KOR"
+                    ? insurance.languages["registration type"]["KR"]
+                    : pageLanguage[0] === "ENG"
+                    ? insurance.languages["registration type"]["EN"]
+                    : insurance.languages["registration type"]["CN"]
+                }
               />
             )}
           </RightArea>
@@ -333,6 +368,7 @@ const CompanyName = styled.div`
 const InsuranceDetailContainer = styled.div`
   width: 100%;
   height: 226px;
+  margin-bottom: 40px;
 `;
 
 const BelowContainer = styled(AboveContainer)`
