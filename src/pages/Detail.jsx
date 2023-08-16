@@ -98,6 +98,12 @@ const Detail = () => {
       firstContent: insurance.premiumMale,
       secondContent: insurance.premiumFemale,
     },
+    {
+      title: "기준연령",
+      englishTitle: "Age Criteria",
+      chineseTitle: "年龄标准",
+      firstContent: insurance.insuranceAgeGroup,
+    },
   ];
 
   const mainArr = [
@@ -332,6 +338,7 @@ const CompanyName = styled.div`
 const InsuranceDetailContainer = styled.div`
   width: 100%;
   height: 226px;
+  margin-bottom: 40px;
 `;
 
 const BelowContainer = styled(AboveContainer)`

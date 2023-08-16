@@ -34,13 +34,21 @@ const DetailBox = ({ insuranceData }) => {
                 ? `${firstContent}~${secondContent}years`
                 : `${firstContent}~${secondContent}岁`}
             </DetailContent>
-          ) : (
+          ) : title === "보험료" ? (
             <DetailContent>
               {pageLanguage === "KOR"
                 ? `남 ${firstContent}원${"\n"}여 ${secondContent}원`
                 : pageLanguage === "ENG"
-                ? `Male ${firstContent}won${"\n"}Female ${secondContent}won`
+                ? `M ${firstContent}won${"\n"}F ${secondContent}won`
                 : `男 ${firstContent}元${"\n"}女 ${secondContent}元`}
+            </DetailContent>
+          ) : (
+            <DetailContent>
+              {pageLanguage === "KOR"
+                ? `${firstContent}대`
+                : pageLanguage === "ENG"
+                ? `${firstContent}'s`
+                : `${firstContent}岁`}
             </DetailContent>
           )}
         </DetailTextBox>
