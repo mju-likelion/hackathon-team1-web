@@ -16,7 +16,7 @@ const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
   const [count, setCount] = useState(0); // 보험 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지, 기본 값 1
-  const [insuracePerPage] = useState(3); // 한 페이지에 보여질 보험 개수
+  const [insuracePerPage] = useState(5); // 한 페이지에 보여질 보험 개수
   const [indexOfFirstInsurance, setIndexOfFirstInsurance] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
   const [indexOfLastInsurance, setIndexOfLastInsurance] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [currentInsurance, setCurrentInsurance] = useState([]); // 현재 페이지에서 보여지는 보험들
