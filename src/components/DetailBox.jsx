@@ -44,11 +44,18 @@ const DetailBox = ({ insuranceData }) => {
             </DetailContent>
           ) : (
             <DetailContent>
-              {pageLanguage === "KOR"
-                ? `${firstContent}대`
-                : pageLanguage === "ENG"
-                ? `${firstContent}'s`
-                : `${firstContent}岁`}
+              {pageLanguage === "KOR" &&
+                firstContent !== 0 &&
+                `${firstContent}대`}
+              {pageLanguage === "ENG" &&
+                firstContent !== 0 &&
+                `${firstContent}'s`}
+              {pageLanguage === "CHN" &&
+                firstContent !== 0 &&
+                `${firstContent}岁`}
+              {pageLanguage === "KOR" && firstContent === 0 && "10대 이하"}
+              {pageLanguage === "ENG" && firstContent === 0 && "10's or under"}
+              {pageLanguage === "CHN" && firstContent === 0 && "10岁以下"}
             </DetailContent>
           )}
         </DetailTextBox>
