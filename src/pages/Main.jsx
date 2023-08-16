@@ -17,7 +17,6 @@ const Main = () => {
   const searchInputRef = useRef(null);
   const navigate = useNavigate();
   const pageLanguage = useRecoilState(LanguageAtom);
-
   const [path, setPath] = useRecoilState(HeaderAtom);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ const Main = () => {
 
   useEffect(() => {
     setPath(url.pathname);
-    console.log(path);
   }, [path]);
 
   const handleInputChange = (event) => {

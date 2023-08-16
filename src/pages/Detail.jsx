@@ -16,6 +16,7 @@ import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 import { useLocation } from "react-router-dom";
 import { HeaderAtom } from "../assets/atom/HeaderAtom";
+import { CountAtom } from "../assets/atom/CountAtom";
 
 const Detail = () => {
   const { infoId } = useParams();
@@ -24,13 +25,13 @@ const Detail = () => {
 
   const [path, setPath] = useRecoilState(HeaderAtom);
 
+  const [countCompareNumber, setCountCompareNumber] = useRecoilState(CountAtom);
+
   const url = useLocation();
 
   useEffect(() => {
     setPath(url.pathname);
   }, [path]);
-
-  const [count, setCount] = useState(0);
 
   const [compareBox, setCompareBox] = useState(
     JSON.parse(localStorage.getItem("insurances")) || []
@@ -63,16 +64,26 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  const addCompare = () => {
-    console.log(JSON.parse(localStorage.getItem("insurances")));
+  const insurancesJSON = localStorage.getItem("insurances");
+  const insurancesArray = JSON.parse(insurancesJSON);
 
-    if (compareBox.length < 3) {
+  // 각 객체에서 infoId 값을 추출하여 새로운 배열 생성
+  const infoIdArray = insurancesArray?.map((item) => item.infoId);
+
+  const isInfoIdDuplicated = infoIdArray.includes(infoId);
+  const addCompare = () => {
+    if (isInfoIdDuplicated) {
+      handleCompareModal();
+    } else if (compareBox.length < 3 && !isInfoIdDuplicated) {
       setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
+      setCountCompareNumber((prev) => prev + 1);
       handleCompareModal();
     } else {
       setIsCompareModalOpen(true);
+      setCountCompareNumber((prev) => prev + 1);
     }
-    setCount((prev) => prev + 1);
+
+    console.log(countCompareNumber);
   };
 
   useEffect(() => {
@@ -203,10 +214,18 @@ const Detail = () => {
       )}
       {isCompareModalOpen && (
         <Modal
-          iconName={count > 3 ? "LockerFull" : "LockerIn"}
+          iconName={countCompareNumber > 3 ? "LockerFull" : "LockerIn"} // 맞음
           handleModalClose={handleCompareModal}
         />
       )}
+      {isCompareModalOpen &&
+        isInfoIdDuplicated(
+          <Modal
+            iconName={countCompareNumber > 3 ? "LockerFull" : "LockerIn"} // 바꾸기
+            handleModalClose={handleCompareModal}
+          />
+        )}
+
       <Background>
         <AboveContainer>
           <LeftArea>

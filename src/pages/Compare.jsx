@@ -3,6 +3,8 @@ import UpsideCompareBox from "../components/UpsideCompareBox";
 import UpsideEmptyBox from "../components/UpsideEmptyBox";
 import { useState } from "react";
 import CompareDetailBox from "../components/CompareDetailBox";
+import { useRecoilState } from "recoil";
+import { CountAtom } from "../assets/atom/CountAtom";
 
 const MAX_COMPARE_AMOUNT = 3;
 
@@ -11,12 +13,22 @@ const Compare = () => {
     JSON.parse(localStorage.getItem("insurances")) || []
   );
 
+  const [countCompareNumber, setCountCompareNumber] = useRecoilState(CountAtom);
+
   const onDelete = (infoId) => {
     const filteredItem = compareInsurance.filter(
       (item) => infoId !== item.infoId
     );
     localStorage.setItem("insurances", JSON.stringify(filteredItem));
     setCompareInsurance(filteredItem);
+
+    if (countCompareNumber > 2) {
+      setCountCompareNumber(1);
+    } else if (countCompareNumber <= 2 && countCompareNumber > 0) {
+      setCountCompareNumber((prev) => prev - 1);
+    }
+
+    console.log(countCompareNumber);
   };
 
   const rendering = (insurances) => {
