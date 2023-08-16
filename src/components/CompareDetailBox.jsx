@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const CompareDetailBox = ({ compareInsurance }) => {
+  const pageLanguage = useRecoilValue(LanguageAtom);
+
   const rendering = (item, idx) => {
     return (
       <DetailContent
         key={new Date().getTime() + idx}
-        margin={idx === 0 ? "85px" : "248px"}
+        margin={idx === 0 ? "85px" : "105px"}
       >
         {item}
       </DetailContent>
@@ -18,16 +22,26 @@ const CompareDetailBox = ({ compareInsurance }) => {
       <CompareDetailBoxTitle>가입연령</CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
-          rendering(`${item.startAge}~${item.endAge}세`, idx)
+          rendering(
+            `${item.insuranceAgeGroupStart}~${item.insuranceAgeGroupEnd}세`,
+            idx
+          )
         )}
       </DetailBox>
       <CompareDetailBoxTitle>보험료</CompareDetailBoxTitle>
       <DetailBox>
-        {compareInsurance.map((item, idx) => rendering(`${item.cost}원`, idx))}
+        {compareInsurance.map((item, idx) =>
+          rendering(
+            `남 ${item.premiumMale} ${"\n"} / 여 ${item.premiumFemale}원`,
+            idx
+          )
+        )}
       </DetailBox>
       <CompareDetailBoxTitle>가입형태</CompareDetailBoxTitle>
       <DetailBox>
-        {compareInsurance.map((item, idx) => rendering(item.type, idx))}
+        {compareInsurance.map((item, idx) =>
+          rendering(item.registrationType, idx)
+        )}
       </DetailBox>
     </CompareDetailArea>
   );
@@ -59,7 +73,7 @@ const DetailBox = styled.div`
 `;
 
 const DetailContent = styled.div`
-  width: 150px;
+  width: 245px;
   margin-left: ${(props) => props.margin};
   font-size: 25px;
   font-weight: 600;

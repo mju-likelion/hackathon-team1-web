@@ -1,13 +1,15 @@
 import { styled } from "styled-components";
 import CloseIcon from "../assets/images/CloseIcon.svg";
-import Lotte from "../assets/images/Lotte.svg";
 import LargeButton from "./LargeButton";
 import { useNavigate } from "react-router";
+import { useRecoilValue } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 /*보험이 있을 경우 컴포넌트*/
 const UpsideCompareBox = ({ testData, onDelete }) => {
-  const { infoId, loanName, company } = testData;
+  const { infoId, productName, companyName, insuranceLogo } = testData;
   const navigate = useNavigate();
+  const pageLanguage = useRecoilValue(LanguageAtom);
   const goDetail = (id) => {
     navigate(`/detail/${id}`);
   };
@@ -21,13 +23,19 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
       />
       <LoanArea>
         <LoanBox>
-          <LoanImage src={Lotte} alt="loan-image" />
+          <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
           <LoanContentBox>
-            <MainTitle>{loanName}</MainTitle>
-            <SubTitle>{company}</SubTitle>
+            <MainTitle>{productName}</MainTitle>
+            <SubTitle>{companyName}</SubTitle>
             <LargeButton
-              text="상세 페이지 이동"
-              handleclick={() => goDetail(infoId)}
+              text={
+                pageLanguage === "KOR"
+                  ? "상세 페이지 이동"
+                  : pageLanguage === "ENG"
+                  ? "Go to detail page"
+                  : "进入详情页"
+              }
+              handleClick={() => goDetail(infoId)}
             />
           </LoanContentBox>
         </LoanBox>
@@ -78,12 +86,12 @@ const LoanContentBox = styled.div`
 `;
 
 const MainTitle = styled.p`
-  font-size: 35px;
+  font-size: 23px;
   font-weight: 600;
 `;
 
 const SubTitle = styled.p`
-  font-size: 25px;
+  font-size: 21px;
   margin-top: 19px;
   margin-bottom: 27px;
   color: ${({ theme }) => theme.colors.LIGHTGRAY};
