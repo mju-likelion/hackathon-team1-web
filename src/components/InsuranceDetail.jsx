@@ -13,7 +13,7 @@ const InsuranceDetail = ({ title, content, unit }) => {
 };
 
 const DetailArea = styled.div`
-  width: 90px;
+  width: 125px;
   height: 61px;
 `;
 
@@ -26,6 +26,7 @@ const DetailBox = styled.div`
   height: 29px;
   display: flex;
   margin-top: 10px;
+  white-space: pre-line;
 `;
 
 const DetailContent = styled.p`

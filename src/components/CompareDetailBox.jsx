@@ -51,14 +51,14 @@ const CompareDetailBox = ({ compareInsurance }) => {
             pageLanguage === "KOR"
               ? `남 ${item.premiumMale.toLocaleString(
                   "en-US"
-                )} / 여 ${item.premiumFemale.toLocaleString("en-US")}원`
+                )}원${"\n"}여 ${item.premiumFemale.toLocaleString("en-US")}원`
               : pageLanguage === "ENG"
               ? `M ${item.premiumMale.toLocaleString(
                   "en-US"
-                )} / F ${item.premiumFemale.toLocaleString("en-US")}won`
+                )}won${"\n"}F ${item.premiumFemale.toLocaleString("en-US")}won`
               : `男 ${item.premiumMale.toLocaleString(
                   "en-US"
-                )} / 女 ${item.premiumFemale.toLocaleString("en-US")}元`,
+                )}元${"\n"}女 ${item.premiumFemale.toLocaleString("en-US")}元`,
             idx
           )
         )}
@@ -119,6 +119,7 @@ const DetailContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: pre-line;
 `;
 
 export default CompareDetailBox;
