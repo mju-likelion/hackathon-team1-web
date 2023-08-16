@@ -213,7 +213,6 @@ const SearchButtonImg = styled.img`
 `;
 
 const ResentResearchLine = styled.div`
-  font-size: 30px;
   border-top: 3px solid ${(props) => props.theme.colors.BLUE};
   margin-top: 12px;
 `;
@@ -230,7 +229,7 @@ const ResentResearchTextLine = styled.div`
 const ResentResearchTextBtn = styled.button`
   width: auto;
   height: 100%;
-  font-size: 30px;
+  font-size: 25px;
   text-align: left;
 `;
 
