@@ -1,16 +1,20 @@
 import { useNavigate } from "react-router";
 import { styled } from "styled-components";
+import { useRecoilValue } from "recoil";
+import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 /*보험이 없을 경우(빈 경우) 컴포넌트*/
 const UpsideEmptyBox = () => {
   const navigate = useNavigate();
+
+  const pageLanguage = useRecoilValue(LanguageAtom);
 
   const goMain = () => {
     navigate("/");
   };
 
   const goSearch = () => {
-    navigate("/search");
+    navigate("/nestjs/api/insurance-suggesters");
   };
 
   return (
@@ -18,8 +22,20 @@ const UpsideEmptyBox = () => {
       <OuterCircle>
         <InnerBox>+</InnerBox>
       </OuterCircle>
-      <SelectButton onClick={goSearch}>검색 결과 페이지로</SelectButton>
-      <SelectButton onClick={goMain}>다시 검색하기</SelectButton>
+      <SelectButton onClick={goSearch}>
+        {pageLanguage === "KOR"
+          ? "검색 결과 페이지로"
+          : pageLanguage === "ENG"
+          ? "Go to Search Page"
+          : "前往搜索结果页面"}
+      </SelectButton>
+      <SelectButton onClick={goMain}>
+        {pageLanguage === "KOR"
+          ? "다시 검색하기"
+          : pageLanguage === "ENG"
+          ? "Ask Again"
+          : "再次搜索"}
+      </SelectButton>
     </EmptyContainer>
   );
 };
