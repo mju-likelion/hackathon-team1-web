@@ -46,7 +46,7 @@ const App = () => {
             />
             <Route path="/detail/:infoId" element={<Detail />} />
             <Route path="*" element={<NotFound number={404} />} />
-            <Route path="/400" element={<ResultNothing />} />
+            <Route path="/404/:text" element={<ResultNothing />} />
             <Route path="/compare" element={<Compare />} />
           </Routes>
         </Router>

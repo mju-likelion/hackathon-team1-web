@@ -30,19 +30,18 @@ const Search = () => {
             setInsurance(loanData.data);
             setLoading(false);
           })
-          .catch((error) => navigate("/400"))
+          .catch((error) => navigate("/404"))
       : AxiosSearch(text, language)
           .then((loanData) => {
             setInsurance(loanData);
             setLoading(false);
           })
           .catch((error) => {
-            navigate("/400");
-            setTimeout(console.log("hi"), 3000);
+            navigate(`/404/${text}`);
           });
   };
 
-  useEffect(getInsurance, [text, language]);
+  useEffect(getInsurance, []);
 
   const setPage = (error) => {
     setCurrentPage(error);
