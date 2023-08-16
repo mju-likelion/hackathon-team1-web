@@ -10,14 +10,27 @@ import Detail from "./pages/Detail";
 import Header from "./components/Header";
 import Compare from "./pages/Compare";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { LogoAtom } from "./assets/atom/LogoAtom";
 import ResultNothing from "./components/ResultNothing";
+import { HeaderAtom } from "./assets/atom/HeaderAtom";
 
 const App = () => {
-  const path = "/" + window.location.pathname.split("/")[1];
-  const allowedPaths = ["/", "/compare", "/search", "/detail"];
-  const showHeader = allowedPaths.includes(path);
+  const path = useRecoilValue(HeaderAtom);
+
+  const detailPath = window.location.pathname.split("/")[1];
+
+  const allowedPaths = [
+    "/",
+    "compare",
+    "detail",
+    "/nestjs/api/insurance-suggesters",
+    "/nestjs/api/insurance-suggesters/all",
+  ];
+
+  const showHeader =
+    allowedPaths.includes(path) || allowedPaths.includes(detailPath);
+
   const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
 
   useEffect(() => {
@@ -25,9 +38,6 @@ const App = () => {
       setShowLogo(false);
     } else {
       setShowLogo(true);
-      console.log(window.location.pathname.split("/"));
-      console.log(path);
-      console.log(showHeader);
     }
   }, [path]);
 

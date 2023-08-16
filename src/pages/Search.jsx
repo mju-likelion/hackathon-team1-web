@@ -6,10 +6,11 @@ import Loading from "../components/Loading";
 import Paging from "./Paging";
 import { useState, useEffect } from "react";
 import { AxiosSearch } from "../api/SearchResult";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 import { SearchAll } from "../api/AllResult";
+import { HeaderAtom } from "../assets/atom/HeaderAtom";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
@@ -22,6 +23,15 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
   const { text, language } = JSON.parse(localStorage.getItem("formData"));
   const pageLanguage = useRecoilState(LanguageAtom);
+
+  const [path, setPath] = useRecoilState(HeaderAtom);
+
+  const url = useLocation();
+
+  useEffect(() => {
+    setPath(url.pathname);
+    console.log(path);
+  }, [path]);
 
   const getInsurance = () => {
     text === ""

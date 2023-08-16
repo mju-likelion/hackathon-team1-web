@@ -14,13 +14,21 @@ import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { HeaderAtom } from "../assets/atom/HeaderAtom";
 
 const Detail = () => {
   const { infoId } = useParams();
-  const navigate = useNavigate();
 
   const pageLanguage = useRecoilState(LanguageAtom);
+
+  const [path, setPath] = useRecoilState(HeaderAtom);
+
+  const url = useLocation();
+
+  useEffect(() => {
+    setPath(url.pathname);
+  }, [path]);
 
   const [count, setCount] = useState(0);
 
@@ -48,7 +56,6 @@ const Detail = () => {
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      navigate("/*");
     }
   };
 
@@ -58,7 +65,7 @@ const Detail = () => {
 
   const addCompare = () => {
     console.log(JSON.parse(localStorage.getItem("insurances")));
-    console.log(compareBox.keys());
+
     if (compareBox.length < 3) {
       setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
       handleCompareModal();

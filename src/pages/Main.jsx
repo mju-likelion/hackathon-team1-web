@@ -3,8 +3,10 @@ import { styled } from "styled-components";
 import Logo from "../assets/images/Logo.svg";
 import Airplane from "../assets/images/Airplane.svg";
 import XIcon from "../assets/images/XIcon.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { DetectLanguage } from "../api/DetectLanguage";
+import { useRecoilState } from "recoil";
+import { HeaderAtom } from "../assets/atom/HeaderAtom";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,11 +17,20 @@ const Main = () => {
 
   const navigate = useNavigate();
 
+  const [path, setPath] = useRecoilState(HeaderAtom);
+
   useEffect(() => {
     const storedHistory =
       JSON.parse(localStorage.getItem("searchHistory")) || [];
     setSearchHistory(storedHistory);
   }, []);
+
+  const url = useLocation();
+
+  useEffect(() => {
+    setPath(url.pathname);
+    console.log(path);
+  }, [path]);
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
