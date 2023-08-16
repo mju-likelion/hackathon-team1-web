@@ -66,7 +66,14 @@ const CompareDetailBox = ({ compareInsurance }) => {
       </CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
-          rendering(item.registrationType, idx)
+          rendering(
+            pageLanguage === "KOR"
+              ? item.languages["registration type"]["KR"]
+              : pageLanguage === "ENG"
+              ? item.languages["registration type"]["EN"]
+              : item.languages["registration type"]["CN"],
+            idx
+          )
         )}
       </DetailBox>
     </CompareDetailArea>

@@ -226,8 +226,20 @@ const Detail = () => {
           </LeftArea>
           <RightArea>
             <InsuranceNameContainer>
-              <InsuranceName>{insurance.productName}</InsuranceName>
-              <CompanyName>{insurance.companyName}</CompanyName>
+              <InsuranceName>
+                {pageLanguage[0] === "KOR"
+                  ? insurance.languages["insurance name"]["KR"]
+                  : pageLanguage[0] === "ENG"
+                  ? insurance.languages["insurance name"]["EN"]
+                  : insurance.languages["insurance name"]["CN"]}
+              </InsuranceName>
+              <CompanyName>
+                {pageLanguage[0] === "KOR"
+                  ? insurance.languages["insurance company"]["KR"]
+                  : pageLanguage[0] === "ENG"
+                  ? insurance.languages["insurance company"]["EN"]
+                  : insurance.languages["insurance company"]["CN"]}
+              </CompanyName>
             </InsuranceNameContainer>
             <InsuranceDetailContainer>
               {insuranceArr.map((item, index) => (
@@ -239,7 +251,13 @@ const Detail = () => {
             ) : (
               <LargeButton
                 handleClick={modalText}
-                text={insurance.registrationType}
+                text={
+                  pageLanguage[0] === "KOR"
+                    ? insurance.languages["registration type"]["KR"]
+                    : pageLanguage[0] === "ENG"
+                    ? insurance.languages["registration type"]["EN"]
+                    : insurance.languages["registration type"]["CN"]
+                }
               />
             )}
           </RightArea>
