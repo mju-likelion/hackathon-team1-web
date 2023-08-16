@@ -16,6 +16,9 @@ import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 import { useLocation } from "react-router-dom";
 import { HeaderAtom } from "../assets/atom/HeaderAtom";
+import { CountAtom } from "../assets/atom/CountAtom";
+
+// 한번이 씹힘 ㅠㅠ
 
 const Detail = () => {
   const { infoId } = useParams();
@@ -24,13 +27,13 @@ const Detail = () => {
 
   const [path, setPath] = useRecoilState(HeaderAtom);
 
+  const [countCompareNumber, setCountCompareNumber] = useRecoilState(CountAtom);
+
   const url = useLocation();
 
   useEffect(() => {
     setPath(url.pathname);
   }, [path]);
-
-  const [count, setCount] = useState(0);
 
   const [compareBox, setCompareBox] = useState(
     JSON.parse(localStorage.getItem("insurances")) || []
@@ -63,16 +66,28 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  const addCompare = () => {
-    console.log(JSON.parse(localStorage.getItem("insurances")));
+  const insurancesJSON = localStorage.getItem("insurances");
+  const insurancesArray = JSON.parse(insurancesJSON);
 
-    if (compareBox.length < 3) {
-      setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
+  const infoIdArray = insurancesArray?.map((item) => item.infoId);
+
+  console.log(infoIdArray);
+
+  const isInfoIdDuplicated = infoIdArray?.includes(infoId);
+  console.log(isInfoIdDuplicated);
+
+  const addCompare = () => {
+    if (compareBox.length < 3 && isInfoIdDuplicated) {
       handleCompareModal();
-    } else {
+      setCountCompareNumber((prev) => prev + 1);
+    } else if (compareBox.length < 3 && !isInfoIdDuplicated) {
+      setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
+      setCountCompareNumber((prev) => prev + 1);
+      handleCompareModal();
+    } else if (compareBox.length >= 3) {
       setIsCompareModalOpen(true);
+      setCountCompareNumber((prev) => prev + 1);
     }
-    setCount((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -107,8 +122,8 @@ const Detail = () => {
       title: "보험료",
       englishTitle: "Insurance Premium",
       chineseTitle: "保险费",
-      firstContent: insurance.premiumMale,
-      secondContent: insurance.premiumFemale,
+      firstContent: insurance.premiumMale?.toLocaleString("en-US"),
+      secondContent: insurance.premiumFemale?.toLocaleString("en-US"),
     },
     {
       title: "기준연령",
@@ -201,12 +216,24 @@ const Detail = () => {
           handleModalClose={handleBtnModal}
         />
       )}
+
       {isCompareModalOpen && (
-        <Modal
-          iconName={count > 3 ? "LockerFull" : "LockerIn"}
-          handleModalClose={handleCompareModal}
-        />
+        <>
+          {!isInfoIdDuplicated && countCompareNumber <= 3 && (
+            <Modal iconName="LockerIn" handleModalClose={handleCompareModal} />
+          )}
+          {isInfoIdDuplicated && countCompareNumber > 3 && (
+            <Modal handleModalClose={handleCompareModal} />
+          )}
+          {!isInfoIdDuplicated && countCompareNumber > 3 && (
+            <Modal
+              iconName="LockerFull"
+              handleModalClose={handleCompareModal}
+            />
+          )}
+        </>
       )}
+
       <Background>
         <AboveContainer>
           <LeftArea>

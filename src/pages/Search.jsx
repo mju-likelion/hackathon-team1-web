@@ -31,7 +31,6 @@ const Search = () => {
 
   useEffect(() => {
     setPath(url.pathname);
-    console.log(path);
   }, [path]);
 
   useEffect(() => {
