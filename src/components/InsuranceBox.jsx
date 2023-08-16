@@ -144,7 +144,7 @@ const TopArea = styled.div`
 `;
 
 const NameArea = styled.div`
-  width: 660px;
+  width: 675px;
   height: 42px;
   display: flex;
   justify-content: space-between;

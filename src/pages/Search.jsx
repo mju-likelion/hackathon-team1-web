@@ -10,6 +10,7 @@ import NotFound from "./Error/NotFound";
 import { useNavigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
+import { SearchAll } from "../api/AllResult";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
@@ -24,15 +25,22 @@ const Search = () => {
   const pageLanguage = useRecoilState(LanguageAtom);
 
   const getInsurance = () => {
-    // 질문 페이지에서 질문 값과 언어 값을 가져와서 입력
-
-    AxiosSearch(text, language)
-      .then((loanData) => {
-        console.log("loaded");
-        setInsurance(loanData);
-        setLoading(false);
-      })
-      .catch((error) => <NotFound number={500} />);
+    text === ""
+      ? SearchAll()
+          .then((loanData) => {
+            setInsurance(loanData.data);
+            setLoading(false);
+          })
+          .catch((error) => navigate("/400"))
+      : AxiosSearch(text, language)
+          .then((loanData) => {
+            setInsurance(loanData);
+            setLoading(false);
+          })
+          .catch((error) => {
+            navigate("/400");
+            setTimeout(console.log("hi"), 3000);
+          });
   };
 
   useEffect(getInsurance, [text, language]);
@@ -68,11 +76,17 @@ const Search = () => {
         <TopContainer>
           <LeftContainer>
             <QuestionArea>
-              {pageLanguage[0] === "KOR"
-                ? `${text} 질문에 대한`
+              {text !== ""
+                ? pageLanguage[0] === "KOR"
+                  ? `${text} 질문에 대한`
+                  : pageLanguage[0] === "ENG"
+                  ? `For question ${text}`
+                  : `${text} 为了`
+                : pageLanguage[0] === "KOR"
+                ? "전체 보험"
                 : pageLanguage[0] === "ENG"
-                ? `For question ${text}`
-                : `${text} 为了`}
+                ? "All Insurances"
+                : "全额保险"}
             </QuestionArea>
             <CountArea>
               <LeftCount>

@@ -1,11 +1,24 @@
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { LogoAtom } from "../assets/atom/LogoAtom";
 
 const ResultNothing = () => {
+  const navigate = useNavigate();
+
+  const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
+
+  const handleClick = () => {
+    navigate("/");
+    setShowLogo(false);
+  };
+
   return (
     <ResultNothingContainer>
       <ResultNothingBox>
         <NothingLargeText>검색 결과를 찾을 수 없습니다.</NothingLargeText>
         <NothingSmallText>다시 질문 해주세요!</NothingSmallText>
+        <Button onClick={handleClick}>홈으로 돌아가기</Button>
       </ResultNothingBox>
     </ResultNothingContainer>
   );
@@ -28,6 +41,7 @@ const ResultNothingBox = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  align-items: center;
 `;
 
 const NothingLargeText = styled.p`
@@ -42,4 +56,16 @@ const NothingSmallText = styled.p`
   font-size: 25px;
   font-weight: 700;
   margin: 0;
+`;
+
+const Button = styled.button`
+  width: 300px;
+  height: 50px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.WHITE};
+  background-color: ${({ theme }) => theme.colors.BLUE};
+  border-radius: 25px;
+  margin-top: 25px;
 `;

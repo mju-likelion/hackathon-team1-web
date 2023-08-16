@@ -8,7 +8,6 @@ export const AxiosSearch = async (question, sourceLanguage) => {
     });
     return response.data.insurances.insuranceInfos;
   } catch (error) {
-    console.log("error occurred");
     throw error;
   }
 };
