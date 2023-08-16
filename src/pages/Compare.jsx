@@ -49,7 +49,9 @@ const Compare = () => {
     <>
       <CompareContainer>
         <UpsideArea>{rendering(compareInsurance)}</UpsideArea>
-        <CompareDetailBox compareInsurance={compareInsurance} />
+        <DownSideArea>
+          <CompareDetailBox compareInsurance={compareInsurance} />
+        </DownSideArea>
       </CompareContainer>
     </>
   );
@@ -70,12 +72,23 @@ const UpsideArea = styled.div`
   height: 659px;
   border-radius: 25px;
   background-color: ${({ theme }) => theme.colors.WHITE};
-  margin: 29px auto 54px auto;
+  margin: 29px auto 10px auto;
   justify-items: center;
 
   span:not(:last-child) {
     border-right: 1px ${({ theme }) => theme.colors.STONE} solid;
   }
+`;
+
+const DownSideArea = styled.div`
+  display: grid;
+  width: 1160px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.WHITE};
+  margin: 29px auto 54px auto;
+  justify-items: center;
+  border-radius: 25px;
+  padding: 40px 0 30px 0;
 `;
 
 const GridItem = styled.span`

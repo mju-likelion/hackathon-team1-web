@@ -88,6 +88,7 @@ const LoanContentBox = styled.div`
 const MainTitle = styled.p`
   font-size: 23px;
   font-weight: 600;
+  text-align: center;
 `;
 
 const SubTitle = styled.p`
