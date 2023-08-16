@@ -31,13 +31,16 @@ const Search = () => {
             setInsurance(loanData.data);
             setLoading(false);
           })
-          .catch((error) => <NotFound number={500} />)
+          .catch((error) => navigate("/400"))
       : AxiosSearch(text, language)
           .then((loanData) => {
             setInsurance(loanData);
             setLoading(false);
           })
-          .catch((error) => <NotFound number={500} />);
+          .catch((error) => {
+            navigate("/400");
+            setTimeout(console.log("hi"), 3000);
+          });
   };
 
   useEffect(getInsurance, [text, language]);

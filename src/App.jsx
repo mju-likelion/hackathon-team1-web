@@ -12,6 +12,7 @@ import Compare from "./pages/Compare";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { LogoAtom } from "./assets/atom/LogoAtom";
+import ResultNothing from "./components/ResultNothing";
 
 const App = () => {
   const path = window.location.pathname;
@@ -45,6 +46,7 @@ const App = () => {
             />
             <Route path="/detail/:infoId" element={<Detail />} />
             <Route path="*" element={<NotFound number={404} />} />
+            <Route path="/400" element={<ResultNothing />} />
             <Route path="/compare" element={<Compare />} />
           </Routes>
         </Router>
