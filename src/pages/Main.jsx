@@ -140,6 +140,7 @@ const Main = () => {
               ref={searchInputRef}
               value={searchTerm}
               onChange={handleInputChange}
+              placeholder="3개 국어로 보험 정보를 제공하는 NEARHOOD에 오신 것을 환영합니다!"
             ></SearchInput>
           </SearchLabel>
           <SearchButton>
@@ -207,6 +208,9 @@ const SearchInput = styled.input`
   height: 49px;
   border: 0;
   font-size: 25px;
+  &::placeholder {
+    text-align: center;
+  }
 `;
 
 const SearchButton = styled.button`
