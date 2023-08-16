@@ -16,7 +16,7 @@ import ResultNothing from "./components/ResultNothing";
 
 const App = () => {
   const path = window.location.pathname;
-  const allowedPaths = ["/", "/detail", "/compare", "/search", "/detail/*"];
+  const allowedPaths = ["/", "/compare", "/search", "/detail/*"];
   const showHeader = allowedPaths.includes(window.location.pathname);
   const [showLogo, setShowLogo] = useRecoilState(LogoAtom);
 
