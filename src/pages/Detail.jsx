@@ -380,7 +380,7 @@ const InsuranceNameContainer = styled.div`
 
 const InsuranceName = styled.div`
   width: 500px;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   margin: 12px 0;
 `;
