@@ -10,7 +10,7 @@ const CompareDetailBox = ({ compareInsurance }) => {
     return (
       <DetailContent
         key={new Date().getTime() + idx}
-        margin={idx === 0 ? "85px" : "75px"}
+        margin={idx === 0 ? "85px" : "55px"}
       >
         {item}
       </DetailContent>
@@ -49,10 +49,16 @@ const CompareDetailBox = ({ compareInsurance }) => {
         {compareInsurance.map((item, idx) =>
           rendering(
             pageLanguage === "KOR"
-              ? `남 ${item.premiumMale} / 여 ${item.premiumFemale}원`
+              ? `남 ${item.premiumMale.toLocaleString(
+                  "en-US"
+                )} / 여 ${item.premiumFemale.toLocaleString("en-US")}원`
               : pageLanguage === "ENG"
-              ? `M ${item.premiumMale} / F ${item.premiumFemale}won`
-              : `男 ${item.premiumMale} / 女 ${item.premiumFemale}元`,
+              ? `M ${item.premiumMale.toLocaleString(
+                  "en-US"
+                )} / F ${item.premiumFemale.toLocaleString("en-US")}won`
+              : `男 ${item.premiumMale.toLocaleString(
+                  "en-US"
+                )} / 女 ${item.premiumFemale.toLocaleString("en-US")}元`,
             idx
           )
         )}
@@ -66,7 +72,14 @@ const CompareDetailBox = ({ compareInsurance }) => {
       </CompareDetailBoxTitle>
       <DetailBox>
         {compareInsurance.map((item, idx) =>
-          rendering(item.registrationType, idx)
+          rendering(
+            pageLanguage === "KOR"
+              ? item.languages["registration type"].KR
+              : pageLanguage === "ENG"
+              ? item.languages["registration type"].EN
+              : item.languages["registration type"].CN,
+            idx
+          )
         )}
       </DetailBox>
     </CompareDetailArea>
@@ -99,7 +112,7 @@ const DetailBox = styled.div`
 `;
 
 const DetailContent = styled.div`
-  width: 265px;
+  width: 275px;
   margin-left: ${(props) => props.margin};
   font-size: 25px;
   font-weight: 600;

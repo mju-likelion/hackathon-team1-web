@@ -9,13 +9,11 @@ const InsuranceBox = ({ loanData }) => {
   const {
     infoId,
     insuranceLogo,
-    productName,
-    companyName,
     insuranceAgeGroupStart,
     insuranceAgeGroupEnd,
     premiumMale,
     premiumFemale,
-    registrationType,
+    languages,
   } = loanData;
 
   const navigate = useNavigate();
@@ -35,8 +33,20 @@ const InsuranceBox = ({ loanData }) => {
         <RightBox>
           <TopArea>
             <NameArea>
-              <MainName>{productName}</MainName>
-              <SubName>{companyName}</SubName>
+              <MainName>
+                {pageLanguage === "KOR"
+                  ? languages["insurance name"].KR
+                  : pageLanguage === "ENG"
+                  ? languages["insurance name"].EN
+                  : languages["insurance name"].CN}
+              </MainName>
+              <SubName>
+                {pageLanguage === "KOR"
+                  ? languages["insurance company"].KR
+                  : pageLanguage === "ENG"
+                  ? languages["insurance company"].EN
+                  : languages["insurance company"].CN}
+              </SubName>
             </NameArea>
             <SmallButton
               text={
@@ -78,10 +88,16 @@ const InsuranceBox = ({ loanData }) => {
               }
               content={
                 pageLanguage === "KOR"
-                  ? `남 ${premiumMale} / 여 ${premiumFemale}`
+                  ? `남 ${premiumMale.toLocaleString(
+                      "en-US"
+                    )} / 여 ${premiumFemale.toLocaleString("en-US")}`
                   : pageLanguage === "ENG"
-                  ? `Male ${premiumMale} / Female ${premiumFemale}`
-                  : `男 ${premiumMale} / 女 ${premiumFemale}`
+                  ? `M ${premiumMale.toLocaleString(
+                      "en-US"
+                    )} / F ${premiumFemale.toLocaleString("en-US")}`
+                  : `男 ${premiumMale.toLocaleString(
+                      "en-US"
+                    )} / 女 ${premiumFemale.toLocaleString("en-US")}`
               }
               unit={
                 pageLanguage === "KOR"
@@ -100,7 +116,13 @@ const InsuranceBox = ({ loanData }) => {
                   ? "Type"
                   : "订阅类型"
               }
-              content={registrationType}
+              content={
+                pageLanguage === "KOR"
+                  ? languages["registration type"].KR
+                  : pageLanguage === "ENG"
+                  ? languages["registration type"].EN
+                  : languages["registration type"].CN
+              }
             />
           </BottomArea>
         </RightBox>
