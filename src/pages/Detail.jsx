@@ -14,9 +14,11 @@ import { useParams } from "react-router-dom";
 import Modal from "../components/Modal";
 import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
+import { useNavigate } from "react-router-dom";
 
 const Detail = () => {
   const { infoId } = useParams();
+  const navigate = useNavigate();
 
   const pageLanguage = useRecoilState(LanguageAtom);
 
@@ -46,6 +48,7 @@ const Detail = () => {
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
+      navigate("/*");
     }
   };
 
