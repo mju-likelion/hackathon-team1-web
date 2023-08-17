@@ -21,6 +21,8 @@ const InsuranceBox = ({ loanData }) => {
 
   const pageLanguage = useRecoilValue(LanguageAtom);
 
+  const imgUrl = insuranceLogo?.imageUrl;
+
   const goDetail = (infoId) => {
     navigate(`/detail/${infoId}`);
   };
@@ -29,7 +31,11 @@ const InsuranceBox = ({ loanData }) => {
     <>
       <ContentArea>
         <LeftBox>
-          <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
+          {imgUrl ? (
+            <LoanImage src={imgUrl} alt="loan-image" />
+          ) : (
+            <div>loading</div>
+          )}
         </LeftBox>
         <RightBox>
           <TopArea>

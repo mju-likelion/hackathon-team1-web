@@ -42,7 +42,7 @@ const Compare = () => {
 
     const result = insurances.map((item) => (
       <GridItem key={item.infoId}>
-        <UpsideCompareBox testData={item} onDelete={onDelete} />
+        <UpsideCompareBox loanData={item} onDelete={onDelete} />
       </GridItem>
     ));
 
