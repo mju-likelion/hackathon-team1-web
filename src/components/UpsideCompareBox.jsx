@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
-/*보험이 있을 경우 컴포넌트*/
 const UpsideCompareBox = ({ loanData, onDelete }) => {
   const { infoId, languages, insuranceLogo } = loanData;
   const navigate = useNavigate();
