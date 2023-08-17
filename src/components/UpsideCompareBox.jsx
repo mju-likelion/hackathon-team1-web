@@ -6,13 +6,14 @@ import { useRecoilValue } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 /*보험이 있을 경우 컴포넌트*/
-const UpsideCompareBox = ({ testData, onDelete }) => {
-  const { infoId, languages, insuranceLogo } = testData;
+const UpsideCompareBox = ({ loanData, onDelete }) => {
+  const { infoId, languages, insuranceLogo } = loanData;
   const navigate = useNavigate();
   const pageLanguage = useRecoilValue(LanguageAtom);
   const goDetail = (id) => {
     navigate(`/detail/${id}`);
   };
+  const imgUrl = insuranceLogo?.imageUrl;
 
   return (
     <LoanContainer>
@@ -23,7 +24,11 @@ const UpsideCompareBox = ({ testData, onDelete }) => {
       />
       <LoanArea>
         <LoanBox>
-          <LoanImage src={insuranceLogo.imageUrl} alt="loan-image" />
+          {imgUrl ? (
+            <LoanImage src={imgUrl} alt="loan-image" />
+          ) : (
+            <div>loading</div>
+          )}
           <LoanContentBox>
             <MainTitle>
               {pageLanguage === "KOR"
