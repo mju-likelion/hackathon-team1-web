@@ -197,11 +197,11 @@ const Main = () => {
     })(),
     3: (() => {
       if (pageLanguage[0] === "KOR") {
-        return "5000원, 20세, 30살, 40대, 96.5%(퍼, 퍼센트) (O)\n오천원, 5000.0원, 20.0세, 96% (X)";
+        return '"보험료가 5000원대인 보험 추천해줘"\n5000원, 20세, 30살, 40대, 96.5%(퍼, 퍼센트) (O)\n오천원, 5000.0원, 20.0세, 96% (X)';
       } else if (pageLanguage[0] === "ENG") {
-        return "₩5000, 20 years old, 30 years old, 40s, 96.5% (per, percent) (O)\nfive-thousand won, ₩5000.0, 20.0 years old, 96% (X)";
+        return '"Please recommend an insurance that costs around 5,000 won"\n₩5000, 20 years old, 30 years old, 40s, 96.5% (per, percent) (O)\nfive-thousand won, ₩5000.0, 20.0 years old, 96% (X)';
       } else {
-        return "5000韩元，20岁，30岁，40多岁，96.5%(百分之）（√）\n5000.0韩元，20.0岁，96%（X）";
+        return '"推荐一下保险费在5000韩元左右的保险"5000韩元，20岁，30岁，40多岁，96.5%(百分之）（√）\n5000.0韩元，20.0岁，96%（X）';
       }
     })(),
     4: (() => {
