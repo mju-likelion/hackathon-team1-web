@@ -241,7 +241,15 @@ const Detail = () => {
               ))}
             </InsuranceDetailContainer>
             {insurance.registrationType === null ? (
-              <LargeButton text="바로가기 정보가 없습니다" />
+              <LargeButton
+                text={
+                  pageLanguage[0] === "KOR"
+                    ? "바로가기 정보가 없습니다."
+                    : pageLanguage[0] === "ENG"
+                    ? "Shortcut information is unavailable."
+                    : "快捷方式信息不可用。"
+                }
+              />
             ) : (
               <LargeButton
                 handleClick={modalText}
