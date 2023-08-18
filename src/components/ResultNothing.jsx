@@ -22,11 +22,19 @@ const ResultNothing = () => {
       <TopContainer>
         <LeftContainer>
           <QuestionArea>
-            {pageLanguage[0] === "KOR"
-              ? `'${params.text}' 질문에 대한`
-              : pageLanguage[0] === "ENG"
-              ? `For question '${params.text}'`
-              : `'${params.text}' 为了`}
+            {pageLanguage[0] === "KOR" ? (
+              <>
+                '<QuestionText>{params.text}</QuestionText>' 질문에 대한
+              </>
+            ) : pageLanguage[0] === "ENG" ? (
+              <>
+                For question '<QuestionText>{params.text}</QuestionText>'
+              </>
+            ) : (
+              <>
+                '<QuestionText>{params.text}</QuestionText>' 为了
+              </>
+            )}
           </QuestionArea>
           <CountArea>
             <LeftCount>
@@ -113,7 +121,7 @@ const NothingSmallText = styled.p`
   color: ${(props) => props.theme.colors.LIGHTGRAY};
   font-size: 25px;
   font-weight: 700;
-  margin: 0;
+  margin-top: 10px;
 `;
 
 const LeftContainer = styled.div`
@@ -121,11 +129,22 @@ const LeftContainer = styled.div`
   height: 90px;
 `;
 
+const QuestionText = styled.p`
+  width: 600px;
+  font-size: 20px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
 const QuestionArea = styled.div`
-  width: 700px;
+  width: 750px;
   height: 25px;
   font-size: 20px;
   font-weight: 600;
+  display: flex;
+  flex-wrap: nowrap;
 `;
 
 const CountArea = styled.div`
@@ -142,4 +161,5 @@ const LeftCount = styled.p`
 
 const RightCount = styled.p`
   font-size: 25px;
+  margin-left: 10px;
 `;

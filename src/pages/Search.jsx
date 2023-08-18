@@ -97,17 +97,27 @@ const Search = () => {
         <TopContainer>
           <LeftContainer>
             <QuestionArea>
-              {text !== ""
-                ? pageLanguage[0] === "KOR"
-                  ? `'${text}' 질문에 대한`
-                  : pageLanguage[0] === "ENG"
-                  ? `For question ${text}`
-                  : `${text} 为了`
-                : pageLanguage[0] === "KOR"
-                ? "전체 보험"
-                : pageLanguage[0] === "ENG"
-                ? "All Insurances"
-                : "全额保险"}
+              {text !== "" ? (
+                pageLanguage[0] === "KOR" ? (
+                  <>
+                    '<QuestionText>{text}</QuestionText>' 질문에 대한
+                  </>
+                ) : pageLanguage[0] === "ENG" ? (
+                  <>
+                    For question '<QuestionText>{text}</QuestionText>'
+                  </>
+                ) : (
+                  <>
+                    '<QuestionText>{text}</QuestionText>' 为了
+                  </>
+                )
+              ) : pageLanguage[0] === "KOR" ? (
+                "전체 보험"
+              ) : pageLanguage[0] === "ENG" ? (
+                "All Insurances"
+              ) : (
+                "全额保险"
+              )}
             </QuestionArea>
             <CountArea>
               <LeftCount>
@@ -194,10 +204,21 @@ const LeftContainer = styled.div`
 `;
 
 const QuestionArea = styled.div`
-  width: 700px;
+  width: 750px;
   height: 25px;
-  font-size: 23px;
+  font-size: 20px;
   font-weight: 600;
+  display: flex;
+  flex-wrap: nowrap;
+`;
+
+const QuestionText = styled.p`
+  width: 600px;
+  font-size: 20px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const CountArea = styled.div`
