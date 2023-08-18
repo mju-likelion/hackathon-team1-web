@@ -5,7 +5,7 @@ import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Loading = () => {
   const pageLanguage = useRecoilState(LanguageAtom);
-  console.log(pageLanguage[0]);
+
   return (
     <Background>
       <SpinnerImgBox>
