@@ -14,7 +14,7 @@ const UpsideEmptyBox = () => {
   };
 
   const goSearch = () => {
-    navigate("/nestjs/api/insurance-suggesters");
+    navigate("/searchall");
   };
 
   return (
