@@ -334,7 +334,6 @@ const SearchInput = styled.input`
   border: 0;
   font-size: 25px;
   &::placeholder {
-    text-align: center;
     color: ${({ theme }) => theme.colors.LIGHTGRAY};
     font-size: 20px;
   }
