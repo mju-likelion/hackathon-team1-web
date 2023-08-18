@@ -16,18 +16,15 @@ import { useRecoilState } from "recoil";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
 import { useLocation } from "react-router-dom";
 import { HeaderAtom } from "../assets/atom/HeaderAtom";
-import { CountAtom } from "../assets/atom/CountAtom";
-
-// 한번이 씹힘 ㅠㅠ
+import { CompareAtom } from "../assets/atom/CompareAtom";
 
 const Detail = () => {
   const { infoId } = useParams();
 
   const pageLanguage = useRecoilState(LanguageAtom);
-
   const [path, setPath] = useRecoilState(HeaderAtom);
 
-  const [countCompareNumber, setCountCompareNumber] = useRecoilState(CountAtom);
+  const [tempData, setTempData] = useRecoilState(CompareAtom);
 
   const url = useLocation();
 
@@ -35,19 +32,13 @@ const Detail = () => {
     setPath(url.pathname);
   }, [path]);
 
-  const [compareBox, setCompareBox] = useState(
-    JSON.parse(localStorage.getItem("insurances")) || []
-  );
-
-  const [isBtnModalOpen, setIsBtnModalOpen] = useState(false);
-  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  const [isBtnModalOpen, setIsBtnModalOpen] = useState({
+    isOpen: false,
+    code: null,
+  });
 
   const handleBtnModal = () => {
-    setIsBtnModalOpen((prev) => !prev);
-  };
-
-  const handleCompareModal = () => {
-    setIsCompareModalOpen((prev) => !prev);
+    setIsBtnModalOpen(false);
   };
 
   const [insurance, setInsurance] = useState([]);
@@ -66,33 +57,26 @@ const Detail = () => {
     fetchData();
   }, []);
 
-  const insurancesJSON = localStorage.getItem("insurances");
-  const insurancesArray = JSON.parse(insurancesJSON);
-
-  const infoIdArray = insurancesArray?.map((item) => item.infoId);
-
-  console.log(infoIdArray);
-
-  const isInfoIdDuplicated = infoIdArray?.includes(infoId);
-  console.log(isInfoIdDuplicated);
-
   const addCompare = () => {
-    if (compareBox.length < 3 && isInfoIdDuplicated) {
-      handleCompareModal();
-      setCountCompareNumber((prev) => prev + 1);
-    } else if (compareBox.length < 3 && !isInfoIdDuplicated) {
-      setCompareBox((prevCompareBox) => [...prevCompareBox, insurance]);
-      setCountCompareNumber((prev) => prev + 1);
-      handleCompareModal();
-    } else if (compareBox.length >= 3) {
-      setIsCompareModalOpen(true);
-      setCountCompareNumber((prev) => prev + 1);
+    const isDuplicate = tempData.find((item) => item.infoId === infoId);
+    if (isDuplicate) {
+      setIsBtnModalOpen({
+        isOpen: true,
+        code: null,
+      });
+    } else if (tempData.length >= 3) {
+      setIsBtnModalOpen({
+        isOpen: true,
+        code: "LockerFull",
+      });
+    } else {
+      setTempData((prevCompareBox) => [...prevCompareBox, insurance]);
+      setIsBtnModalOpen({
+        isOpen: true,
+        code: "LockerIn",
+      });
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("insurances", JSON.stringify(compareBox));
-  }, [compareBox]);
 
   const goSite = () => {
     window.location.href = insurance.registrationLink;
@@ -209,29 +193,12 @@ const Detail = () => {
 
   return !isLoading ? (
     <>
-      {isBtnModalOpen && (
+      {isBtnModalOpen.isOpen && (
         <Modal
-          iconName="Call"
+          iconName={isBtnModalOpen.code}
           callNum={insurance.registrationLink}
           handleModalClose={handleBtnModal}
         />
-      )}
-
-      {isCompareModalOpen && (
-        <>
-          {!isInfoIdDuplicated && countCompareNumber <= 3 && (
-            <Modal iconName="LockerIn" handleModalClose={handleCompareModal} />
-          )}
-          {isInfoIdDuplicated && countCompareNumber > 3 && (
-            <Modal handleModalClose={handleCompareModal} />
-          )}
-          {!isInfoIdDuplicated && countCompareNumber > 3 && (
-            <Modal
-              iconName="LockerFull"
-              handleModalClose={handleCompareModal}
-            />
-          )}
-        </>
       )}
 
       <Background>
@@ -242,7 +209,7 @@ const Detail = () => {
             ) : (
               <div>loading</div>
             )}
-            <ImageText onClick={addCompare}>
+            <ImageText onClick={() => addCompare()}>
               <CompareImage src={Box} alt="비교함 담기 이미지" />
               {pageLanguage[0] === "KOR"
                 ? "비교함 담기"

@@ -54,7 +54,7 @@ const Search = () => {
               .catch((error) => navigate("/404"))
           : AxiosSearch(text, language)
               .then((loanData) => {
-                data = loanData.insurances.insuranceInfos;
+                data = loanData;
                 setInsurance(data);
                 setFilteredQuestion(loanData.filtered);
                 setLoading(false);
@@ -211,7 +211,6 @@ const LeftContainer = styled.div`
 const QuestionArea = styled.div`
   width: 750px;
   height: 25px;
-  font-size: 20px;
   font-weight: 600;
   display: flex;
   flex-wrap: nowrap;

@@ -5,7 +5,7 @@ import { LanguageAtom } from "../assets/atom/LanguageAtom";
 
 const Loading = () => {
   const pageLanguage = useRecoilState(LanguageAtom);
-  console.log(pageLanguage[0]);
+
   return (
     <Background>
       <SpinnerImgBox>
@@ -26,7 +26,7 @@ export default Loading;
 
 const Background = styled.div`
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 117px);
   background-color: rgba(217, 217, 217, 0.5);
   display: flex;
   justify-content: center;
