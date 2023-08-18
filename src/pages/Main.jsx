@@ -165,6 +165,15 @@ const Main = () => {
         return "3. 保险费，价格没有小数点。保险价格指数包括小数点";
       }
     })(),
+    4: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "4. 전체 보험 보고싶다면?";
+      } else if (pageLanguage[0] === "ENG") {
+        return "4. What if you want to see all the insurance?";
+      } else {
+        return "4. 想看全部保险的话？";
+      }
+    })(),
   };
 
   const ExampleContent = {
@@ -174,7 +183,7 @@ const Main = () => {
       } else if (pageLanguage[0] === "ENG") {
         return "Kyobo Life, NongHyup Property Insurance, NongHyup Life, Oriental Life, Lotte Non-Life Insurance, Meritz Fire & Marine Insurance, MG Non-Life Insurance,\n Samsung Life, Samsung Fire & Marine Insurance, DB Non-Life Insurance, DB Life, Hyundai Marine & Fire Insurance, Hanwha Non-Life Insurance, Hanwha Life, Heungkuk Life, Heungkuk Fire";
       } else {
-        return "교보생명, 农协财产保险, 农协人寿, 东洋人寿, 乐天财产保险, 三星人寿, 三星财产保险, DB 财产保险, DB 人寿, 现代海上, 韩华财产保险, 韩华人寿, 兴国人寿, 兴国财产保险";
+        return "教保生命, 农协财产保险, 农协人寿, 东洋人寿, 乐天财产保险, 三星人寿, 三星财产保险, DB 财产保险, DB 人寿, 现代海上, 韩华财产保险, 韩华人寿, 兴国人寿, 兴国财产保险";
       }
     })(),
     2: (() => {
@@ -195,6 +204,15 @@ const Main = () => {
         return "5000韩元，20岁，30岁，40多岁，96.5%（每，百分之）（√）\n5000.0韩元，20.0岁，96%（X）";
       }
     })(),
+    4: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "빈칸으로 검색 버튼을 눌러주세요!";
+      } else if (pageLanguage[0] === "ENG") {
+        return "Please click the search button in the blank!";
+      } else {
+        return "请在空格的情况下按搜索按钮！";
+      }
+    })(),
   };
 
   return (
@@ -207,7 +225,13 @@ const Main = () => {
               ref={searchInputRef}
               value={searchTerm}
               onChange={handleInputChange}
-              placeholder="3개 국어로 보험 정보를 제공하는 NEARHOOD에 오신 것을 환영합니다!"
+              placeholder={
+                pageLanguage[0] === "KOR"
+                  ? "3개 국어로 보험 정보를 제공하는 NEARHOOD에 오신 것을 환영합니다!"
+                  : pageLanguage[0] === "ENG"
+                  ? "Welcome to NEARHOOD, which provides insurance information in three languages!"
+                  : "欢迎来到用3国语言提供保险信息的NEARHOOD！"
+              }
             ></SearchInput>
           </SearchLabel>
           <SearchButton>
@@ -255,7 +279,11 @@ const Main = () => {
           </>
         ) : (
           <>
-            이 질문 양식을 꼭 지켜주세요 !
+            {pageLanguage[0] === "KOR"
+              ? "이 질문 양식을 꼭 지켜주세요 !"
+              : pageLanguage[0] === "ENG"
+              ? "Please keep this question form!"
+              : "请务必遵守这个提问格式！"}
             <ArrowBox>
               Click!
               <ArrowImgBox>
@@ -308,6 +336,7 @@ const SearchInput = styled.input`
   &::placeholder {
     text-align: center;
     color: ${({ theme }) => theme.colors.LIGHTGRAY};
+    font-size: 20px;
   }
 `;
 
