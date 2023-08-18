@@ -6,7 +6,7 @@ export const AxiosSearch = async (question, sourceLanguage) => {
       question,
       sourceLanguage,
     });
-    return response.data.insurances.insuranceInfos;
+    return response.data;
   } catch (error) {
     throw error;
   }

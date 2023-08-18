@@ -20,13 +20,7 @@ const App = () => {
 
   const detailPath = window.location.pathname.split("/")[1];
 
-  const allowedPaths = [
-    "/",
-    "compare",
-    "detail",
-    "/nestjs/api/insurance-suggesters",
-    "/nestjs/api/insurance-suggesters/all",
-  ];
+  const allowedPaths = ["/", "compare", "detail", "search", "searchall"];
 
   const showHeader =
     allowedPaths.includes(path) || allowedPaths.includes(detailPath);
@@ -49,14 +43,8 @@ const App = () => {
           {showHeader && <Header isVisible={showLogo} />}
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route
-              path="/nestjs/api/insurance-suggesters"
-              element={<Search />}
-            />
-            <Route
-              path="/nestjs/api/insurance-suggesters/all"
-              element={<Search />}
-            />
+            <Route path="/search/:text" element={<Search />} />
+            <Route path="/searchall" element={<Search />} />
             <Route path="/detail/:infoId" element={<Detail />} />
             <Route path="*" element={<NotFound number={404} />} />
             <Route path="/404/:text" element={<ResultNothing />} />
