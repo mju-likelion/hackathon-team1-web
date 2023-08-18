@@ -8,12 +8,15 @@ import { DetectLanguage } from "../api/DetectLanguage";
 import { useRecoilState } from "recoil";
 import { HeaderAtom } from "../assets/atom/HeaderAtom";
 import { LanguageAtom } from "../assets/atom/LanguageAtom";
+import BlueUpArrow from "../assets/images/BlueUpArrow.svg";
+import BlueDownArrow from "../assets/images/BlueDownArrow.svg";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [detectedLanguage, setDetectedLanguage] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
   const [searchBarClick, setSearchBarClick] = useState(false);
+  const [exampleClick, setExampleClick] = useState(false);
   const searchInputRef = useRef(null);
   const navigate = useNavigate();
   const pageLanguage = useRecoilState(LanguageAtom);
@@ -130,6 +133,70 @@ const Main = () => {
     localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
   };
 
+  const handleExampleClick = (exampleClick) => {
+    setExampleClick((prevExampleClick) => !prevExampleClick);
+  };
+
+  const ExampleTitle = {
+    1: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "1. 원하시는 보험사를 입력해주시면 추천해드릴게요 ( ˃ᴗ˂ )";
+      } else if (pageLanguage[0] === "ENG") {
+        return "1. If you provide the insurance company you want, I'll recommend it for you ( ˃ᴗ˂ )";
+      } else {
+        return "1. 提供您想要的保险公司，我会为您推荐 ( ˃ᴗ˂ )";
+      }
+    })(),
+    2: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "2. 성별 나이를 입력해주시면 원하시는 보험을 보실 수 있어요";
+      } else if (pageLanguage[0] === "ENG") {
+        return "2. You can see the insurance you want by providing your gender and age";
+      } else {
+        return "2. 提供您的性别和年龄，您可以看到您想要的保险";
+      }
+    })(),
+    3: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "3. 보험료, 가격은 소숫점 없이. 보험 가격지수는 소숫점 포함해서";
+      } else if (pageLanguage[0] === "ENG") {
+        return "3. Insurance premiums, prices are without decimals. Insurance price index includes decimals";
+      } else {
+        return "3. 保险费，价格没有小数点。保险价格指数包括小数点";
+      }
+    })(),
+  };
+
+  const ExampleContent = {
+    1: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "교보생명, 농협 손해보험, 농협생명, 동양생명, 롯데 손해보험, 메리츠화재, MG 손해보험,\n 삼성생명, 삼성화재, DB 손해보험, DB생명, 현대해상, 한화 손해보험, 한화생명, 흥국 생명, 흥국화재";
+      } else if (pageLanguage[0] === "ENG") {
+        return "Kyobo Life, NongHyup Property Insurance, NongHyup Life, Oriental Life, Lotte Non-Life Insurance, Meritz Fire & Marine Insurance, MG Non-Life Insurance,\n Samsung Life, Samsung Fire & Marine Insurance, DB Non-Life Insurance, DB Life, Hyundai Marine & Fire Insurance, Hanwha Non-Life Insurance, Hanwha Life, Heungkuk Life, Heungkuk Fire";
+      } else {
+        return "교보생명, 农协财产保险, 农协人寿, 东洋人寿, 乐天财产保险, 三星人寿, 三星财产保险, DB 财产保险, DB 人寿, 现代海上, 韩华财产保险, 韩华人寿, 兴国人寿, 兴国财产保险";
+      }
+    })(),
+    2: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return '" 43살 남자 보험 추천해줘!"';
+      } else if (pageLanguage[0] === "ENG") {
+        return '"Recommend insurance for a 43-year-old man!"';
+      } else {
+        return '"推荐给一个43岁的男人的保险！"';
+      }
+    })(),
+    3: (() => {
+      if (pageLanguage[0] === "KOR") {
+        return "5000원, 20세, 30살, 40대, 96.5%(퍼, 퍼센트) (O)\n오천원, 5000.0원, 20.0세, 96% (X)";
+      } else if (pageLanguage[0] === "ENG") {
+        return "₩5000, 20 years old, 30 years old, 40s, 96.5% (per, percent) (O)\nfive-thousand won, ₩5000.0, 20.0 years old, 96% (X)";
+      } else {
+        return "5000韩元，20岁，30岁，40多岁，96.5%（每，百分之）（√）\n5000.0韩元，20.0岁，96%（X）";
+      }
+    })(),
+  };
+
   return (
     <div>
       <LogoImg src={Logo} alt="LogoImg" />
@@ -167,7 +234,37 @@ const Main = () => {
       </SearchForm>
 
       <SearchLanguageText>{NowSelectedLanguage()}</SearchLanguageText>
-      <SearchExample>질문은 이렇게 입력해주세요 :)</SearchExample>
+      <SearchExample onClick={handleExampleClick} exampleClick={exampleClick}>
+        {exampleClick ? (
+          <>
+            <SearchExampleContainer>
+              {Object.keys(ExampleTitle).map((key) => (
+                <div key={key}>
+                  <SearchExampleTitle>{ExampleTitle[key]}</SearchExampleTitle>
+                  <SearchExampleContent>
+                    {ExampleContent[key]}
+                  </SearchExampleContent>
+                </div>
+              ))}
+            </SearchExampleContainer>
+            <ArrowBox>
+              <ArrowImgBox>
+                <ArrowImg src={BlueUpArrow} alt="UpArrowImg" />
+              </ArrowImgBox>
+            </ArrowBox>
+          </>
+        ) : (
+          <>
+            이 질문 양식을 꼭 지켜주세요 !
+            <ArrowBox>
+              Click!
+              <ArrowImgBox>
+                <ArrowImg src={BlueDownArrow} alt="DownArrowImg" />
+              </ArrowImgBox>
+            </ArrowBox>
+          </>
+        )}
+      </SearchExample>
     </div>
   );
 };
@@ -176,7 +273,7 @@ const LogoImg = styled.img`
   width: 417px;
   height: 79px;
   margin: auto;
-  margin-top: 130px;
+  margin-top: 120px;
   display: flex;
 `;
 
@@ -210,6 +307,7 @@ const SearchInput = styled.input`
   font-size: 25px;
   &::placeholder {
     text-align: center;
+    color: ${({ theme }) => theme.colors.LIGHTGRAY};
   }
 `;
 
@@ -239,10 +337,13 @@ const ResentResearchTextLine = styled.div`
 `;
 
 const ResentResearchTextBtn = styled.button`
-  width: auto;
+  width: 770px;
   height: 100%;
   font-size: 25px;
   text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const ResearchDeleteBtn = styled.button`
@@ -257,17 +358,63 @@ const ResearchDeleteBtnImg = styled.img`
 const SearchLanguageText = styled.p`
   width: 900px;
   font-size: 27px;
-  color: ${(props) => props.theme.colors.DARKGRAY};
+  color: ${(props) => props.theme.colors.LIGHTGRAY};
   margin: 35px auto auto auto;
   padding-left: 20px;
 `;
 
-const SearchExample = styled.p`
+const SearchExample = styled.button`
   width: 900px;
-  font-size: 30px;
+  background-color: ${(props) => props.theme.colors.LIGHTGRAY2};
+  color: ${(props) => props.theme.colors.DARKGRAY};
+  margin: 40px auto 70px auto;
+  text-align: left;
+  white-space: pre-line;
+  line-height: 40px;
+  padding: 20px 20px 20px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 23px;
+  font-weight: 600;
+  justify-content: space-between;
+  display: flex;
+`;
+
+const ArrowImg = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+const ArrowBox = styled.div`
+  width: auto;
+  height: auto;
+  color: ${(props) => props.theme.colors.BLUE};
+  display: flex;
+  margin-right: 20px;
+`;
+
+const ArrowImgBox = styled.div`
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+  color: ${(props) => props.theme.colors.BLUE};
+`;
+
+const SearchExampleContainer = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+`;
+const SearchExampleTitle = styled.p`
+  font-size: 23px;
+  font-weight: 700;
+`;
+
+const SearchExampleContent = styled.p`
+  font-size: 20px;
+  margin: 7px 0 10px 15px;
   color: ${(props) => props.theme.colors.LIGHTGRAY};
-  margin: 40px auto auto auto;
-  padding-left: 20px;
 `;
 
 export default Main;
