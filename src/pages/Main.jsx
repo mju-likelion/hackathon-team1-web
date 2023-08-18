@@ -36,7 +36,7 @@ const Main = () => {
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
-    if (event.target.value.length > 2) {
+    if (event.target.value.length > 1) {
       DetectLanguage(event.target.value)
         .then((language) => {
           if (language === "zh") language = "zh-CN";
@@ -55,7 +55,7 @@ const Main = () => {
     if (searchTerm) {
       const newHistory = [
         { text: searchTerm, language: detectedLanguage },
-        ...searchHistory.slice(0, 4),
+        ...searchHistory.slice(0, 2),
       ];
       setSearchHistory(newHistory);
       setSearchTerm("");
@@ -201,7 +201,7 @@ const Main = () => {
       } else if (pageLanguage[0] === "ENG") {
         return "₩5000, 20 years old, 30 years old, 40s, 96.5% (per, percent) (O)\nfive-thousand won, ₩5000.0, 20.0 years old, 96% (X)";
       } else {
-        return "5000韩元，20岁，30岁，40多岁，96.5%（每，百分之）（√）\n5000.0韩元，20.0岁，96%（X）";
+        return "5000韩元，20岁，30岁，40多岁，96.5%(百分之）（√）\n5000.0韩元，20.0岁，96%（X）";
       }
     })(),
     4: (() => {
