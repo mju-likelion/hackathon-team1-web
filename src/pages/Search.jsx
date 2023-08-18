@@ -14,6 +14,7 @@ import { HeaderAtom } from "../assets/atom/HeaderAtom";
 
 const Search = () => {
   const [insurance, setInsurance] = useState([]); // 리스트에 나타낼 보험들
+  const [filteredQuestion, setFilteredQuestion] = useState("");
   const [count, setCount] = useState(0); // 보험 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지, 기본 값 1
   const [insuracePerPage] = useState(5); // 한 페이지에 보여질 보험 개수
@@ -53,9 +54,9 @@ const Search = () => {
               .catch((error) => navigate("/404"))
           : AxiosSearch(text, language)
               .then((loanData) => {
-                console.log("loaded");
-                data = loanData;
+                data = loanData.insurances.insuranceInfos;
                 setInsurance(data);
+                setFilteredQuestion(loanData.filtered);
                 setLoading(false);
                 localStorage.setItem(`${text}`, JSON.stringify(data));
               })
@@ -135,6 +136,10 @@ const Search = () => {
                   : "搜索结果"}
               </RightCount>
             </CountArea>
+            <FilteredArea>
+              <HowFiltered>이렇게 필터링했어요!</HowFiltered>
+              {filteredQuestion}
+            </FilteredArea>
           </LeftContainer>
           <SmallButton
             text={
@@ -235,6 +240,23 @@ const LeftCount = styled.p`
 const RightCount = styled.p`
   font-size: 25px;
   margin-left: 8px;
+`;
+
+const FilteredArea = styled.div`
+  width: 1000px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+`;
+
+const HowFiltered = styled.div`
+  font-size: 18px;
+  width: 170px;
+  height: 20px;
+  line-height: 21px;
+  color: ${({ theme }) => theme.colors.LIGHTGRAY};
 `;
 
 export default Search;

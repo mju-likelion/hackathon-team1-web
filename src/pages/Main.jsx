@@ -70,9 +70,9 @@ const Main = () => {
     localStorage.setItem("formData", JSON.stringify(formData));
 
     if (searchTerm === "") {
-      navigate(`/nestjs/api/insurance-suggesters/all`);
+      navigate(`/searchall`);
     } else {
-      navigate(`/nestjs/api/insurance-suggesters`);
+      navigate(`/search/${formData.text}`);
     }
   };
 
