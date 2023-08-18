@@ -26,7 +26,7 @@ export default Loading;
 
 const Background = styled.div`
   width: 100%;
-  height: 715px;
+  height: 100vh;
   background-color: rgba(217, 217, 217, 0.5);
   display: flex;
   justify-content: center;
