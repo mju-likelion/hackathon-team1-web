@@ -17,6 +17,10 @@ const ResultNothing = () => {
     setShowLogo(false);
   };
 
+  window.onpopstate = function () {
+    navigate("/");
+  };
+
   return (
     <ResultNothingContainer>
       <TopContainer>
