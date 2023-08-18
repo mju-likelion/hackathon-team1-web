@@ -213,7 +213,6 @@ const QuestionArea = styled.div`
 `;
 
 const QuestionText = styled.p`
-  width: 600px;
   font-size: 20px;
   font-weight: 600;
   overflow: hidden;
