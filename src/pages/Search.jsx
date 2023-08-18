@@ -72,11 +72,11 @@ const Search = () => {
   };
 
   useEffect(() => {
-    setCount(insurance.length);
+    setCount(insurance?.length);
     setIndexOfLastInsurance(currentPage * insuracePerPage);
     setIndexOfFirstInsurance(indexOfLastInsurance - insuracePerPage);
     setCurrentInsurance(
-      insurance.slice(indexOfFirstInsurance, indexOfLastInsurance)
+      insurance?.slice(indexOfFirstInsurance, indexOfLastInsurance)
     );
   }, [
     currentPage,
@@ -112,10 +112,10 @@ const Search = () => {
             <CountArea>
               <LeftCount>
                 {pageLanguage[0] === "KOR"
-                  ? `${insurance.length}개 보험`
+                  ? `${insurance?.length}개 보험`
                   : pageLanguage[0] === "ENG"
-                  ? `${insurance.length} insurances`
-                  : `${insurance.length} 保险`}
+                  ? `${insurance?.length} insurances`
+                  : `${insurance?.length} 保险`}
               </LeftCount>
               <RightCount>
                 {pageLanguage[0] === "KOR"
@@ -138,7 +138,7 @@ const Search = () => {
           />
         </TopContainer>
         <BottomArea>
-          {insurance.length === 0 ? (
+          {insurance?.length === 0 ? (
             <ResultNothing />
           ) : (
             <BottomContainer>
