@@ -55,7 +55,7 @@ const Search = () => {
           : AxiosSearch(text, language)
               .then((loanData) => {
                 data = loanData;
-                setInsurance(data);
+                setInsurance(data.insurances.insuranceInfos);
                 setFilteredQuestion(loanData.filtered);
                 setLoading(false);
                 localStorage.setItem(`${text}`, JSON.stringify(data));
@@ -73,11 +73,11 @@ const Search = () => {
   };
 
   useEffect(() => {
-    setCount(insurance?.length);
+    setCount(insurance.length);
     setIndexOfLastInsurance(currentPage * insuracePerPage);
     setIndexOfFirstInsurance(indexOfLastInsurance - insuracePerPage);
     setCurrentInsurance(
-      insurance?.slice(indexOfFirstInsurance, indexOfLastInsurance)
+      insurance.slice(indexOfFirstInsurance, indexOfLastInsurance)
     );
   }, [
     currentPage,
